@@ -1,0 +1,1191 @@
+
+/* Base */
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: "Lato", sans-serif;
+}
+
+body {
+    background: #6D3648;
+    color: #a1a2af;
+    transition: 0.5s ease;
+    margin: 0; /* Remove margin to fill the screen */
+    padding: 0; /* Remove padding to fill the screen */
+}
+
+.dashboard {
+    max-width: auto;
+    min-height: 800px;
+    background: #f2f2f2;
+    margin: 50px auto;
+    display: flex;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.12);
+    margin: 0; /* Remove margin to fill the screen */
+    padding: 0; /* Remove padding to fill the screen */
+    overflow-x: hidden;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-c {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.flex-sb {
+    justify-content: space-between;
+}
+
+.icon {
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+
+.sidebar-toggle {
+    display: none; /* Hidden by default for desktop */
+    position: fixed;
+    position: sticky;
+    top: 1rem;
+    left: 1rem;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    z-index: 1001; /* Ensure it is above other content */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Icon styles */
+.icon-open,
+.icon-close {
+    position: absolute;
+    transition: opacity 0.3s ease;
+}
+
+/* Initially show only the open icon */
+.icon-close {
+    opacity: 0;
+}
+
+/* Show the close icon when the sidebar is active */
+.sidebar.active + .sidebar-toggle .icon-open {
+    opacity: 0;
+}
+
+.sidebar.active + .sidebar-toggle .icon-close {
+    opacity: 1;
+}
+
+/* Show toggle button only on mobile screens */
+@media (max-width: 768px) {
+    .sidebar-toggle {
+        display: flex; /* Show button on mobile */
+    }
+
+    .sidebar {
+        display: none; /* Hide sidebar by default on mobile */
+        position: fixed;
+    }
+
+    .sidebar.active {
+        display: flex; /* Show sidebar when the active class is added */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+        background: linear-gradient(90deg, #0d0d0d 0%, #4c2835 100%, #0d0d0d 100%);
+        overflow-y: auto;
+        transition: transform 0.3s ease;
+        transform: translateX(-100%); /* Hide off-screen */
+    }
+
+    .sidebar.active {
+        transform: translateX(0); /* Show on-screen */
+    }
+
+    .dashboard-content {
+        margin-left: 0;
+    }
+}
+
+/* Sidebar */
+.sidebar {
+    flex: 0 0 20%;
+    position: sticky;
+    font-size: 22px;
+    padding: 25px;
+    align-items: flex-start;
+    background: linear-gradient(90deg, #0d0d0d 0%, #4c2835 100%, #0d0d0d 100%);
+    transition: background 0.5s ease-out;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px; /* Adjust as needed */
+    overflow-y: auto;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+.sidebar.active {
+    transform: translateX(0);
+}
+
+.dashboard-content {
+    flex: 1;
+    padding: 25px;
+    background: #f9f9f9;
+    transition: 0.5s ease-out;
+    width: 3000%; /* Ensures it uses the full width of its container */
+    max-width: 100%; /* Ensures it can stretch to the full width of the container */
+    margin: 0; /* Removes automatic centering margin */
+    box-sizing: border-box; /* Includes padding and border in the element's total width */
+}
+
+.menu-item {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+}
+
+.menu-item .icon {
+    margin-right: 10px;
+}
+
+.border {
+    border-top: 1px solid #444;
+    margin: 20px 0;
+}
+
+.log-out {
+    margin-top: auto;
+}
+
+.brand {
+    font-size: 24px;
+    width: 200px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.menu-item {
+    margin: 30px auto;
+    font-weight: 400;
+    transition: 0.4s linear;
+    cursor: pointer;
+    justify-content: start;
+}
+
+.menu-item p {
+    margin-left: 10px;
+}
+
+.menu-item:hover,
+.menu-item.active {
+    color: white;
+}
+
+.border {
+    width: 100%;
+    height: 3px;
+    background: #f7f7f7;
+    border-radius: 1px;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.12);
+    margin: 50px 0;
+}
+
+.log-out .menu-item {
+    color: #fb6b63;
+}
+
+.log-out .menu-item:hover {
+    color: #f2615a;
+}
+
+/* =====Dashboard Content======= */
+.dashboard-content {
+    flex: 1;
+    padding: 25px;
+    background: #f9f9f9;
+    transition: 0.5s ease-out;
+}
+
+/* =====Topbar======= */
+.search {
+    flex: 1;
+    padding: 5px 10px;
+    background: #fff;
+    border-radius: 20px;
+}
+
+.search input {
+    width: 90%;
+    height: 40px;
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    color: #a1a2af;
+}
+
+.search ::-webkit-input-placeholder {
+    font-size: 18px;
+    font-weight: 400;
+    color: #a1a2af;
+    font-family: inherit;
+}
+
+.theme {
+    background: #fff;
+    margin: 0 20px;
+    border-radius: 20px;
+    font-size: 25px;
+    padding: 5px;
+}
+
+.dark,
+.light {
+    margin: 0 5px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.dark.active,
+.light.active {
+    background: #f9f9f9;
+}
+
+.light {
+    color: #fdb600;
+}
+
+.user {
+    background: #fff;
+    padding: 5px 10px;
+    color: #1e1e2d;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.user img {
+    width: 40px;
+}
+
+.user p {
+    margin: 0 6px;
+}
+
+.notification {
+    background: #fff;
+    padding: 10px;
+    border-radius: 20px;
+    margin-right: 20px;
+}
+
+/* =====Section======= */
+
+.section {
+    margin: 30px 0;
+}
+
+/* =====Section Left======= */
+
+.section-left {
+    flex: 1;
+    padding: 15px;
+}
+
+.banner {
+    width: 100%;
+    height: 210px;
+    border-radius: 18px;
+    background: url("./images/hotmodel2.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: 0.3s ease;
+    padding: 20px;
+    position: relative;
+    color: #fff;
+    overflow: hidden; /* Ensures the pseudo-element is contained */
+}
+
+.banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+    border-radius: 18px;
+    z-index: 1; /* Places the overlay beneath the content but above the image */
+}
+
+.banner h2 {
+    font-size: 28px;
+    font-weight: 700;
+    position: relative;
+    z-index: 2; /* Ensures text appears above the overlay */
+}
+
+.banner img {
+    width: 420px;
+    position: absolute;
+    bottom: 0;
+    right: -20px;
+    pointer-events: none;
+    z-index: 2; /* Ensures the image appears above the overlay */
+}
+
+.btn {
+    padding: 14px 16px;
+    text-decoration: none;
+    display: inline-block;
+    background: #161622;
+    color: #fff;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 20px;
+    transition: 0.4s linear;
+}
+
+.nfts {
+    padding: 0 8px;
+    margin: 25px 0;
+}
+
+.heading h2 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #1e1e2d;
+}
+
+.heading p {
+    font-size: 18px;
+    color: #38c947;
+    cursor: pointer;
+}
+
+/* =====Categories======= */
+
+.categories {
+    margin: 20px 0;
+}
+
+.category {
+    background: #fff;
+    padding: 6px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    color: #161622;
+    transition: 0.3s linear;
+}
+
+.category .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 8px;
+    font-size: 22px;
+    background: #f2f2f2;
+    transition: 0.3s linear;
+}
+
+/* =====Browse NFTs======= */
+
+.browse {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.nft {
+    background: #fff;
+    padding: 10px 20px 20px 20px;
+    border-radius: 25px;
+    transition: 0.4s linear;
+    margin: 10px 5px;
+}
+
+.nft img {
+    width: 100%;
+    height: 240px;
+    border-radius: 20px;
+    display: block;
+    margin: 0 auto;
+}
+
+.author img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.title {
+    font-size: 18px;
+    color: #161622;
+    font-weight: 600;
+    margin: 12px 0;
+}
+
+.author {
+    font-size: 14px;
+}
+
+.price {
+    background: rgba(124, 248, 136, 0.346);
+    padding: 12px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #38c947;
+    font-weight: 600;
+}
+
+/* =====Section Right======= */
+
+.section-right {
+    padding: 12px;
+    flex: 0 0 30%;
+    margin-top: -290px;
+}
+
+.graph.flex-c {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.balance-label {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.balance-amount {
+    font-size: 2rem;
+    color: #4CAF50;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.coin-image {
+    width: 80px; /* Adjust size as needed */
+    height: auto;
+}
+
+.unread-messages {
+    width: 100%;
+    margin-top: 40px;
+    padding: 15px;
+    background: #fff;
+    border-radius: 20px;
+    transition: 0.3s linear;
+}
+
+.unread-messages .heading {
+    margin-bottom: 20px;
+}
+
+.unread-messages .heading h2 {
+    font-size: 18px;
+}
+
+.message-sender img {
+    width: 40px;
+    margin-right: 10px;
+    border-radius: 50%; /* Optional: make the image circular */
+}
+
+.message-details h3 {
+    font-size: 13px;
+    color: #13131d;
+}
+
+.message-details p {
+    font-size: 12px;
+    color: #666; /* Optional: Slightly lighter color for message preview */
+}
+
+.view-message {
+    font-size: 12px;
+    font-weight: 400;
+    padding: 8px 15px;
+    margin-bottom: 18px;
+    background: #007bff; /* Optional: Background color for the 'View' button */
+    color: #fff; /* Text color for the 'View' button */
+    border: none; /* Remove border from the button */
+    border-radius: 5px; /* Optional: Add slight border-radius to the button */
+    transition: background 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.view-message:hover {
+    background: #0056b3; /* Darker shade on hover */
+}
+
+.follow {
+    background: #fdfdfd;
+    color: #13131d;
+    border: 1px solid rgba(161, 162, 175, 0.3);
+}
+/* End Dashboard */
+
+.main-content {
+    margin-left: 250px; /* Should match sidebar width */
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+.menu-item {
+    cursor: pointer;
+    padding: 10px;
+}
+
+.menu-item.active {
+    font-weight: bold;
+}
+
+@media (min-width: 769px) {
+    .dashboard-container {
+        margin-left: 270px; /* Adjust for extra space */
+    }
+}
+.section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.side-nav a,
+.log-out a {
+    text-decoration: none;
+}
+
+.side-nav a:hover,
+.log-out a:hover {
+    text-decoration: none;
+}
+
+.icons i {
+    color: #4caf50; /* WhatsApp-like green color */
+    font-size: 20px;
+}
+
+.icons i.fa-eye {
+    margin-right: 8px; /* Space between icons */
+}
+
+/* Container for the status updates */
+.status-update-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center; /* Center the statuses on the screen */
+}
+
+.status-scroller {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping on all screen sizes */
+    overflow-x: auto; /* Allow horizontal scrolling */
+}
+
+/* Individual status styling */
+.status {
+    display: inline-block;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.status-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #ff9f43; /* Instagram-like gradient */
+    padding: 2px;
+    box-sizing: border-box;
+    object-fit: cover;
+}
+
+.status-name {
+    display: block;
+    font-size: 12px;
+    margin-top: 5px;
+    color: #333;
+    white-space: nowrap;
+}
+
+/* Hide scrollbar for the container */
+.status-update-container::-webkit-scrollbar {
+    display: none;
+}
+
+.status-update-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Responsive Adjustments for Tablet and Mobile Screens */
+@media (max-width: 992px) {
+    .status-update-container {
+        width: 100%;
+    }
+
+    .status-scroller {
+        justify-content: flex-start;
+        overflow-x: auto; /* Ensure horizontal scrolling */
+    }
+
+    .status {
+        margin-right: 8px; /* Slightly reduce the space between statuses */
+    }
+}
+
+@media (max-width: 480px) {
+    .status-image {
+        width: 50px;
+        height: 50px;
+    }
+
+    .status-name {
+        font-size: 10px;
+    }
+
+    .status {
+        margin-right: 5px; /* Further reduce the space between statuses on smaller screens */
+    }
+}
+/* Status Modal Styles */
+.status-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+}
+
+.status-modal-content {
+    position: relative;
+    margin: auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: white;
+}
+
+.status-modal img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.status-modal p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    color: #fff;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #999;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Status Progress Bar Styles */
+.status-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: white;
+    width: 0%;
+    transition: width 0.5s linear;
+}
+/* Responsive */
+@media (max-width: 1200px) {
+    .dashboard-content {
+        padding: 15px;
+    }
+
+    .category {
+        padding: 4px 12px;
+    }
+
+    .creator {
+        flex-direction: column;
+        margin: 10px 0;
+    }
+
+    .following {
+        margin: 5px 0;
+    }
+
+    .section-right {
+        margin-top: -265px;
+    }
+}
+
+@media (max-width: 1130px) {
+    .dashboard-content {
+        padding: 30px;
+    }
+
+    .section {
+        flex-direction: column;
+    }
+
+    .section-left {
+        width: 100%;
+    }
+
+    .section-right {
+        margin-top: 0;
+        width: 100%;
+        display: flex;
+    }
+
+    .graph {
+        width: 55%;
+        height: auto;
+        margin: 0 auto;
+        border: 1px solid rgba(161, 162, 175, 0.3);
+    }
+
+    .top-creators {
+        width: 40%;
+        margin: 40px auto;
+        border: 1px solid rgba(161, 162, 175, 0.3);
+    }
+
+    .creator {
+        flex-direction: row;
+    }
+
+    .nft {
+        margin: 15px;
+    }
+
+    .nft img {
+        height: auto;
+    }
+
+    /* Sidebar styles removed from responsiveness */
+}
+
+@media (max-width: 780px) {
+    .dashboard-content {
+        padding: 0;
+    }
+
+    .banner {
+        text-align: center;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+
+
+    .banner h2 {
+        font-size: 35px;
+    }
+
+    .text {
+        width: 100%;
+    }
+
+    .banner img {
+        display: none;
+    }
+
+    .search {
+        flex: 0 0 50px;
+        height: 50px;
+        width: 50px;
+    }
+
+    .search input {
+        display: none;
+    }
+
+    .topbar {
+        flex-direction: row-reverse;
+        width: 80%;
+        margin: 0 auto;
+        margin-top: 30px;
+    }
+
+    .trending {
+        padding: 0 20px;
+    }
+
+    .heading h2 {
+        font-size: 20px;
+    }
+
+    .categories {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .category {
+        margin: 10px auto;
+    }
+
+    .section-right {
+        flex-direction: column-reverse;
+    }
+
+    .top-creators {
+        width: 70%;
+    }
+}
+
+@media (max-width: 640px) {
+    /* Sidebar styles removed from responsiveness */
+
+    .user {
+        margin-right: 10px;
+    }
+
+    .browse {
+        grid-template-columns: 1fr;
+    }
+
+    .section-left,
+    .section-right {
+        padding: 0;
+    }
+
+    .graph,
+    .top-creators,
+    .banner {
+        width: 90%;
+    }
+
+    .nft {
+        margin: 10px 0;
+    }
+
+    /* Adjust topbar elements to two rows of two columns */
+    .topbar {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        justify-items: center;
+    }
+
+    .search, .theme, .notification {
+        width: 100%;
+    }
+
+    /* Place dark and light themes side by side within the theme container */
+    .theme {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .dark, .light {
+        flex: 1;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Further adjustments for even smaller screens */
+    .topbar {
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+    }
+
+    .search, .theme, .notification {
+        width: 100%;
+        padding: 5px;
+    }
+
+    .theme {
+        gap: 5px;
+    }
+
+    .dark, .light {
+        flex: 1;
+    }
+
+    .topbar .icon {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .banner,
+    .browse {
+        width: 100%;
+    }
+
+    .graph,
+    .top-creators {
+        width: 95%;
+    }
+
+    .banner {
+        border-radius: 0;
+    }
+
+    .categories {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .topbar {
+        grid-template-columns: 1fr 1fr;
+        gap: 3px;
+    }
+
+    .search, .theme, .notification {
+        padding: 3px;
+    }
+
+    .topbar .icon {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 300px) {
+    .topbar {
+        flex-direction: column-reverse;
+        justify-content: center;
+        grid-template-columns: 1fr;
+    }
+
+    .user {
+        margin-bottom: 10px;
+    }
+
+    .banner h2 {
+        font-size: 30px;
+    }
+
+    .price {
+        text-align: center;
+        padding: 5px;
+    }
+}
+
+
+
+
+
+.ss_v-status-scroller {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px;
+}
+
+.ss_v-status {
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+}
+
+.ss_v-status-image {
+    width: 80px; /* Set a fixed size for the user image */
+    height: 80px; /* Maintain aspect ratio */
+    margin: 10px 40px;
+}
+
+.ss_v-user-image {
+    display: none; /* Hide the user images by default */
+}
+
+.ss_v-status-count {
+    font-size: 12px; /* Smaller font size for image count */
+}
+
+.ss_v-status-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.ss_v-modal-content {
+    margin: 10% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 700px;
+    position: relative;
+    color: white;
+    text-align: center;
+    height: 400px;
+}
+
+.ss_v-close {
+    color: #fff;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.ss_v-slideshow-container {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+}
+
+.ss_v-mySlides {
+    display: none; /* Hide all slides by default */
+}
+
+.ss_v-slideshow-container img {
+    width: 100%; /* Make images responsive */
+    border-radius: 10px;
+}
+
+.ss_v-prev, .ss_v-next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    background: transparent;
+    transition: 0.6s ease;
+    user-select: none;
+}
+
+.ss_v-prev {
+    left: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.ss_v-next {
+    right: 0;
+    border-radius: 0 3px 3px 0;
+}
+
+.ss_v-hidden {
+    display: none;
+}
+
+
+
+.coin_pay-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.coin_pay-modal-content {
+    margin: 10% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    background-color: white;
+    border-radius: 10px;
+    position: relative;
+}
+
+.coin_pay-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.coin_pay-close:hover,
+.coin_pay-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.coin_pay-modal-title {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.coin_pay-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.coin_pay-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.coin_pay-hidden {
+    display: none;
+}
+
+
+.coin_pay-modal label{
+    font-weight: bolder;
+    text-align: left !important;
+    justify-content: left;
+}
