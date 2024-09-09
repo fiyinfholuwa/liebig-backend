@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Payment;
 use App\Models\Plan;
+use App\Models\Ribbon;
 use App\Models\User;
 use App\Models\WheelFortune;
 use Illuminate\Http\Request;
@@ -236,4 +238,136 @@ class AdminController extends Controller
         WheelFortune::findOrFail($id)->delete();
         return GeneralController::redirectWithMessage(true, 'Item  Successfully Deleted', "Item could not be Deleted", 'back');
     }
+
+    public function admin_blog_view()
+    {
+        return view('admin.blog_view');
+    }
+
+    public function admin_blog_edit($id)
+    {
+        $blog = Blog::findOrFail($id);
+        return view('admin.blog_edit', compact('blog'));
+    }
+
+    public function admin_blog_save(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+
+        $baseUrl = request()->getSchemeAndHttpHost();
+        $url_slug = strtolower($request->title);
+        $label_slug= preg_replace('/\s+/', '-', $url_slug);
+
+        $image = $request->file('image');
+        $extension = $image->getClientOriginalExtension();
+        $filename = time() . '.' . $extension;
+        $directory = 'uploads/blog/';
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        $image->move($directory, $filename);
+        $path = $baseUrl.'/'.$directory . $filename;
+        $new_post = new Blog;
+        $new_post->title = $request->title;
+        $new_post->author = "Admin";
+        $new_post->post_url = $label_slug;
+        $new_post->category = $request->category;
+        $new_post->body = $request->body;
+        $new_post->image = $path;
+        $new_post->save();
+        $notification = array(
+            'message' => 'News Successfully added',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function admin_blog_all()
+    {
+        $blogs = Blog::all();
+        return view('admin.blog_all', compact('blogs'));
+    }
+
+    public function admin_blog_update(Request $request, $id)
+    {
+        $blog =  Blog::findOrFail($id);
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+
+        $baseUrl = request()->getSchemeAndHttpHost();
+        $url_slug = strtolower($request->title);
+        $label_slug= preg_replace('/\s+/', '-', $url_slug);
+        if ($request->has('image')){
+            $image = $request->file('image');
+            $extension = $image->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $directory = 'uploads/blog/';
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+            $image->move($directory, $filename);
+            $path = $baseUrl.'/'.$directory . $filename;
+        }else{
+            $path =  $blog->image;
+        }
+
+        $blog->title = $request->title;
+        $blog->author = "Admin";
+        $blog->post_url = $label_slug;
+        $blog->category = $request->category;
+        $blog->body = $request->body;
+        $blog->image = $path;
+        $blog->save();
+        $notification = array(
+            'message' => 'News Successfully Updated',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('admin.blog.all')->with($notification);
+    }
+
+    public function admin_blog_delete($id)
+    {
+        $blog = Blog::findOrFail($id);
+        $blog->delete();
+        $notification = array(
+            'message' => 'News Successfully Deleted',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+    public function ribbon_view(){
+        $ribbon = Ribbon::first();
+        return view('admin.ribbon', compact('ribbon'));
+    }
+    public function ribbon_save(Request $request){
+
+        if ($request->id == null){
+            $ribbon =new Ribbon;
+            $ribbon->body = $request->body;
+            $ribbon->display = $request->display;
+            $ribbon->save();
+            $notification = array(
+                'message' => 'Announcement Successfully Saved',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        }else{
+            $ribbon = Ribbon::findOrFail($request->id);
+            $ribbon->body = $request->body;
+            $ribbon->display = $request->display;
+            $ribbon->save();
+            $notification = array(
+                'message' => 'Announcement Successfully Updated',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        }
+
+    }
+
 }

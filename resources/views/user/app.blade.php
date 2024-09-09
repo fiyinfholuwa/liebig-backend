@@ -242,6 +242,15 @@
                 <ion-icon name="chatbubble-outline" class="me-2"></ion-icon>
                 <p class="mb-0">Meine Chats</p>
             </a>
+
+
+
+            <a href="{{route('user.news')}}" class="menu-item d-flex align-items-center mb-3">
+                <ion-icon name="trophy-outline" class="me-2"></ion-icon>
+                <p class="mb-0">Nachrichten anzeigen</p>
+            </a>
+
+
             <a href="" class="menu-item d-flex align-items-center mb-3">
                 <ion-icon name="search-outline" class="me-2"></ion-icon>
                 <p class="mb-0">Model suchen</p>
@@ -250,6 +259,7 @@
                 <ion-icon name="trophy-outline" class="me-2"></ion-icon>
                 <p class="mb-0">Glucksrad</p>
             </a>
+
             <a href="{{route('user.coins')}}" class="menu-item d-flex align-items-center mb-3">
                 <ion-icon name="cash-outline" class="me-2"></ion-icon>
                 <p class="mb-0">Coins Kaufen</p>
@@ -321,7 +331,7 @@
 
         // Redirect to chat page
         chatBtn.addEventListener('click', () => {
-            window.location.href = 'chat.html#chat';
+            window.location.href = '#';
         });
 
         // Open the status modal

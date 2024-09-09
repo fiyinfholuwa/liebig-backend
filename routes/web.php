@@ -62,6 +62,17 @@ Route::middleware('auth')->group(function () {
         Route::get('/payment/setup', 'admin_payment_setup')->name('admin.payment.setup');
         Route::post('/payment/setup/save', 'admin_payment_setup_save')->name('admin.payment.setup.save');
 
+
+        Route::get('admin/blog/view', 'admin_blog_view')->name('admin.blog.view');
+        Route::get('admin/blog/all', 'admin_blog_all')->name('admin.blog.all');
+        Route::post('admin/blog/save/', 'admin_blog_save')->name('admin.blog.save');
+        Route::get('admin/blog/edit/{id}', 'admin_blog_edit')->name('admin.blog.edit');
+        Route::post('admin/blog/update/{id}', 'admin_blog_update')->name('admin.blog.update');
+        Route::post('admin/blog/delete/{id}', 'admin_blog_delete')->name('admin.blog.delete');
+
+        Route::get('admin/ribbon/view', 'ribbon_view')->name('ribbon.view');
+        Route::post('admin/ribbon/save', 'ribbon_save')->name('ribbon.save');
+
     });
 });
 
@@ -77,6 +88,8 @@ Route::middleware('auth')->group(function () {
 Route::controller(\App\Http\Controllers\UserController::class)->group(function () {
     Route::get('/user/dashboard', 'user_dashboard')->name('user.dashboard');
     Route::get('/user/coins', 'user_coin')->name('user.coins');
+    Route::get('/user/news', 'user_news')->name('user.news');
+    Route::get('/user/news/detail/{url}', 'user_news_detail')->name('user.new.detail');
     Route::get('/user/order/history', 'user_order_history')->name('user.payment');
 });
 

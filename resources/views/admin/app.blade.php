@@ -189,12 +189,39 @@
                         </li>
                     </ul>
                 </li>
+
+
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">
+                        <span class="pc-micon">
+                            <i style="font-size: 20px;" class="ph-duotone ph-newspaper"></i>
+
+                        </span>
+                        <span class="pc-mtext">Manage News</span><span class="pc-arrow"><i
+                                data-feather="chevron-right"></i></span
+                        ></a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item"><a class="pc-link" href="{{route('admin.blog.view')}}">Add News</a>
+                        </li>
+                        <li class="pc-item"><a class="pc-link" href="{{route('admin.blog.all')}}">All News</a>
+                        </li>
+                    </ul>
+                </li>
+
+
                 <li class="pc-item pc-hasmenu">
                     <a href="{{route('admin.payment.all')}}" class="pc-link">
                         <i style="font-size: 20px;" class="ph-duotone ph-money"></i>
                         <span class="pc-mtext">Payment History</span>
                         {{--                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>--}}
                         {{--                        <span class="pc-badge">2</span>--}}
+                    </a>
+                </li>
+
+                <li class="pc-item pc-hasmenu">
+                    <a href="{{route('ribbon.view')}}" class="pc-link">
+                        <i style="font-size: 20px;" class="ph-duotone ph-broadcast"></i>
+                        <span class="pc-mtext">Announcement </span>
                     </a>
                 </li>
 

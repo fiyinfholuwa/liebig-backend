@@ -24,6 +24,25 @@
             <!-- ======End Topbar======= -->
             <div class="main_c mt-4">
                 <div class="row">
+                    <div class="col-12">
+                        @if($ribbon != NULL)
+                            @if($ribbon->display == 'yes')
+                                <marquee style="
+                font-size: 16px;
+                font-weight: 500;
+                color: #fff;
+                background: linear-gradient(90deg, #600f2d, #ff4563);
+                padding: 10px 0;
+                margin: 20px 0;
+                width: 100% !important;
+                z-index: 9999;
+            ">
+                                    {{$ribbon->body}}
+                                </marquee>
+                            @endif
+                        @endif
+                    </div>
+
                     <div class="col-lg-5 order-lg-2">
                         <div class="status-update-container d-flex flex-grow-1 me-3 p-3  shadow-sm rounded">
                             <div class="ss_v-status-scroller d-flex align-items-center">
@@ -170,52 +189,24 @@
                             <div class="unread-messages bg-light p-4 shadow-sm rounded">
                                 <div class="heading d-flex justify-content-between align-items-center mb-3">
                                     <h2 class="text-dark fw-bold">Recent News</h2>
-                                    <p class="text-dark">See all</p>
+                                    <a href="{{route('user.news')}}" class="text-dark">See all</a>
                                 </div>
-
-                                <div class="message d-flex justify-content-between align-items-center mb-3">
-                                    <div class="message-sender d-flex align-items-center">
-                                        <img src="https://raw.githubusercontent.com/programmercloud/nft-dashboard/main/img/user.png" alt="Sender's Profile Picture" class="rounded-circle me-3 shadow-sm" />
-                                        <div class="message-details">
-                                            <h3 class="h6 fw-bold mb-1">John Doe</h3>
-                                            <p class="mb-0 text-muted">Hey, I wanted to check...</p>
+                                @if(count($latest_news) > 0)
+                                    @foreach($latest_news as $new)
+                                        <div class="message d-flex justify-content-between align-items-center mb-3">
+                                        <div class="message-sender d-flex align-items-center">
+                                            <img src="{{asset($new->image)}}" alt="Sender's Profile Picture" class="rounded-circle me-3 shadow-sm" />
+                                            <div class="message-details">
+                                                <h3 class="h6 fw-bold mb-1">{{$new->title}}</h3>
+                                                <p class="mb-0 text-muted">                                    {!! (\Illuminate\Support\Str::limit($new->body, 20, '...')) !!}
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <a href="#" class="btn btn-outline-dark view-message">View</a>
-                                </div>
+                                        <a href="{{route('user.new.detail', $new->post_url)}}" class="btn btn-outline-dark view-message">View</a>
+                            </div>
 
-                                <div class="message d-flex justify-content-between align-items-center mb-3">
-                                    <div class="message-sender d-flex align-items-center">
-                                        <img src="https://raw.githubusercontent.com/programmercloud/nft-dashboard/main/img/user.png" alt="Sender's Profile Picture" class="rounded-circle me-3 shadow-sm" />
-                                        <div class="message-details">
-                                            <h3 class="h6 fw-bold mb-1">Jane Smith</h3>
-                                            <p class="mb-0 text-muted">Are you available for...</p>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="btn btn-outline-dark view-message">View</a>
-                                </div>
-
-                                <div class="message d-flex justify-content-between align-items-center mb-3">
-                                    <div class="message-sender d-flex align-items-center">
-                                        <img src="https://raw.githubusercontent.com/programmercloud/nft-dashboard/main/img/user.png" alt="Sender's Profile Picture" class="rounded-circle me-3 shadow-sm" />
-                                        <div class="message-details">
-                                            <h3 class="h6 fw-bold mb-1">Michael Johnson</h3>
-                                            <p class="mb-0 text-muted">Don't forget our meeting...</p>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="btn btn-outline-dark view-message">View</a>
-                                </div>
-
-                                <div class="message d-flex justify-content-between align-items-center mb-3">
-                                    <div class="message-sender d-flex align-items-center">
-                                        <img src="https://raw.githubusercontent.com/programmercloud/nft-dashboard/main/img/user.png" alt="Sender's Profile Picture" class="rounded-circle me-3 shadow-sm" />
-                                        <div class="message-details">
-                                            <h3 class="h6 fw-bold mb-1">Emily Davis</h3>
-                                            <p class="mb-0 text-muted">Could you please review...</p>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="btn btn-outline-dark view-message">View</a>
-                                </div>
+                            @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>
