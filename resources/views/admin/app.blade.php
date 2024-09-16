@@ -183,7 +183,7 @@
                                 data-feather="chevron-right"></i></span
                         ></a>
                     <ul class="pc-submenu">
-                        <li class="pc-item"><a class="pc-link" href="">Add User</a>
+                        <li class="pc-item"><a class="pc-link" href="{{route('admin.add.user.view')}}">Add User</a>
                         </li>
                         <li class="pc-item"><a class="pc-link" href="{{route('admin.user.all')}}">All Users</a>
                         </li>

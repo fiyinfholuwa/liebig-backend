@@ -10,38 +10,64 @@ use App\Models\User;
 use App\Models\WheelFortune;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
 
     public function admin_add_user_view(){
-        return view('admin.user_add');
+        return view('admin.user_view');
+    }
+    public function admin_add_model_view(){
+        return view('admin.model_view');
     }
 
-    public function admin_add_user_save(Request $request){
-        $request->validated();
+    public function admin_add_user_save(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'phone' => 'required|string|max:15|unique:users,username',
+            'interested' => 'nullable|string|max:255',
+            'user_type' => 'required|numeric|', // Adjust based on your app's logic
+        ]);
+
+        // Data array to be passed for creating the user
         $data = [
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
+            'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->input('password')),
-            'phone' => $request->phone,
-            'user_status' => 1,
-            'user_type' => $request->user_type
+            'username' => $request->phone, // Assuming username is the phone number
+            'user_status' => 1, // Active status
+            'interested_in' => $request->interested,
+            'coin_balance' => 10, // Initial coin balance
+            'user_type' => $request->user_type, // admin or user
         ];
-        $result = User::create($data);
-        return GeneralController::redirectWithMessage($result, 'User Successfully Added', "User Successfully Could not be saved", 'back');
+
+        try {
+            $user=  User::create($data);
+            if ($request->user_type ==2){
+                Session::put('model_id', $user->id);
+                return GeneralController::redirectWithMessage(true, 'Model Successfully Added', "User Successfully Could not be saved", 'admin.add.model.view');
+            }else{
+                return GeneralController::redirectWithMessage(true, 'User Successfully Added', "User Successfully Could not be saved", 'back');
+            }
+        } catch (\Exception $e) {
+            return GeneralController::redirectWithMessage(false, '', "An error occurred: " . $e->getMessage(), 'back');
+        }
     }
+
     public function admin_user_update(Request $request, $id){
         $data = [
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
+            'name' => $request->name,
             'email' => $request->email,
-            'phone' => $request->phone,
+            'username' => $request->username,
             'user_status' => 1,
-            'user_type' => $request->user_type
+            'user_type' => $request->user_type,
+            'interested_in' => $request->interested
         ];
-        $result = User::update($id, $data);
+        $result = User::findOrFail($id)->update($data);
         return GeneralController::redirectWithMessage($result, 'User Successfully Updated', "User Could not be Updated", 'admin.user.all');
     }
 
@@ -92,7 +118,7 @@ class AdminController extends Controller
     }
 
     public function admin_user_edit($id){
-        $user = $this->userService->user_info_by_id($id);
+        $user = User::findOrFail($id);
         return view('admin.user_edit', compact('user'));
     }
     public function admin_dashboard(){
@@ -269,7 +295,7 @@ class AdminController extends Controller
             mkdir($directory, 0755, true);
         }
         $image->move($directory, $filename);
-        $path = $baseUrl.'/'.$directory . $filename;
+        $path = $directory . $filename;
         $new_post = new Blog;
         $new_post->title = $request->title;
         $new_post->author = "Admin";
@@ -311,7 +337,7 @@ class AdminController extends Controller
                 mkdir($directory, 0755, true);
             }
             $image->move($directory, $filename);
-            $path = $baseUrl.'/'.$directory . $filename;
+            $path = $directory . $filename;
         }else{
             $path =  $blog->image;
         }
@@ -369,5 +395,149 @@ class AdminController extends Controller
         }
 
     }
+
+
+    public function admin_model_update(Request $request)
+    {
+        $request->validate([
+            'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'about_me' => 'required|string',
+            'my_interest' => 'required|string',
+            'address' => 'required|string',
+            'sexuality' => 'required|string',
+            'eye_color' => 'required|string',
+            'hair' => 'required|string',
+            'body_type' => 'required|string',
+            'height' => 'required|string',
+            'ethnicity' => 'required|string',
+            'userid' => 'required|exists:users,id',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $user = User::findOrFail($request->userid);
+        if ($request->hasFile('profile_image')) {
+            $attachment = $request->file('profile_image');
+            $extension = $attachment->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $directory = 'uploads/profile/';
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+            $attachment->move($directory, $filename);
+            $user->profile_image = $directory . $filename;
+        }
+
+        if ($request->hasFile('images')) {
+            $uploadedImages = [];
+            foreach ($request->file('images') as $image) {
+                $extension = $image->getClientOriginalExtension();
+                $filename = time() . '_' . uniqid() . '.' . $extension;
+                $directory = 'uploads/model_images/';
+                if (!file_exists($directory)) {
+                    mkdir($directory, 0755, true);
+                }
+                $image->move($directory, $filename);
+                $uploadedImages[] = $directory . $filename;
+            }
+            $user->images = json_encode($uploadedImages);
+        }
+        $user->age = $request->input('email');
+        $user->about_me = $request->input('about_me');
+        $user->my_interest = $request->input('my_interest');
+        $user->address = $request->input('address');
+        $user->sexuality = $request->input('sexuality');
+        $user->eye_color = $request->input('eye_color');
+        $user->hair = $request->input('hair');
+        $user->body_type = $request->input('body_type');
+        $user->height = $request->input('height');
+        $user->ethnicity = $request->input('ethnicity');
+
+
+        $user->save();
+        $notification = array(
+            'message' => 'Model information updated successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+
+    public function update_model_admin(Request $request)
+    {
+        $request->validate([
+            'age' => 'required|integer',
+            'about_me' => 'required|string',
+            'my_interest' => 'nullable|string',
+            'address' => 'required|string',
+            'sexuality' => 'nullable|string',
+            'eye_color' => 'nullable|string',
+            'hair' => 'nullable|string',
+            'body_type' => 'nullable|string',
+            'height' => 'nullable|string',
+            'ethnicity' => 'nullable|string',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user = User::find($request->userid);
+        if ($request->hasFile('profile_image')) {
+            $attachment = $request->file('profile_image');
+            $extension = $attachment->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $directory = 'uploads/profile/';
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+            $attachment->move($directory, $filename);
+
+            // Optionally, delete the old profile image if it exists
+            if ($user->profile_image && file_exists($user->profile_image)) {
+                unlink($user->profile_image);
+            }
+
+            $user->profile_image = $directory . $filename;
+        }
+
+        // Remove images marked for deletion
+        if ($request->filled('removed_images')) {
+            foreach ($request->removed_images as $removedImage) {
+                if (file_exists($removedImage)) {
+                    unlink($removedImage); // Delete the image from storage
+                }
+            }
+            $existingImages = array_diff($user->images, $request->removed_images);
+            $user->images = json_encode(array_values($existingImages));
+        }
+
+        // Add new images
+        if ($request->hasFile('images')) {
+            $newImages = [];
+            foreach ($request->file('images') as $image) {
+                $extension = $image->getClientOriginalExtension();
+                $filename = time() . uniqid() . '.' . $extension;
+                $directory = 'uploads/model_images/';
+                if (!file_exists($directory)) {
+                    mkdir($directory, 0755, true);
+                }
+                $image->move($directory, $filename);
+                $newImages[] = $directory . $filename;
+            }
+
+            $existingImages = json_decode($user->images, true) ?? [];
+            $user->images = json_encode(array_merge($existingImages, $newImages));
+        }
+        $user->age = $request->age;
+        $user->about_me = $request->about_me;
+        $user->my_interest = $request->my_interest;
+        $user->address = $request->address;
+        $user->sexuality = $request->sexuality;
+        $user->eye_color = $request->eye_color;
+        $user->hair = $request->hair;
+        $user->body_type = $request->body_type;
+        $user->height = $request->height;
+        $user->ethnicity = $request->ethnicity;
+        $user->save();
+        return GeneralController::redirectWithMessage(true, 'User Successfully Updated', "User Could not be Updated", 'admin.user.all');
+    }
+
 
 }

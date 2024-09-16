@@ -24,7 +24,7 @@
 
                     <div class="form-group">
                         <label>Plan Amount</label>
-                        <input name="amount" value="{{$plan->amount}}" required class="form-control" type="number" placeholder="Plan Amount">
+                        <input name="amount" value="{{$plan->amount}}" step="0.01" required class="form-control" type="number" placeholder="Plan Amount">
                     </div>
 
                     <div class="form-group">

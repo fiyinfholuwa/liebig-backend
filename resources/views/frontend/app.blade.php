@@ -43,9 +43,16 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('contact')}}">Kontakt</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('login')}}">Mein Konto</a>
-                </li>
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('check_login')}}">Dashboard</a>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('login')}}">Mein Konto</a>
+                    </li>
+                @endauth
+
             </ul>
         </div>
     </div>
@@ -83,5 +90,46 @@
 <script src="{{asset('frontend/Models-scripts.js')}}"></script>
 <script src="{{asset('frontend/common.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+    @if(Session::has('message'))
+    var type = "{{ Session::get('alert-type','info') }}";
+    switch (type) {
+        case 'info':
+            Toastify({
+                text: "{{ Session::get('message') }}", duration: 3000,
+                style: {background: "linear-gradient(to right, #00b09b, #96c93d)"}
+            }).showToast();
+            break;
+
+        case 'success':
+            Toastify({
+                text: "{{ Session::get('message') }}", duration: 3000,
+                style: {background: "linear-gradient(to right, #00b09b, #96c93d)"}
+            }).showToast();
+            break;
+
+        case 'warning':
+            Toastify({
+                text: "{{ Session::get('message') }}", duration: 3000,
+                style: {background: "linear-gradient(to right, #00b09b, #96c93d)"}
+            }).showToast();
+            break;
+
+        case 'error':
+            Toastify({
+                text: "{{ Session::get('message') }}", duration: 3000,
+                style: {background: "linear-gradient(to right, #ff0000, #ff0000)"}
+            }).showToast();
+            break;
+    }
+
+    // Unset the session
+    {{ Session::forget('message') }}
+    {{ Session::forget('alert-type') }}
+    @endif
+</script>
 </body>
 </html>

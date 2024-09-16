@@ -37,8 +37,9 @@
 
                                                 <div class="form-group">
                                                     <label>Plan Amount</label>
-                                                    <input name="amount" required class="form-control" type="number" placeholder="Plan Amount">
+                                                    <input name="amount" required class="form-control" type="number" step="0.01" placeholder="Plan Amount">
                                                 </div>
+
 
                                                 <div class="form-group">
                                                     <label>Equivalent Coins</label>

@@ -15,7 +15,7 @@ class AuthController extends Controller
             if ($user->user_type == 1) {
                 return redirect()->route('user.dashboard');
             } elseif ($user->user_type == 2) {
-                return redirect()->route('dashboard');
+                return redirect()->route('admin.dashboard');
             } else {
                 // For any other user type, redirect back
                 return redirect()->back();
@@ -31,7 +31,7 @@ class AuthController extends Controller
 
         Auth::logout();
 
-        return Redirect()->route('home');
+        return Redirect()->route('login');
     }
 
 

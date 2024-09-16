@@ -88,7 +88,7 @@
                                         <a href="#" data-bs-toggle="modal" class="btn btn-secondary btn-sm" data-bs-target="#user_block_{{$user->id}}" ><i style="color:white;" class="fa fa-ban fa-1x"></i></a>
                                         <a href="#" data-bs-toggle="modal" class="btn btn-primary btn-sm" data-bs-target="#user_password_{{$user->id}}" ><i style="color:white;" class="fa fa-lock fa-1x"></i></a>
 
-                                        <a href="" class="btn btn-info btn-sm" ><i class="fa fa-edit"></i></a>
+                                        <a href="{{route('admin.user.edit', $user->id)}}" class="btn btn-info btn-sm" ><i class="fa fa-edit"></i></a>
 
                                         <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete_{{$user->id}}" ><i class="fa fa-trash"></i></a>
                                     </td>

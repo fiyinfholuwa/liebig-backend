@@ -2,201 +2,42 @@
 
 @section('content')
     <section class="mt-6">
-        <div class="text-center my-5">
+        <div class="container text-center my-5">
             <h2 class="text-primary font-weight-bold text-white">Lernen Sie unsere vielfältigen Models kennen!</h2>
             <p style="color: whitesmoke" class="lead">Jede von ihnen ist einzigartig, wunderschön und leidenschaftlich. Unsere Models sind bereit, Ihre Wünsche zu erfüllen und bieten Ihnen unvergessliche, persönliche Chats. Tauchen Sie ein und entdecken Sie Ihr perfektes Match. Unsere Models warten darauf, Sie zu verzaubern!</p>
         </div>
         <!-- Text Section Ends -->
         <!-- CARD SECTION STARTS -->
-        <div class="page active">
-            <div class="row">
-                <!-- Card Template -->
-                <!-- Repeat this block for each card -->
-                <div class="col-md-4 mb-4">
-                    <div class="card hover-card w-100" data-model-id="1">
-                        <div class="position-relative">
-                            <img src="{{asset('frontend/images/j2.webp')}}" class="card-img-top" alt="Model Image">
-                            <div class="hover-overlay">
-                                <div class="hover-content">
-                                    <p>Age: 28</p>
-                                    <p>City: New York</p>
+        @if(count($models) > 0)
+            <div class="container mt-5">
+                <div class="row">
+                    @foreach($models as $model)
+                        <div class="col-12 col-md-4 mb-4">
+                            <a style="text-decoration: none" href="{{route('model.detail', $model->id)}}">
+                                <div class="card hover-card w-100" data-card-id="1">
+                                    <div class="position-relative">
+                                        <img src="{{asset($model->profile_image)}}" class="card-img-top" alt="Roadblock">
+                                        <span class="badge bg-danger position-absolute top-0 end-0 m-2">FEATURED</span>
+                                        <div class="hover-overlay">
+                                            <div class="hover-content">
+                                                <p>Age: {{$model->age}}</p>
+                                                <p>City: {{$model->address}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="card-body bg-dark text-white">
+                                            <h5 class="card-title">{{$model->name}}<span class="text-success">●</span></h5>
+                                            <p class="card-text">{{$model->address}}</p>
+                                            <span class="badge bg-warning text-dark">GOLD</span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card-body bg-dark text-white">
-                            <h5 class="card-title">Roadblock <span class="text-success">●</span></h5>
-                            <p class="card-text">New York</p>
-                            <span class="badge bg-warning text-dark">GOLD</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card hover-card w-100" data-model-id="1">
-                        <div class="position-relative">
-                            <img src="{{asset('frontend/images/j2.webp')}}" class="card-img-top" alt="Model Image">
-                            <div class="hover-overlay">
-                                <div class="hover-content">
-                                    <p>Age: 28</p>
-                                    <p>City: New York</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body bg-dark text-white">
-                            <h5 class="card-title">Roadblock <span class="text-success">●</span></h5>
-                            <p class="card-text">New York</p>
-                            <span class="badge bg-warning text-dark">GOLD</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card hover-card w-100" data-model-id="1">
-                        <div class="position-relative">
-                            <img src="{{asset('frontend/images/j2.webp')}}" class="card-img-top" alt="Model Image">
-                            <div class="hover-overlay">
-                                <div class="hover-content">
-                                    <p>Age: 28</p>
-                                    <p>City: New York</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body bg-dark text-white">
-                            <h5 class="card-title">Roadblock <span class="text-success">●</span></h5>
-                            <p class="card-text">New York</p>
-                            <span class="badge bg-warning text-dark">GOLD</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card hover-card w-100" data-model-id="1">
-                        <div class="position-relative">
-                            <img src="{{asset('frontend/images/j2.webp')}}" class="card-img-top" alt="Model Image">
-                            <div class="hover-overlay">
-                                <div class="hover-content">
-                                    <p>Age: 28</p>
-                                    <p>City: New York</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body bg-dark text-white">
-                            <h5 class="card-title">Roadblock <span class="text-success">●</span></h5>
-                            <p class="card-text">New York</p>
-                            <span class="badge bg-warning text-dark">GOLD</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card hover-card w-100" data-model-id="1">
-                        <div class="position-relative">
-                            <img src="{{asset('frontend/images/j2.webp')}}" class="card-img-top" alt="Model Image">
-                            <div class="hover-overlay">
-                                <div class="hover-content">
-                                    <p>Age: 28</p>
-                                    <p>City: New York</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body bg-dark text-white">
-                            <h5 class="card-title">Roadblock <span class="text-success">●</span></h5>
-                            <p class="card-text">New York</p>
-                            <span class="badge bg-warning text-dark">GOLD</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card hover-card w-100" data-model-id="1">
-                        <div class="position-relative">
-                            <img src="{{asset('frontend/images/j2.webp')}}" class="card-img-top" alt="Model Image">
-                            <div class="hover-overlay">
-                                <div class="hover-content">
-                                    <p>Age: 28</p>
-                                    <p>City: New York</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body bg-dark text-white">
-                            <h5 class="card-title">Roadblock <span class="text-success">●</span></h5>
-                            <p class="card-text">New York</p>
-                            <span class="badge bg-warning text-dark">GOLD</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card hover-card w-100" data-model-id="1">
-                        <div class="position-relative">
-                            <img src="{{asset('frontend/images/j2.webp')}}" class="card-img-top" alt="Model Image">
-                            <div class="hover-overlay">
-                                <div class="hover-content">
-                                    <p>Age: 28</p>
-                                    <p>City: New York</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body bg-dark text-white">
-                            <h5 class="card-title">Roadblock <span class="text-success">●</span></h5>
-                            <p class="card-text">New York</p>
-                            <span class="badge bg-warning text-dark">GOLD</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card hover-card w-100" data-model-id="1">
-                        <div class="position-relative">
-                            <img src="{{asset('frontend/images/j2.webp')}}" class="card-img-top" alt="Model Image">
-                            <div class="hover-overlay">
-                                <div class="hover-content">
-                                    <p>Age: 28</p>
-                                    <p>City: New York</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body bg-dark text-white">
-                            <h5 class="card-title">Roadblock <span class="text-success">●</span></h5>
-                            <p class="card-text">New York</p>
-                            <span class="badge bg-warning text-dark">GOLD</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card hover-card w-100" data-model-id="1">
-                        <div class="position-relative">
-                            <img src="{{asset('frontend/images/j2.webp')}}" class="card-img-top" alt="Model Image">
-                            <div class="hover-overlay">
-                                <div class="hover-content">
-                                    <p>Age: 28</p>
-                                    <p>City: New York</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body bg-dark text-white">
-                            <h5 class="card-title">Roadblock <span class="text-success">●</span></h5>
-                            <p class="card-text">New York</p>
-                            <span class="badge bg-warning text-dark">GOLD</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card hover-card w-100" data-model-id="1">
-                        <div class="position-relative">
-                            <img src="{{asset('frontend/images/j2.webp')}}" class="card-img-top" alt="Model Image">
-                            <div class="hover-overlay">
-                                <div class="hover-content">
-                                    <p>Age: 28</p>
-                                    <p>City: New York</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body bg-dark text-white">
-                            <h5 class="card-title">Roadblock <span class="text-success">●</span></h5>
-                            <p class="card-text">New York</p>
-                            <span class="badge bg-warning text-dark">GOLD</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Card Template -->
 
-                <!-- Add additional cards here with unique data-model-id values -->
-            </div>
-        </div>
+                            </a>
+                        </div>
+
+                    @endforeach
+                </div>
+                @endif
 
         <!-- Pagination -->
         <nav aria-label="Page navigation" class="my-4">

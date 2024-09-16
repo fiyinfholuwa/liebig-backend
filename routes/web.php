@@ -20,13 +20,13 @@ Route::middleware('auth')->group(function () {
 
 
 Route::controller(\App\Http\Controllers\FrontendController::class)->group(function () {
-    Route::get('/', 'home')->name('home');
-    Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+    Route::get('/home', 'home')->name('home');
+    Route::get('/', [AuthenticatedSessionController::class, 'create'])
         ->name('login');    Route::get('/about', 'about')->name('about');
     Route::get('/faq', 'faq')->name('faq');
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/models', 'models')->name('models');
-    Route::get('/model/detail', 'model_detail')->name('model.detail');
+    Route::get('/model/detail/{id}', 'model_detail')->name('model.detail');
 });
 
 
@@ -35,9 +35,12 @@ Route::middleware('auth')->group(function () {
     Route::controller(\App\Http\Controllers\AdminController::class)->group(function () {
 //        Route::get('admin/dashboard', 'admin_dashboard')->name('dashboard');
         Route::get('admin/user/view', 'admin_add_user_view')->name('admin.add.user.view');
+        Route::get('admin/model/view', 'admin_add_model_view')->name('admin.add.model.view');
+        Route::post('admin/model/update', 'admin_model_update')->name('admin.model.update');
         Route::get('admin/user/edit/{id}', 'admin_user_edit')->name('admin.user.edit');
         Route::post('admin/add/user/save', 'admin_add_user_save')->name('admin.add.user.save');
         Route::post('admin/user/update/{id}', 'admin_user_update')->name('admin.user.update');
+        Route::post('admin/model/update/', 'update_model_admin')->name('update.model.admin');
         Route::get('admin/user/all', 'admin_user_all')->name('admin.user.all');
         Route::post('admin/user/delete/{id}', 'admin_user_delete')->name('admin.user.delete');
         Route::post('admin/user/visibility/{id}', 'admin_user_visibility')->name('admin.user.visibility');
@@ -87,7 +90,12 @@ Route::middleware('auth')->group(function () {
 
 Route::controller(\App\Http\Controllers\UserController::class)->group(function () {
     Route::get('/user/dashboard', 'user_dashboard')->name('user.dashboard');
+    Route::post('/user/pay/images', 'pay_to_view_images')->name('pay.to.view.images');
     Route::get('/user/coins', 'user_coin')->name('user.coins');
+    Route::post('/follow/model', 'follow_model')->name('follow.model');
+    Route::post('/user/status/update', 'user_update_status')->name('user.status.update');
+    Route::get('/user/show/chats', 'user_show_chat')->name('show.model.chat');
+
     Route::get('/user/news', 'user_news')->name('user.news');
     Route::get('/user/news/detail/{url}', 'user_news_detail')->name('user.new.detail');
     Route::get('/user/order/history', 'user_order_history')->name('user.payment');

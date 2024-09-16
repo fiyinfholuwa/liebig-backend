@@ -45,40 +45,55 @@
 
                     <div class="col-lg-5 order-lg-2">
                         <div class="status-update-container d-flex flex-grow-1 me-3 p-3  shadow-sm rounded">
-                            <div class="ss_v-status-scroller d-flex align-items-center">
-                                <!-- User 1 Status -->
-                                <div class="ss_v-status ss_v-spaced-status me-3">
-                                    <img src="{{asset('frontend/images/jobs desktop.png')}}" alt="User 1" class="ss_v-status-image rounded-circle shadow-sm" />
-                                    <span class="ss_v-status-name text-center d-block mt-2">User 1</span>
-                                    <span class="ss_v-status-count d-block text-center mt-1">2 images</span>
+                            @if(count($get_user_statuses) > 0)
+                                <div class="ss_v-status-scroller d-flex align-items-center">
 
-                                    <!-- Images for User 1 -->
-                                    <img src="{{asset('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJxo2NFiYcR35GzCk5T3nxA7rGlSsXvIfJwg&s')}}" class="ss_v-user-image" alt="User 1 Image 1" />
-                                    <img src="{{asset('frontend/images/jobs desktop.png')}}" class="ss_v-user-image" alt="User 1 Image 2" />
+                                    @php
+                                        // Group the statuses by userid
+                                        $grouped_statuses = $get_user_statuses->groupBy('userid');
+
+                                        // Extract the authenticated user's statuses first, if available
+                                        $auth_user_id = Auth::user()->id;
+                                        $auth_user_statuses = $grouped_statuses->pull($auth_user_id);
+                                    @endphp
+
+                                        <!-- Display Auth User's Statuses First (if available) -->
+                                    @if($auth_user_statuses)
+                                        <div class="ss_v-status ss_v-spaced-status me-3">
+                                            <!-- First Image (Profile Image for Auth User) -->
+                                            <img src="{{ asset($auth_user_statuses->first()->image) }}" alt="User {{ $auth_user_id }}" class="ss_v-status-image rounded-circle shadow-sm" />
+                                            <span class="ss_v-status-name text-center d-block mt-2">User {{ $auth_user_id }}</span>
+                                            <span class="ss_v-status-count d-block text-center mt-1">{{ $auth_user_statuses->count() }} images</span>
+
+                                            <!-- Display Remaining Images for Auth User -->
+                                            @foreach($auth_user_statuses as $status)
+                                                <img src="{{ asset($status->image) }}" class="ss_v-user-image" alt="User {{ $auth_user_id }} Image" />
+                                            @endforeach
+                                        </div>
+                                    @endif
+
+                                    <!-- Display Other Users' Statuses -->
+                                    @foreach($grouped_statuses as $userid => $statuses)
+                                        <div class="ss_v-status ss_v-spaced-status me-3">
+                                            <!-- First Image (Profile Image for Other Users) -->
+                                            <img src="{{ asset($statuses->first()->image) }}" alt="User {{ $userid }}" class="ss_v-status-image rounded-circle shadow-sm" />
+                                            <span class="ss_v-status-name text-center d-block mt-2">User {{ $userid }}</span>
+                                            <span class="ss_v-status-count d-block text-center mt-1">{{ $statuses->count() }} images</span>
+
+                                            <!-- Display Remaining Images for Other Users -->
+                                            @foreach($statuses as $status)
+                                                <img src="{{ asset($status->image) }}" class="ss_v-user-image" alt="User {{ $userid }} Image" />
+                                            @endforeach
+                                        </div>
+                                    @endforeach
+
+
+
                                 </div>
 
-                                <!-- User 2 Status -->
-                                <div class="ss_v-status ss_v-spaced-status me-3">
-                                    <img src="{{asset('frontend/images/about us desktop.png')}}" alt="User 2" class="ss_v-status-image rounded-circle shadow-sm" />
-                                    <span class="ss_v-status-name text-center d-block mt-2">User 2</span>
-                                    <span class="ss_v-status-count d-block text-center mt-1">3 images</span>
-
-                                    <!-- Images for User 2 -->
-                                    <img src="{{asset('frontend/images/jobs desktop.png')}}" class="ss_v-user-image" alt="User 2 Image 1" />
-                                    <img src="{{asset('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrTFrhr_-pYR74jUgOy7IerAoHAX3zPIZZcg&s')}}" class="ss_v-user-image" alt="User 2 Image 2" />
-                                    <img src="{{asset('https://imgv3.fotor.com/images/slider-image/A-clear-close-up-photo-of-a-woman.jpg')}}" class="ss_v-user-image" alt="User 2 Image 3" />
-                                </div>
-
-                                <!-- User 3 Status -->
-                                <div class="ss_v-status ss_v-spaced-status">
-                                    <img src="{{asset('frontend/images/About-us.webp')}}" alt="User 3" class="ss_v-status-image rounded-circle shadow-sm" />
-                                    <span class="ss_v-status-name text-center d-block mt-2">User 3</span>
-                                    <span class="ss_v-status-count d-block text-center mt-1">1 image</span>
-
-                                    <!-- Images for User 3 -->
-                                    <img src="{{asset('https://img.freepik.com/premium-photo/beautiful-young-woman-with-big-breasts-blue-dress_893012-298183.jpg')}}" class="ss_v-user-image" alt="User 3 Image 1" />
-                                </div>
-                            </div>
+                            @else
+                                <h3 class="text-white">No Status</h3>
+                            @endif
 
                             <!-- Modal for Image Slideshow -->
                             <div id="ss_v-status-modal" class="ss_v-status-modal ss_v-hidden">
@@ -148,42 +163,28 @@
                     <div class="row">
                         <div class="col-lg-8">
                             <h2>Top Models</h2>
-                            <div class="row">
-                                <!-- First NFT Section -->
-                                <div class="col-lg-5 nft mb-4">
+                            @if(count($user_models) > 0)
+                                <div class="row">
+                                    @foreach($user_models as $model)
+                                        <div class="col-lg-4 nft mb-4">
 
-                                    <img src="https://media.istockphoto.com/id/1695678200/photo/beautiful-woman-portraits.jpg?s=612x612&w=0&k=20&c=h17FAdH7hgZ93dR3NTuZvxxweYBjfsu9k-364PBPhLI=" alt="Beautiful Woman Portrait" class="img-fluid rounded shadow-sm" />
-                                    <div class="title mt-2 fw-semibold">Nature's Love</div>
-                                    <div class="details d-flex justify-content-between align-items-center mt-2">
-                                        <div class="icons d-flex align-items-center">
-                                            <div class="icon-container me-3">
-                                                <!-- Eye Icon -->
-                                                <div class="custom-icon custom-eye-icon me-2" title="Views"></div>
-                                                <!-- Chat Icon -->
-                                                <div class="custom-icon custom-chat-icon" title="Comments"></div>
+                                            <img src="{{asset($model->profile_image)}}" alt="Beautiful Woman Portrait" class="img-fluid rounded shadow-sm" />
+                                            <div class="title mt-2 fw-semibold">{{$model->name}}</div>
+                                            <div class="details d-flex justify-content-between align-items-center mt-2">
+                                                <div class="icons d-flex align-items-center">
+                                                    <div class="icon-container me-3">
+                                                        <!-- Eye Icon -->
+                                                        <a href="{{route('model.detail', $model->id)}}"><div class="custom-icon custom-eye-icon me-2" title="Views"></div></a>
+                                                        <!-- Chat Icon -->
+{{--                                                        <div class="custom-icon custom-chat-icon" title="Comments"></div>--}}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endforeach
                                 </div>
 
-                                <!-- Second NFT Section -->
-                                <div class="col-lg-5 nft mb-4">
-
-                                    <img src="https://media.istockphoto.com/id/1695678200/photo/beautiful-woman-portraits.jpg?s=612x612&w=0&k=20&c=h17FAdH7hgZ93dR3NTuZvxxweYBjfsu9k-364PBPhLI=" alt="Beautiful Woman Portrait" class="img-fluid rounded shadow-sm" />
-                                    <div class="title mt-2 fw-semibold">Nature's Love</div>
-                                    <div class="details d-flex justify-content-between align-items-center mt-2">
-                                        <div class="icons d-flex align-items-center">
-                                            <div class="icon-container me-3">
-                                                <!-- Eye Icon -->
-                                                <div class="custom-icon custom-eye-icon me-2" title="Views"></div>
-                                                <!-- Chat Icon -->
-                                                <div class="custom-icon custom-chat-icon" title="Comments"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
+                            @endif
                         </div>
                         <div class="col-lg-4">
                             <div class="unread-messages bg-light p-4 shadow-sm rounded">

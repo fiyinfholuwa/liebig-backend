@@ -238,7 +238,7 @@
                 <ion-icon name="person-outline" class="me-2"></ion-icon>
                 <p class="mb-0">Mein Profil</p>
             </a>
-            <a href="" class="menu-item d-flex align-items-center mb-3">
+            <a href="{{route('show.model.chat')}}" class="menu-item d-flex align-items-center mb-3">
                 <ion-icon name="chatbubble-outline" class="me-2"></ion-icon>
                 <p class="mb-0">Meine Chats</p>
             </a>
@@ -251,7 +251,7 @@
             </a>
 
 
-            <a href="" class="menu-item d-flex align-items-center mb-3">
+            <a target="_blank" href="{{route('models')}}" class="menu-item d-flex align-items-center mb-3">
                 <ion-icon name="search-outline" class="me-2"></ion-icon>
                 <p class="mb-0">Model suchen</p>
             </a>
@@ -304,9 +304,10 @@
     <div class="ff-modal-content">
         <span id="ff-close-modal" class="ff-close">&times;</span>
         <h4 style="text-align: center; margin-bottom: 20px;">Status Update</h4>
-        <form id="ff-status-form">
-            <input type="file" id="ff-file-upload" name="file-upload" required>
-            <button style="margin-top: 40px;" type="submit">Submit</button>
+        <form id="ff-status-form" method="post" action="{{route('user.status.update')}}" enctype="multipart/form-data">
+            @csrf
+            <input type="file"  name="file-upload" required>
+            <button style="margin-top: 40px;" type="submit">Update Status</button>
         </form>
     </div>
 </div>
@@ -351,14 +352,6 @@
             }
         });
 
-        // Handle the status form submission
-        const statusForm = document.getElementById('ff-status-form');
-        statusForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            // Handle the file upload and any other form submission logic here
-            alert('Status updated!');
-            statusModal.style.display = 'none';
-        });
     });
 
 </script>
