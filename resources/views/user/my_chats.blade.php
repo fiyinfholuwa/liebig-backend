@@ -25,31 +25,58 @@
             <div class="main_c mt-4">
 
                 <div class="top_models mt-5">
-                    <div class="row">
-                        <div class="col-lg-9">
+                    <div style="padding: 50px;" class="row">
+                        <div class="col-lg-6">
                             <h2>My Chats</h2>
                             @if(count($my_chats) > 0)
-                                <div class="row">
+                                <ul class="list-group">
                                     @foreach($my_chats as $model)
-                                        <div class="col-lg-4 nft mb-4">
+                                        <!-- Make the entire list item clickable -->
+                                        <a href="{{ route('user.chat.detail', $model->id) }}" style="text-decoration: none; color: inherit;">
+                                            <li class="list-group-item d-flex align-items-center">
+                                                <!-- Profile Image as Circle -->
+                                                <img src="{{ asset($model->profile_image) }}" alt="Profile Image" class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
 
-                                            <img height="100%" src="{{asset($model->profile_image)}}" alt="Beautiful Woman Portrait" class="img-fluid rounded shadow-sm" />
-                                            <div class="title mt-2 fw-semibold">{{$model->name}}</div>
-                                            <div class="details d-flex justify-content-between align-items-center mt-2">
-                                                <div class="icons d-flex align-items-center">
-                                                    <div class="icon-container me-3">
-                                                        <!-- Eye Icon -->
-                                                        <a href="{{route('model.detail', $model->id)}}"><div class="custom-icon custom-eye-icon me-2" title="Views"></div></a>
-                                                        <!-- Chat Icon -->
-                                                       <a><div class="custom-icon custom-chat-icon" title="Chats"><sup><span class="badge bg-danger text-white">3</span></sup></div></a>
+                                                <!-- Chat Details -->
+                                                <div style="padding-left: 20px;" class="flex-grow-1">
+                                                    <div class="fw-semibold">
+                                                        <span style="font-weight: bolder;">{{ $model->name }}</span>
+                                                    </div>
+
+                                                    <div class="text-muted">
+                                                        @php
+                                                            $last_msg =    get_last_message_user(\Illuminate\Support\Facades\Auth::user()->id)
+                                                        @endphp
+                                                        {{$last_msg}}
+                                                    </div> <!-- Assuming 'last_message' is available -->
+                                                </div>
+
+                                                <div class="ms-3">
+                                                    <div class="custom-icon custom-chat-icon" title="Chats">
+                                                        <sup>
+                                                            {{-- Uncomment if unread count is available --}}
+                                                            @php
+                                                                $unread = get_user_unread_chats(\Illuminate\Support\Facades\Auth::user()->id)
+                                                            @endphp
+
+                                                             @if($unread > 0)
+                                                             <span class="badge bg-danger text-white">{{ $unread }}</span>
+                                                             @endif
+                                                        </sup>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
+                                            </li>
+                                        </a>
                                     @endforeach
-                                </div>
+                                </ul>
 
+                            @else
+                                <div style="padding: 40px;">
+                                    <a href="{{route('models')}}">All Model</a>
+
+                                </div>
                             @endif
+
                         </div>
                     </div>
                 </div>

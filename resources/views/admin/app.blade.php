@@ -219,6 +219,15 @@
                 </li>
 
                 <li class="pc-item pc-hasmenu">
+                    <a href="{{route('admin.chat.all')}}" class="pc-link">
+                        <i style="font-size: 20px;" class="ph-duotone ph-chat-circle"></i>
+                        <span class="pc-mtext">All Chats</span>
+                        {{--                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>--}}
+                        {{--                        <span class="pc-badge">2</span>--}}
+                    </a>
+                </li>
+
+                <li class="pc-item pc-hasmenu">
                     <a href="{{route('ribbon.view')}}" class="pc-link">
                         <i style="font-size: 20px;" class="ph-duotone ph-broadcast"></i>
                         <span class="pc-mtext">Announcement </span>
@@ -931,6 +940,73 @@
     @endif
 </script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    /* CSS for floating chat button */
+    .chat-btn {
+        position: fixed;
+        bottom: 140px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background-color: #b01e1e;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    .chat-btn i {
+        color: white;
+        font-size: 24px;
+    }
+
+    /* Chat window styling */
+    .chat-window {
+        display: none;
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 300px;
+        height: 400px;
+        background-color: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        z-index: 1000;
+    }
+
+    .chat-header {
+        background-color: #28a745;
+        color: white;
+        padding: 10px;
+        border-radius: 10px 10px 0 0;
+        font-weight: bold;
+    }
+
+    .chat-body {
+        padding: 10px;
+        height: calc(100% - 60px);
+        overflow-y: auto;
+    }
+
+    .close-btn {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 3px;
+    }
+</style>
+<a href="{{route('admin.chat.all')}}">
+    <div class="chat-btn" id="chatButton">
+        <i class="fas fa-comment"></i>
+    </div>
+
+</a>
 
 <script>
     $(document).ready(function () {

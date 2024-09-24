@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Chat;
 use App\Models\Payment;
 use App\Models\PaymentGateway;
 use App\Models\PayModelImage;
@@ -131,6 +132,49 @@ class UserController extends Controller
         $status->save();
         $notification = array(
             'message' => 'Status Successfully Updated.',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function user_chat_detail($id)
+    {
+        $chats = Chat::where('userid', '=', Auth::user()->id)->get();
+        $data = [
+            'chats' => $chats,
+            'modelId' => $id,
+        ];
+        Chat::where('userid', '=', Auth::user()->id)->update(['user_status' => 'read']);
+        return view('user.user_chats', $data);
+    }
+
+    public function user_chat_add(Request $request){
+        $chat = new Chat();
+
+        $baseUrl = request()->getSchemeAndHttpHost();
+        if ($request->hasFile('image')) {
+            $pdf = $request->file('image');
+            $extension = $pdf->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $directory = 'uploads/chat/image/';
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+            $pdf->move($directory, $filename);
+            $path = $directory . $filename;
+        } else {
+            $path =NULL;
+
+        }
+        $chat->message = $request->message;
+        $chat->user_type ="user";
+        $chat->userid = Auth::user()->id;
+        $chat->image = $path;
+        $chat->modelId = $request->modelId;
+        $chat->user_status= "read";
+        $chat->save();
+        $notification = array(
+            'message' => 'Message Sent',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);

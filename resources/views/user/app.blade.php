@@ -221,6 +221,157 @@
 
         /* End Responsive */
 
+
+    </style>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Floated Chat Button */
+        #chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            font-size: 18px;
+        }
+
+        /* Chat Box */
+        #chat-box {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 400px;
+            height: 600px;
+            background-color: white;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+        }
+
+        @media (min-width: 1024px) {
+            #chat-box {
+                width: 500px;
+                height: 700px;
+            }
+        }
+
+        /* Header */
+        #chat-header {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #search-box {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #chat-person-header {
+            display: none;
+            align-items: center;
+        }
+
+        #chat-person-header button {
+            margin-right: 10px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #chat-person-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Chat List */
+        #chat-list {
+            height: 300px;
+            overflow-y: scroll;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        @media (min-width: 1024px) {
+            #chat-list {
+                height: 400px;
+            }
+        }
+
+        .chat-item {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .chat-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Chat Content */
+        #chat-content {
+            display: none;
+            padding: 10px;
+            flex-grow: 1;
+            flex-direction: column;
+        }
+
+        #message-list {
+            height: 400px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #message-list img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        #chat-input {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #message-input {
+            width: 65%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #image-input {
+            width: 20%;
+        }
+
+        button {
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
     </style>
 </head>
 <body>
@@ -291,10 +442,21 @@
 
 @yield('content')
 
+
+
+
 <div class="ff-fab-container">
     <button id="ff-main-fab" class="ff-fab">+</button>
     <div id="ff-secondary-buttons" class="ff-hidden">
-        <button id="ff-chat-btn" class="ff-fab ff-secondary"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR9IyxsfqiQSWjikSN9R_qovButKOzYbYxqA&s"/></button>
+        <button id="ff-chat-btn" class="ff-fab ff-secondary">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR9IyxsfqiQSWjikSN9R_qovButKOzYbYxqA&s"/>
+        </button>
+
+        <script>
+            document.getElementById('ff-chat-btn').addEventListener('click', function() {
+                window.location.href = "{{ route('show.model.chat') }}";
+            });
+        </script>
         <button id="ff-update-status-btn" class="ff-fab ff-secondary"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS__2Q54HucOe8WGDOpNVpzuTTk0HYe1eV-Fw&s"/></button>
     </div>
 </div>
@@ -354,7 +516,10 @@
 
     });
 
+    // Sample chat data
+
 </script>
+
 <!-- Ion Icons Js -->
 <script
     type="module"

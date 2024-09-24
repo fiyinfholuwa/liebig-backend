@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Chat;
 use App\Models\Payment;
 use App\Models\Plan;
 use App\Models\Ribbon;
 use App\Models\User;
 use App\Models\WheelFortune;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -539,5 +541,60 @@ class AdminController extends Controller
         return GeneralController::redirectWithMessage(true, 'User Successfully Updated', "User Could not be Updated", 'admin.user.all');
     }
 
+
+    public function admin_chat_all()
+    {
+        $chats = Chat::all();
+        $g_chats = $chats->groupBy('userid')->map(function ($item) {
+            return $item->first();
+        });
+        return view('admin.chat_all', ['chats' => $g_chats]);
+    }
+
+    public function admin_chat_detail($id)
+    {
+        $chats = Chat::where('userid', '=', $id)->get();
+        $data = [
+            'chats' => $chats,
+            'userid' => $id,
+            'name' => User::where('id', '=', $id)->first()->name
+
+        ];
+        Chat::where('userid', '=', $id)->update(['model_status' => 'read']);
+
+        return view('admin.admin_chat', $data);
+    }
+
+public function admin_chat_add(Request $request){
+    $chat = new Chat();
+
+    $baseUrl = request()->getSchemeAndHttpHost();
+    if ($request->hasFile('image')) {
+        $pdf = $request->file('image');
+        $extension = $pdf->getClientOriginalExtension();
+        $filename = time() . '.' . $extension;
+        $directory = 'uploads/chat/image/';
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        $pdf->move($directory, $filename);
+        $path = $directory . $filename;
+    } else {
+        $path =NULL;
+
+    }
+    $chat->message = $request->message;
+    $chat->user_type ="admin";
+    $chat->userid = $request->userid;
+    $chat->image = $path;
+    $chat->modelId = $request->modelid;
+    $chat->model_status= "read";
+    $chat->save();
+    $notification = array(
+        'message' => 'Message Sent',
+        'alert-type' => 'success'
+    );
+    return redirect()->back()->with($notification);
+}
 
 }

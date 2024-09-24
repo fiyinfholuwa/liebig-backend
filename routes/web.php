@@ -76,6 +76,10 @@ Route::middleware('auth')->group(function () {
         Route::get('admin/ribbon/view', 'ribbon_view')->name('ribbon.view');
         Route::post('admin/ribbon/save', 'ribbon_save')->name('ribbon.save');
 
+        Route::get('/admin/chat/all', 'admin_chat_all')->name('admin.chat.all');
+        Route::get('/admin/chat/detail/{id}', 'admin_chat_detail')->name('admin.chat.detail');
+        Route::post('admin/chat/add', 'admin_chat_add')->name('admin.chat.add');
+
     });
 });
 
@@ -99,6 +103,9 @@ Route::controller(\App\Http\Controllers\UserController::class)->group(function (
     Route::get('/user/news', 'user_news')->name('user.news');
     Route::get('/user/news/detail/{url}', 'user_news_detail')->name('user.new.detail');
     Route::get('/user/order/history', 'user_order_history')->name('user.payment');
+
+    Route::post('/chat/add', 'user_chat_add')->name('user.chat.add');
+    Route::get('/chat/detail/{id}', 'user_chat_detail')->name('user.chat.detail');
 });
 
 Route::middleware('auth')->group(function () {
