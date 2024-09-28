@@ -167,6 +167,7 @@ class UserController extends Controller
             );
             return redirect()->route('user.coins')->with($notification);
         }
+        User::where('id', Auth::user()->id)->decrement('coin_balance', $coin_to_chat);
         $baseUrl = request()->getSchemeAndHttpHost();
         if ($request->hasFile('image')) {
             $pdf = $request->file('image');
