@@ -107,11 +107,19 @@ class UserController extends Controller
 
         $user->followed_models = json_encode($followedModels);
         $user->save();
+        $chat = new Chat();
+
+        $chat->message = "Hi, My name is . " .Auth::user()->name." I will like to connect with you" ;
+        $chat->user_type ="user";
+        $chat->userid = Auth::user()->id;
+        $chat->modelId = $request->modelId;
+        $chat->user_status= "read";
+        $chat->save();
         $notification = array(
-            'message' => 'Model followed successfully.',
+            'message' => 'Message Sent',
             'alert-type' => 'success'
         );
-        return redirect()->back()->with($notification);
+        return redirect()->route('show.model.chat')->with($notification);
     }
 
     public function user_update_status(Request $request)
@@ -151,6 +159,14 @@ class UserController extends Controller
     public function user_chat_add(Request $request){
         $chat = new Chat();
 
+        $coin_to_chat = 12;
+        if ($coin_to_chat > Auth::user()->coin_balance ){
+            $notification = array(
+                'message' => 'You have Insufficient coins, please reload your coins',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('user.coins')->with($notification);
+        }
         $baseUrl = request()->getSchemeAndHttpHost();
         if ($request->hasFile('image')) {
             $pdf = $request->file('image');

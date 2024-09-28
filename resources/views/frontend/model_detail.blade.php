@@ -110,7 +110,7 @@
                             <form action="{{ route('follow.model') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="modelId" value="{{ $model->id }}">
-                                <button type="submit" class="btn btn-custom btn-message text-dark">Follow</button>
+                                <button type="submit" class="btn btn-custom btn-message text-dark">Message Model</button>
                             </form>
                         @endif
                     @else

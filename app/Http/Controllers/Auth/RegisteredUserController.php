@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
             'username' => $request->username,
             'user_type' => 1,
             'user_status' => 1,
-            'coin_balance' => 10,
+            'coin_balance' => 100,
             'interested_in' => $request->interested_in,
             'password' => Hash::make($request->password),
         ]);
