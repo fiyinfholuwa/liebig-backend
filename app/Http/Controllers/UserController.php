@@ -10,6 +10,8 @@ use App\Models\PayModelImage;
 use App\Models\Plan;
 use App\Models\User;
 use App\Models\UserStatus;
+use App\Models\WheelFortune;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -54,7 +56,7 @@ class UserController extends Controller
     }
 
     public function user_order_history(){
-        $payments = Payment::where('user_email', '=', Auth::user()->email)->get();
+        $payments = Payment::where('user_email', '=', Auth::user()->email)->latest()->get();
         return view('user.payment', compact('payments'));
     }
 
@@ -197,4 +199,62 @@ class UserController extends Controller
         return redirect()->back()->with($notification);
     }
 
+
+    public function user_wheel()
+    {
+        $rewards = WheelFortune::where('status', '=', 1)->paginate(8);
+        return view('user.wheel', compact('rewards'));
+    }
+
+    public function spin_validate(Request $request)
+    {
+        $user = Auth::user();
+        $spin_today = $user->spin_today;
+        if (is_null($spin_today)) {
+            return response()->json(['success' => true]);
+        }
+
+        $now = now();
+
+        try {
+            $spin_today = Carbon::parse($spin_today);  // Ensure it's a valid Carbon instance
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Invalid spin time.']);
+        }
+        $hoursDifference = $now->diffInHours($spin_today);
+
+        if (abs($hoursDifference) >= 24) {
+            return response()->json(['success' => true]);
+        }
+
+        $hoursLeft = round(24 - $hoursDifference);
+        return response()->json([
+            'success' => false,
+            'message' => "You are not eligible to spin again yet. Please wait {$hoursLeft} more hour(s)."
+        ]);
+    }
+
+
+
+    public function claim_reward(Request $request)
+    {
+        $reward = $request->input('reward');
+        $points = $reward['points'];
+        $payment = new Payment;
+        $reference = PaymentController::generateRandomString();
+        $payment->referenceId = $reference;
+        $payment->amount = $points;
+        $payment->user_email = Auth::user()->email;
+        $payment->status = "paid";
+        $payment->payment_type = "Wheel of Fortune";
+        $payment->gateway = "Fortune Crediting";
+        $payment->credit_num = $points;
+        $payment->subscription_status = '';
+        $payment->save();
+        $user = User::findOrFail(Auth::user()->id);
+        $user->coin_balance = $user->coin_balance + $points;
+        $user->spin_today = now();
+        $user->save();
+        return response()->json(['success' => true, 'message' => 'Reward claimed successfully!']);
+    }
 }

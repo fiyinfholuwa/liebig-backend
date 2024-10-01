@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('eye_color')->nullable(); // For storing Eye Color
             $table->string('hair')->nullable(); // For storing Hair type
             $table->string('body_type')->nullable(); // For storing Body Type
+            $table->string('spin_today')->nullable(); // For storing Body Type
             $table->string('height')->nullable(); // For storing Height
             $table->integer('ethnicity')->nullable(); // For storing Ethnicity as an integer
             $table->text('images')->nullable(); // For storing multiple images in JSON format

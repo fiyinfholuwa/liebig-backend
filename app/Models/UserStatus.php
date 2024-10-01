@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class UserStatus extends Model
 {
     use HasFactory;
+
+    public function model_info()
+    {
+        return $this->belongsTo(User::class, 'userid');
+    }
 }

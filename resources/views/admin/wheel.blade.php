@@ -36,8 +36,13 @@
 
 
                                                 <div class="form-group">
-                                                    <label>Item Amount</label>
-                                                    <input name="amount" required class="form-control" type="number" placeholder="Item Amount">
+                                                    <label>Item Points</label>
+                                                    <input name="points" required class="form-control" type="number" placeholder="Item Points">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>Item Chance</label>
+                                                    <input name="chance" required class="form-control" type="number" placeholder="Item Chance">
                                                 </div>
 
 
@@ -72,7 +77,8 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
-                                    <th>Amount</th>
+                                    <th>Points</th>
+                                    <th>chances</th>
                                     <th>Image</th>
                                     <th>Status</th>
                                     <th class="no-content">Actions</th>
@@ -85,7 +91,8 @@
                                     <tr>
                                         <td>{{$i++}}</td>
                                         <td>{{$Item->name}}</td>
-                                        <td>{{$Item->amount}}</td>
+                                        <td>{{$Item->points}}</td>
+                                        <td>{{$Item->chance}}</td>
                                         <td><img height="100px" width="100px" src="{{asset($Item->image)}}" alt="image"></td>
                                         <td>
                                             @if($Item->status == 1)

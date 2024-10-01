@@ -406,7 +406,7 @@
                 <ion-icon name="search-outline" class="me-2"></ion-icon>
                 <p class="mb-0">Model suchen</p>
             </a>
-            <a href="" class="menu-item d-flex align-items-center mb-3">
+            <a href="{{route('user.wheel')}}" class="menu-item d-flex align-items-center mb-3">
                 <ion-icon name="trophy-outline" class="me-2"></ion-icon>
                 <p class="mb-0">Glucksrad</p>
             </a>
@@ -420,10 +420,10 @@
                 <p class="mb-0">Bestellverlauf</p>
             </a>
             <hr>
-            <a href="" class="menu-item d-flex align-items-center mb-3">
-                <ion-icon name="help-circle-outline" class="me-2"></ion-icon>
-                <p class="mb-0">Hilfe</p>
-            </a>
+{{--            <a href="" class="menu-item d-flex align-items-center mb-3">--}}
+{{--                <ion-icon name="help-circle-outline" class="me-2"></ion-icon>--}}
+{{--                <p class="mb-0">Hilfe</p>--}}
+{{--            </a>--}}
         </div>
         <div class="log-out">
             <a href="{{route('logout')}}" class="menu-item d-flex align-items-center">

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('userid')->nullable();
             $table->text('image')->nullable();
+            $table->string('user_type')->nullable();
             $table->timestamps();
         });
     }

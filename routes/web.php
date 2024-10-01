@@ -60,6 +60,12 @@ Route::middleware('auth')->group(function () {
 
 
         Route::get('admin/support/view', 'admin_support_view')->name('admin.support.view');
+        Route::get('admin/model/status', 'admin_model_status')->name('admin.model.status');
+
+        Route::post('/admin/status/update', 'admin_update_status')->name('admin.status.update');
+        Route::post('/admin/status/delete/{id}', 'admin_status_delete')->name('admin.status.delete');
+
+
         Route::post('admin/support/update/{id}', 'admin_support_update')->name('admin.support.update');
         Route::get('/payment/all', 'admin_payment_all')->name('admin.payment.all');
         Route::get('/payment/setup', 'admin_payment_setup')->name('admin.payment.setup');
@@ -92,6 +98,8 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+Route::middleware('auth')->group(function () {
+
 Route::controller(\App\Http\Controllers\UserController::class)->group(function () {
     Route::get('/user/dashboard', 'user_dashboard')->name('user.dashboard');
     Route::post('/user/pay/images', 'pay_to_view_images')->name('pay.to.view.images');
@@ -101,12 +109,17 @@ Route::controller(\App\Http\Controllers\UserController::class)->group(function (
     Route::get('/user/show/chats', 'user_show_chat')->name('show.model.chat');
 
     Route::get('/user/news', 'user_news')->name('user.news');
+    Route::post('/spin/validate', 'spin_validate')->name('spin.validate');
+    Route::post('/claim/reward', 'claim_reward')->name('claim.reward');
     Route::get('/user/news/detail/{url}', 'user_news_detail')->name('user.new.detail');
     Route::get('/user/order/history', 'user_order_history')->name('user.payment');
+    Route::get('/user/wheel', 'user_wheel')->name('user.wheel');
 
     Route::post('/chat/add', 'user_chat_add')->name('user.chat.add');
     Route::get('/chat/detail/{id}', 'user_chat_detail')->name('user.chat.detail');
 });
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::controller(\App\Http\Controllers\PaymentController::class)->group(function () {

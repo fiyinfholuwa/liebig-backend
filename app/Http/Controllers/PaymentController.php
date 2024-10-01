@@ -35,7 +35,7 @@ class PaymentController extends Controller
         return GeneralController::redirectWithMessage($result, "Gateway Successfully Updated", "No Changes Made", "back");
     }
 
-    private static function generateRandomString($length = 10): string
+    public static function generateRandomString($length = 10): string
     {
         return bin2hex(random_bytes($length / 2));
     }

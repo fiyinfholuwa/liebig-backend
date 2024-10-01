@@ -29,19 +29,19 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-{{--                    <a class="nav-link" href="{{route('home')}}">Startseite</a>--}}
+                    <a class="nav-link" href="{{route('home')}}">Startseite</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('models')}}">Models</a>
                 </li>
                 <li class="nav-item">
-{{--                    <a class="nav-link" href="{{route('about')}}">Über uns</a>--}}
+                    <a class="nav-link" href="{{route('about')}}">Über uns</a>
                 </li>
                 <li class="nav-item">
-{{--                    <a class="nav-link" href="{{route('faq')}}">FAQ</a>--}}
+                    <a class="nav-link" href="{{route('faq')}}">FAQ</a>
                 </li>
                 <li class="nav-item">
-{{--                    <a class="nav-link" href="{{route('contact')}}">Kontakt</a>--}}
+                    <a class="nav-link" href="{{route('contact')}}">Kontakt</a>
                 </li>
                 @auth
                     <li class="nav-item">

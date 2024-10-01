@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('image')->nullable();
-            $table->string('amount')->nullable();
+            $table->string('points')->nullable();
+            $table->string('chance')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });

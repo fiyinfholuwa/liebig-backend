@@ -210,6 +210,16 @@
 
 
                 <li class="pc-item pc-hasmenu">
+                    <a href="{{route('admin.model.status')}}" class="pc-link">
+                        <i style="font-size: 20px;" class="ph-duotone ph-chat-circle"></i>
+                        <span class="pc-mtext">Manage Model Statuses</span>
+                        {{--                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>--}}
+                        {{--                        <span class="pc-badge">2</span>--}}
+                    </a>
+                </li>
+
+
+                <li class="pc-item pc-hasmenu">
                     <a href="{{route('admin.payment.all')}}" class="pc-link">
                         <i style="font-size: 20px;" class="ph-duotone ph-money"></i>
                         <span class="pc-mtext">Payment History</span>

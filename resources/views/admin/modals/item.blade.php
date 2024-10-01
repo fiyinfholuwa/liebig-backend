@@ -23,8 +23,14 @@
 
 
                     <div class="form-group">
-                        <label>item Amount</label>
-                        <input name="amount" value="{{$Item->amount}}" required class="form-control" type="number" placeholder="item Amount">
+                        <label>item Points</label>
+                        <input name="amount" value="{{$Item->points}}" required class="form-control" type="number" placeholder="item Amount">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Item Chance</label>
+                        <input name="chance" value="{{$Item->chance}}" required class="form-control" type="number" placeholder="Item Chance">
                     </div>
 
 

@@ -8,6 +8,7 @@ use App\Models\Payment;
 use App\Models\Plan;
 use App\Models\Ribbon;
 use App\Models\User;
+use App\Models\UserStatus;
 use App\Models\WheelFortune;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -225,7 +226,8 @@ class AdminController extends Controller
         }
         $data = [
             'name' => $request->name,
-            'amount' => $request->amount,
+            'points' => $request->points,
+            'chance' => $request->chance,
             'status' => $request->status,
             'image' => $path,
         ];
@@ -253,7 +255,8 @@ class AdminController extends Controller
         }
         $data = [
             'name' => $request->name,
-            'amount' => $request->amount,
+            'points' => $request->points,
+            'chance' => $request->chance,
             'status' => $request->status,
             'image' => $path,
         ];
@@ -368,6 +371,7 @@ class AdminController extends Controller
         );
         return redirect()->back()->with($notification);
     }
+
     public function ribbon_view(){
         $ribbon = Ribbon::first();
         return view('admin.ribbon', compact('ribbon'));
@@ -596,5 +600,49 @@ public function admin_chat_add(Request $request){
     );
     return redirect()->back()->with($notification);
 }
+
+
+    public function admin_update_status(Request $request)
+    {
+
+        $image = $request->file('image');
+        $extension = $image->getClientOriginalExtension();
+        $filename = time() . '.' . $extension;
+        $directory = 'uploads/status/';
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        $image->move($directory, $filename);
+        $path = $directory . $filename;
+        $status = new UserStatus();
+        $status->userid = $request->model_id;
+        $status->user_type ='model';
+        $status->image = $path;
+        $status->save();
+        $notification = array(
+            'message' => 'Status Successfully Updated.',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+public function admin_model_status()
+{
+    $models = User::where('user_type', '=', 2)->get();
+    $items = UserStatus::where('user_type', '=', 'model')->latest()->get();
+   return view('admin.model_status', compact('items', 'models'));
+}
+
+
+    public function admin_status_delete($id)
+    {
+        $status = UserStatus::findOrFail($id);
+        $status->delete();
+        $notification = array(
+            'message' => 'Model Status Successfully Deleted',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 
 }
