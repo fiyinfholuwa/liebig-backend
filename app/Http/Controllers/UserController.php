@@ -222,8 +222,8 @@ class UserController extends Controller
             return response()->json(['success' => false, 'message' => 'Invalid spin time.']);
         }
         $hoursDifference = $now->diffInHours($spin_today);
-
-        if (abs($hoursDifference) >= 24) {
+        $hoursDifference = abs($hoursDifference);
+        if ($hoursDifference >= 24) {
             return response()->json(['success' => true]);
         }
 
