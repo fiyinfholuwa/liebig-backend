@@ -58,10 +58,21 @@
                     Claim Reward
                 </button>
 
+                <button id="moveButton" disabled onclick="moveReward()">
+                    <i class="fa fa-spin fa-spinner" id="moveSpinner" style="display: none;"></i>
+                    Move to Inventory
+                </button>
+
 
                 <script>
                     // Global variable to hold the rewards
                     const rewards = @json($rewards); // Pass rewards data from Laravel to JavaScript
+                    let selectedReward = null; // Initialize selectedReward
+
+                    // Check if rewards is an array
+                    if (!Array.isArray(rewards)) {
+                        console.error('Rewards is not an array:', rewards);
+                    }
 
                     // Define getReward function globally
                     function getReward() {
@@ -89,10 +100,12 @@
                         const spinButton = document.getElementById("spinButton");
                         const spinSpinner = document.getElementById("spinSpinner");
                         const claimButton = document.getElementById("claimButton");
+                        const moveButton = document.getElementById("moveButton");
                         const resultElement = document.getElementById("result");
 
                         spinButton.disabled = true;
                         claimButton.disabled = true;
+                        moveButton.disabled = true;
                         resultElement.textContent = "";
                         spinSpinner.style.display = "inline"; // Show spinner inside spin button
 
@@ -122,6 +135,7 @@
                         <p>You won: ${reward.name} ${reward.points ? `(${reward.points} points)` : ''}</p>
                     `;
                                     claimButton.disabled = false;
+                                    moveButton.disabled = false;
                                     spinButton.disabled = false;
                                 }, 5000); // Simulate the wheel spinning for 5 seconds
                             } else {
@@ -176,10 +190,46 @@
                             }
                         }
                     }
+                    async function moveReward() {
+                        const claimButton = document.getElementById("moveButton");
+                        const claimSpinner = document.getElementById("moveSpinner");
 
-                    document.addEventListener("DOMContentLoaded", function () {
-                        // Event listener for DOM content loaded
-                    });
+                        if (selectedReward) {
+                            claimButton.disabled = true;
+                            claimSpinner.style.display = "inline"; // Show spinner inside claim button
+
+                            try {
+                                // Send request to Laravel to claim the reward
+                                const response = await fetch('/move/reward', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}' // Use the Laravel blade directive
+                                    },
+                                    body: JSON.stringify({
+                                        reward: selectedReward
+                                    })
+                                });
+
+                                const result = await response.json();
+
+                                if (result.success === true) {
+                                    alert(`Congratulations! You've move your reward: ${selectedReward.name} to Inventory`);
+                                    selectedReward = null;
+                                    claimButton.disabled = true;
+                                    location.reload();
+                                } else {
+                                    alert(result.message || 'Error moving the reward.');
+                                    location.reload();
+                                }
+                            } catch (error) {
+                                alert(error.message || 'Something went wrong while moving the reward.');
+                                location.reload();
+                            } finally {
+                                claimSpinner.style.display = "none";
+                            }
+                        }
+                    }
                 </script>
 
 
@@ -234,14 +284,14 @@
     }
 
 
-    #spinButton, #claimButton {
+    #spinButton, #claimButton, #moveButton {
         margin: 20px;
         padding: 10px 20px;
         font-size: 16px;
         cursor: pointer;
     }
 
-    #claimButton[disabled] {
+    #claimButton[disabled], #moveButton[disabled] {
         background-color: #ccc;
         cursor: not-allowed;
     }

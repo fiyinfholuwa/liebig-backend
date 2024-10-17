@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Chat;
+use App\Models\ModelImage;
 use App\Models\Payment;
 use App\Models\Plan;
 use App\Models\Ribbon;
@@ -632,6 +633,12 @@ public function admin_model_status()
     $items = UserStatus::where('user_type', '=', 'model')->latest()->get();
    return view('admin.model_status', compact('items', 'models'));
 }
+public function admin_model_images()
+{
+    $models = User::where('user_type', '=', 2)->get();
+    $items = ModelImage::latest()->get();
+   return view('admin.model_images', compact('items', 'models'));
+}
 
 
     public function admin_status_delete($id)
@@ -640,6 +647,42 @@ public function admin_model_status()
         $status->delete();
         $notification = array(
             'message' => 'Model Status Successfully Deleted',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+    public function admin_image_delete($id)
+    {
+        $status = ModelImage::findOrFail($id);
+        $status->delete();
+        $notification = array(
+            'message' => 'Model Image Successfully Deleted',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+
+    public function admin_update_image(Request $request)
+    {
+
+        $image = $request->file('image');
+        $extension = $image->getClientOriginalExtension();
+        $filename = time() . '.' . $extension;
+        $directory = 'uploads/status/';
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        $image->move($directory, $filename);
+        $path = $directory . $filename;
+        $status = new ModelImage();
+        $status->userid = $request->model_id;
+        $status->image = $path;
+        $status->image_type = $request->image_type;
+        $status->amount = $request->image_type ==='free' ? 0 : $request->amount;
+        $status->save();
+        $notification = array(
+            'message' => 'Image Successfully Updated.',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);

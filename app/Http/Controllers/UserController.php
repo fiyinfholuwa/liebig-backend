@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Chat;
+use App\Models\GiftInventory;
+use App\Models\ModelImage;
 use App\Models\Payment;
 use App\Models\PaymentGateway;
 use App\Models\PayModelImage;
@@ -59,6 +61,24 @@ class UserController extends Controller
         $payments = Payment::where('user_email', '=', Auth::user()->email)->latest()->get();
         return view('user.payment', compact('payments'));
     }
+public function user_profile(){
+        $payments = GiftInventory::where('userid', '=', Auth::user()->id)->latest()->get();
+        return view('user.profile', compact('payments'));
+    }
+
+
+    public function reward_to_wallet(Request $request)
+    {
+        $reward_id = $request->reward_id;
+        $reward_info = GiftInventory::findOrFail($reward_id);
+        User::where('id', Auth::user()->id)->increment('coin_balance', $reward_info->reward_amount);
+        $reward_info->delete();
+        $notification = array(
+            'message' => 'You have successfully moved the inventory amount to coin balance.',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 
 
 
@@ -82,10 +102,16 @@ class UserController extends Controller
             return redirect()->back()->with($notification);
         }
         User::findOrFail(Auth::user()->id)->decrement('coin_balance', $request->amount);
-        $pay = new PayModelImage();
-        $pay->modelId = $request->modelId;
-        $pay->userid = Auth::user()->id;
-        $pay->save();
+        User::findOrFail($request->modelId)->increment('coin_balance', ($request->amount)/2);
+        $logged = ModelImage::findOrFail($request->imageId);
+        if (is_null($logged->logged_users)) {
+            $logged_user = json_encode([Auth::user()->id]);
+        } else {
+            $existing_logged_users = json_decode($logged->logged_users, true);
+            $logged_user = json_encode(array_merge($existing_logged_users, [Auth::user()->id]));
+        }
+        $logged->logged_users = $logged_user;
+        $logged->save();
         $notification = array(
             'message' => 'Payment Successful',
             'alert-type' => 'success'
@@ -170,6 +196,7 @@ class UserController extends Controller
             return redirect()->route('user.coins')->with($notification);
         }
         User::where('id', Auth::user()->id)->decrement('coin_balance', $coin_to_chat);
+        User::where('id', $request->modelId)->increment('coin_balance', $coin_to_chat/2);
         $baseUrl = request()->getSchemeAndHttpHost();
         if ($request->hasFile('image')) {
             $pdf = $request->file('image');
@@ -203,6 +230,7 @@ class UserController extends Controller
     public function user_wheel()
     {
         $rewards = WheelFortune::where('status', '=', 1)->paginate(8);
+        $rewards = $rewards->items();
         return view('user.wheel', compact('rewards'));
     }
 
@@ -223,11 +251,17 @@ class UserController extends Controller
         }
         $hoursDifference = $now->diffInHours($spin_today);
         $hoursDifference = abs($hoursDifference);
-        if ($hoursDifference >= 24) {
+        if ($hoursDifference >= 12) {
             return response()->json(['success' => true]);
         }
 
-        $hoursLeft = round(24 - $hoursDifference);
+        $amount_to_spin = 100;
+        if (Auth::user()->coin_balance > $amount_to_spin){
+            User::where('id', Auth::user()->id)->decrement('coin_balance', $amount_to_spin);
+            return response()->json(['success' => true]);
+        }
+
+        $hoursLeft = round(12 - $hoursDifference);
         return response()->json([
             'success' => false,
             'message' => "You are not eligible to spin again yet. Please wait {$hoursLeft} more hour(s)."
@@ -256,5 +290,20 @@ class UserController extends Controller
         $user->spin_today = now();
         $user->save();
         return response()->json(['success' => true, 'message' => 'Reward claimed successfully!']);
+    }
+    public function move_reward(Request $request)
+    {
+        $reward = $request->input('reward');
+        $reward_id = $reward['id'];
+        $move = new GiftInventory();
+        $move->userid = Auth::user()->id;
+        $move->reward_id = $reward_id;
+        $move->reward_amount = $reward['points'];
+        $move->user_type = 'user';
+        $move->save();
+        $user = User::findOrFail(Auth::user()->id);
+        $user->spin_today = now();
+        $user->save();
+        return response()->json(['success' => true, 'message' => 'Reward Move to Inventory successfully!']);
     }
 }

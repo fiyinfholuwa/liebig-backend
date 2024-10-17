@@ -218,6 +218,15 @@
                     </a>
                 </li>
 
+<li class="pc-item pc-hasmenu">
+                    <a href="{{route('admin.model.image')}}" class="pc-link">
+                        <i style="font-size: 20px;" class="ph-duotone ph-chat-circle"></i>
+                        <span class="pc-mtext">Manage Model Images</span>
+                        {{--                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>--}}
+                        {{--                        <span class="pc-badge">2</span>--}}
+                    </a>
+                </li>
+
 
                 <li class="pc-item pc-hasmenu">
                     <a href="{{route('admin.payment.all')}}" class="pc-link">

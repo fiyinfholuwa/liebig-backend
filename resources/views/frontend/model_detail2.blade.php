@@ -21,66 +21,36 @@
                 </ul>
             </div>
 
-            @if(count($get_model_images) > 0)
+            {{$get_model_images}}
+            @if(!is_null($model->images))
                 <div class="col-md-5">
                     <div class="photo-grid">
-                        @foreach($get_model_images as $image)
-
+                        @foreach(json_decode($model->images) as $image)
                             <div class="photo-item">
-                                @if($image->image_type === 'free')
-                                    <!-- Free image, display the actual image -->
-                                    <img src="{{ asset($image->image) }}" alt="Photo 1" class="image-click" data-img-src="{{ asset($image->image) }}">
-                                @elseif(Auth::check() && in_array(Auth::user()->id, json_decode($image->logged_users, true) ?: []))
-                                    <img src="{{ asset($image->image) }}" alt="Photo 1" class="image-click" data-img-src="{{ asset($image->image) }}">
+                                @if(!is_null($check_pay_image))
+                                    <img src="{{ asset($image) }}" alt="Photo 1" class="image-click" data-img-src="{{ asset($image) }}">
                                 @else
-                                    <!-- Placeholder image with click event to show modal -->
-                                    <img src="https://via.placeholder.com/150" alt="Photo 1" class="pay-to-view-click" data-bs-toggle="modal" data-bs-target="#pay_to_view_img_{{ $image->id }}">
+                                    <img src="https://via.placeholder.com/150" alt="Photo 1">
                                 @endif
                                 <div class="overlay">
-                                    @if($image->image_type === 'free')
-                                        <div class="text view-image" data-img-src="{{ asset($image->image) }}">View</div>
-                                    @elseif(Auth::check() && in_array(Auth::user()->id, json_decode($image->logged_users, true) ?: []))
-                                        <div class="text view-image" data-img-src="{{ asset($image->image) }}">View</div>
+                                    @if(!is_null($check_pay_image))
+                                        <div class="text view-image" data-img-src="{{ asset($image) }}">View</div>
                                     @else
-                                        <div class="text upgrade-now pay-to-view-click" data-bs-toggle="modal" data-bs-target="#pay_to_view_img_{{ $image->id }}">Upgrade Now</div>
+                                        <div class="text upgrade-now">Upgrade Now</div>
                                     @endif
-                                </div>
-                            </div>
-
-                            <!-- Modal for each image -->
-                            <div class="modal fade" id="pay_to_view_img_{{ $image->id }}" tabindex="-1" role="dialog" aria-labelledby="payToViewModalLabel_{{ $image->id }}" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <form method="post" action="{{route('pay.to.view.images')}}">
-                                        @csrf
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Pay to View Image</h5>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Are you sure you want to pay to view this image? This action will remove <strong>{{ $image->amount }} coins</strong> from your balance.</p>
-                                            </div>
-                                            <input type="hidden" name="imageId" value="{{$image->id}}">
-                                            <input type="hidden" name="modelId" value="{{$image->userid}}">
-                                            <input type="hidden" name="amount" value="{{ $image->amount}}">
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-
-                                                @auth
-
-                                                <button type="submit" class="btn btn-primary">Pay Now</button>
-                                                @else
-                                                    <a class="btn btn-secondary" href="{{route('login')}}">Please Login First</a>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
                         @endforeach
                     </div>
+                    <div style="margin-top: 30px;">
+                        @if(is_null($check_pay_image) && \Illuminate\Support\Facades\Auth::check())
+                            <button class="btn btn-dark pay-to-view-btn">Pay to View Image</button>
+                        @else
+                            <a href="{{route('login')}}" class="btn btn-dark pay-to-view-btn">Pay to View Image</a>
+                        @endif
+                    </div>
                 </div>
             @endif
-
 
             <!-- Modal for image preview -->
             <div class="modal fade" id="model_preview_img" tabindex="-1" role="dialog" aria-labelledby="imagePreviewModalLabel" aria-hidden="true">

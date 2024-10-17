@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ModelImage;
 use App\Models\PayModelImage;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -31,14 +32,11 @@ class FrontendController extends Controller
     }
     public function model_detail($id){
         $model = User::where('id', '=', $id)->first();
-        $recommended_model = User::where('user_type', '=', 2)->paginate(3);
-        if (Auth::check()){
-            $check_pay_image = PayModelImage::where('userid', '=', Auth::user()->id)->where('modelId', '=', $id)->first();
-        }else{
-            $check_pay_image = NULL;
-        }
+        $get_model_images = ModelImage::where('userid', '=', $id)->get();
 
-        return view('frontend.model_detail', compact('model', 'recommended_model', 'check_pay_image'));
+        $recommended_model = User::where('user_type', '=', 2)->paginate(3);
+
+        return view('frontend.model_detail', compact('model', 'recommended_model', 'get_model_images'));
     }
 //    public function model_detail(){
 //        return view('frontend.model_detail');

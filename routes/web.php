@@ -61,9 +61,12 @@ Route::middleware('auth')->group(function () {
 
         Route::get('admin/support/view', 'admin_support_view')->name('admin.support.view');
         Route::get('admin/model/status', 'admin_model_status')->name('admin.model.status');
+        Route::get('admin/model/images', 'admin_model_images')->name('admin.model.image');
 
         Route::post('/admin/status/update', 'admin_update_status')->name('admin.status.update');
+        Route::post('/admin/image/update', 'admin_update_image')->name('admin.image.update');
         Route::post('/admin/status/delete/{id}', 'admin_status_delete')->name('admin.status.delete');
+        Route::post('/admin/image/delete/{id}', 'admin_image_delete')->name('admin.image.delete');
 
 
         Route::post('admin/support/update/{id}', 'admin_support_update')->name('admin.support.update');
@@ -111,9 +114,12 @@ Route::controller(\App\Http\Controllers\UserController::class)->group(function (
     Route::get('/user/news', 'user_news')->name('user.news');
     Route::post('/spin/validate', 'spin_validate')->name('spin.validate');
     Route::post('/claim/reward', 'claim_reward')->name('claim.reward');
+    Route::post('/move/reward', 'move_reward')->name('move.reward');
     Route::get('/user/news/detail/{url}', 'user_news_detail')->name('user.new.detail');
     Route::get('/user/order/history', 'user_order_history')->name('user.payment');
+    Route::get('/user/profile/', 'user_profile')->name('user.profile');
     Route::get('/user/wheel', 'user_wheel')->name('user.wheel');
+    Route::post('/user/move/to/wallet', 'reward_to_wallet')->name('reward_to_wallet');
 
     Route::post('/chat/add', 'user_chat_add')->name('user.chat.add');
     Route::get('/chat/detail/{id}', 'user_chat_detail')->name('user.chat.detail');

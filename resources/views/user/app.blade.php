@@ -385,7 +385,7 @@
                 <ion-icon name="apps-outline" class="me-2"></ion-icon>
                 <p class="mb-0">Dashboard</p>
             </a>
-            <a href="" class="menu-item d-flex align-items-center mb-3">
+            <a href="{{route('user.profile')}}" class="menu-item d-flex align-items-center mb-3">
                 <ion-icon name="person-outline" class="me-2"></ion-icon>
                 <p class="mb-0">Mein Profil</p>
             </a>
@@ -410,6 +410,7 @@
                 <ion-icon name="trophy-outline" class="me-2"></ion-icon>
                 <p class="mb-0">Glucksrad</p>
             </a>
+
 
             <a href="{{route('user.coins')}}" class="menu-item d-flex align-items-center mb-3">
                 <ion-icon name="cash-outline" class="me-2"></ion-icon>
