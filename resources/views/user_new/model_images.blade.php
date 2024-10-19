@@ -1,4 +1,4 @@
-@extends('admin.app')
+@extends('user_new.app')
 
 @section('title', 'Manage Model Pictures')
 @section('page', 'Manage Model Pictures')
@@ -24,14 +24,8 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div class="form-group">
+                                                    <input type="hidden" name="model_id" value="{{Auth::user()->id}}">
                                                     <label>Select Model</label>
-                                                    <select required name="model_id" class="form-control">
-                                                        <option value="">Select Model</option>
-                                                        @foreach($models as $model)
-                                                            <option value="{{$model->id}}">{{$model->name}}</option>
-                                                        @endforeach
-
-                                                    </select>
                                                 </div>
 
                                                 <div class="form-group">
@@ -75,7 +69,6 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>
                                     <th>Image</th>
                                     <th>Image Type</th>
                                     <th>Amount</th>
@@ -87,7 +80,6 @@
                                 @foreach($items as $Item)
                                     <tr>
                                         <td>{{$i++}}</td>
-                                        <td>{{optional($Item->model_info)->name}}</td>
                                         <td><img height="50" width="50" src="{{asset($Item->image)}}" alt="image"></td>
                                         <td>{{ $Item->image_type }}</td>
                                         <td>{{ $Item->amount }}</td>

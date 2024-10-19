@@ -57,7 +57,13 @@
 
                                         @else
                                             <div style="padding: 40px;">
-                                                <a href="{{route('models')}}">All Model</a>
+                                                @if(Auth::user()->user_type ===1)
+                                                    <a class="btn btn-outline-danger" href="{{route('models')}}">No Chats Yet View All Model</a>
+
+                                                @else
+                                                    <a class="btn btn-outline-danger" href="#">No Chats Yet</a>
+
+                                                @endif
 
                                             </div>
                                         @endif

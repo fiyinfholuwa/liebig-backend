@@ -110,6 +110,11 @@ Route::controller(\App\Http\Controllers\UserController::class)->group(function (
     Route::post('/follow/model', 'follow_model')->name('follow.model');
     Route::post('/user/status/update', 'user_update_status')->name('user.status.update');
     Route::get('/user/show/chats', 'user_show_chat')->name('show.model.chat');
+    Route::get('/user/show/chats/all', 'model_chat_all')->name('show.model.chat.all');
+    Route::get('/model/chat/detail/{id}', 'model_chat_detail')->name('model.chat.detail');
+
+    Route::get('model/model/images', 'model_model_images')->name('model.model.image');
+
 
     Route::get('/user/news', 'user_news')->name('user.news');
     Route::post('/spin/validate', 'spin_validate')->name('spin.validate');

@@ -113,7 +113,10 @@
                         <!-- Professional Coin Image -->
                         <img src="https://img.icons8.com/ios-filled/100/000000/coins.png" alt="Coin balance" class="coin-image mt-3" />
                         <!-- Button to Trigger Modal -->
-                        <a href="{{route('user.coins')}}" class="btn btn-outline-dark btn-lg" >Buy Coins</a>
+                        @if(\Illuminate\Support\Facades\Auth::user()->user_type ==1)
+                            <a href="{{route('user.coins')}}" class="btn btn-outline-dark btn-lg" >Buy Coins</a>
+
+                        @endif
 
                         <!-- Modal for Top Up Coins -->
                         <div id="coin_pay-top-up-modal" class="coin_pay-modal coin_pay-hidden">
@@ -148,31 +151,34 @@
 
             <div class="top_models mt-5">
                 <div class="row">
-                    <div class="col-lg-8">
-                        <h2>Top Models</h2>
-                        @if(count($user_models) > 0)
-                            <div class="row">
-                                @foreach($user_models as $model)
-                                    <div class="col-lg-4 nft mb-4">
+                    @if(\Illuminate\Support\Facades\Auth::user()->user_type ===1)
+                        <div class="col-lg-8">
+                            <h2>Top Models</h2>
+                            @if(count($user_models) > 0)
+                                <div class="row">
+                                    @foreach($user_models as $model)
+                                        <div class="col-lg-4 nft mb-4">
 
-                                        <img src="{{asset($model->profile_image)}}" alt="Beautiful Woman Portrait" class="img-fluid rounded shadow-sm" />
-                                        <div class="title mt-2 fw-semibold">{{$model->name}}</div>
-                                        <div class="details d-flex justify-content-between align-items-center mt-2">
-                                            <div class="icons d-flex align-items-center">
-                                                <div class="icon-container me-3">
-                                                    <!-- Eye Icon -->
-                                                    <a href="{{route('model.detail', $model->id)}}"><div class="custom-icon custom-eye-icon me-2" title="Views"></div></a>
-                                                    <!-- Chat Icon -->
-                                                    {{--                                                        <div class="custom-icon custom-chat-icon" title="Comments"></div>--}}
+                                            <img src="{{asset($model->profile_image)}}" alt="Beautiful Woman Portrait" class="img-fluid rounded shadow-sm" />
+                                            <div class="title mt-2 fw-semibold">{{$model->name}}</div>
+                                            <div class="details d-flex justify-content-between align-items-center mt-2">
+                                                <div class="icons d-flex align-items-center">
+                                                    <div class="icon-container me-3">
+                                                        <!-- Eye Icon -->
+                                                        <a href="{{route('model.detail', $model->id)}}"><div class="custom-icon custom-eye-icon me-2" title="Views"></div></a>
+                                                        <!-- Chat Icon -->
+                                                        {{--                                                        <div class="custom-icon custom-chat-icon" title="Comments"></div>--}}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
-                            </div>
+                                    @endforeach
+                                </div>
 
-                        @endif
-                    </div>
+                            @endif
+                        </div>
+
+                    @endif
                     <div class="col-lg-4">
                         <div class="unread-messages bg-light p-4 shadow-sm rounded">
                             <div class="heading d-flex justify-content-between align-items-center mb-3">

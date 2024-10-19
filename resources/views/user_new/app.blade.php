@@ -126,7 +126,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="flex-shrink-0">
-                            <img src="{{asset('backend/assets/images/user/avatar-1.jpg')}}" alt="user-image"
+                            <img src="{{!is_null(\Illuminate\Support\Facades\Auth::user()->profile_image) ? asset(\Illuminate\Support\Facades\Auth::user()->profile_image) : asset('backend/assets/images/user/avatar-1.jpg')}}" alt="user-image"
                                  class="user-avtar wid-45 rounded-circle"/>
                         </div>
                         <div class="flex-grow-1 ms-3 me-2">
@@ -186,14 +186,38 @@
                     </a>
                 </li>
 
-<li class="pc-item pc-hasmenu">
-                    <a href="{{route('show.model.chat')}}" class="pc-link">
-                        <i style="font-size: 20px;" class="ph-duotone ph-chat-circle"></i>
-                        <span class="pc-mtext">Meine Chats</span>
-                        {{--                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>--}}
-                        {{--                        <span class="pc-badge">2</span>--}}
-                    </a>
-                </li>
+                @if(Auth::user()->user_type == 1)
+                    <li class="pc-item pc-hasmenu">
+                        <a href="{{route('show.model.chat')}}" class="pc-link">
+                            <i style="font-size: 20px;" class="ph-duotone ph-chat-circle"></i>
+                            <span class="pc-mtext">Meine Chats</span>
+                            {{--                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>--}}
+                            {{--                        <span class="pc-badge">2</span>--}}
+                        </a>
+                    </li>
+
+                @else
+                    <li class="pc-item pc-hasmenu">
+                        <a href="{{route('show.model.chat.all')}}" class="pc-link">
+                            <i style="font-size: 20px;" class="ph-duotone ph-chat-circle"></i>
+                            <span class="pc-mtext">Meine Chats</span>
+                            {{--                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>--}}
+                            {{--                        <span class="pc-badge">2</span>--}}
+                        </a>
+                    </li>
+
+                    <li class="pc-item pc-hasmenu">
+                        <a href="{{route('model.model.image')}}" class="pc-link">
+                            <i style="font-size: 20px;" class="ph-duotone ph-chat-circle"></i>
+                            <span class="pc-mtext">Model Image</span>
+                            {{--                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>--}}
+                            {{--                        <span class="pc-badge">2</span>--}}
+                        </a>
+                    </li>
+
+                @endif
+
+
 
 
                 <li class="pc-item pc-hasmenu">
@@ -204,36 +228,39 @@
                         {{--                        <span class="pc-badge">2</span>--}}
                     </a>
                 </li>
+                @if(\Illuminate\Support\Facades\Auth::user()->user_type ==1)
+                    <li class="pc-item pc-hasmenu">
+                        <a href="{{route('models')}}" class="pc-link">
+                            <i style="font-size: 20px;" class="ph-duotone ph-users-three"></i>
+                            <span class="pc-mtext">Model suchen</span>
+                            {{--                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>--}}
+                            {{--                        <span class="pc-badge">2</span>--}}
+                        </a>
+                    </li>
 
-                <li class="pc-item pc-hasmenu">
-                    <a href="{{route('models')}}" class="pc-link">
-                        <i style="font-size: 20px;" class="ph-duotone ph-users-three"></i>
-                        <span class="pc-mtext">Model suchen</span>
-                        {{--                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>--}}
-                        {{--                        <span class="pc-badge">2</span>--}}
-                    </a>
-                </li>
+                    <li class="pc-item pc-hasmenu">
+                        <a href="{{route('user.wheel')}}" class="pc-link">
+                            <i style="font-size: 20px;" class="ph-duotone ph-pinwheel"></i>
+                            <span class="pc-mtext">Glucksrad </span>
+                        </a>
+                    </li>
 
-                <li class="pc-item pc-hasmenu">
-                    <a href="{{route('user.wheel')}}" class="pc-link">
-                        <i style="font-size: 20px;" class="ph-duotone ph-pinwheel"></i>
-                        <span class="pc-mtext">Glucksrad </span>
-                    </a>
-                </li>
+                    <li class="pc-item pc-hasmenu">
+                        <a href="{{route('user.coins')}}" class="pc-link">
+                            <i style="font-size: 20px;" class="ph-duotone ph-hand-coins"></i>
+                            <span class="pc-mtext">Coins Kaufen </span>
+                        </a>
+                    </li>
 
-                <li class="pc-item pc-hasmenu">
-                    <a href="{{route('user.coins')}}" class="pc-link">
-                        <i style="font-size: 20px;" class="ph-duotone ph-hand-coins"></i>
-                        <span class="pc-mtext">Coins Kaufen </span>
-                    </a>
-                </li>
+                    <li class="pc-item pc-hasmenu">
+                        <a href="{{route('user.payment')}}" class="pc-link">
+                            <i style="font-size: 20px;" class="ph-duotone ph-paypal-logo"></i>
+                            <span class="pc-mtext">Bestellverlauf </span>
+                        </a>
+                    </li>
 
-                <li class="pc-item pc-hasmenu">
-                    <a href="{{route('user.payment')}}" class="pc-link">
-                        <i style="font-size: 20px;" class="ph-duotone ph-paypal-logo"></i>
-                        <span class="pc-mtext">Bestellverlauf </span>
-                    </a>
-                </li>
+                @endif
+
 
                 <li class="pc-item pc-hasmenu">
                     <a href="{{route('logout')}}" class="pc-link">

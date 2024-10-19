@@ -359,4 +359,38 @@ public function user_profile(){
         return redirect()->back()->with($notification);
 
     }
+
+
+    public function model_chat_all()
+    {
+        $chats = Chat::where('modelId', '=' , Auth::user()->id)->get();
+        $g_chats = $chats->groupBy('userid')->map(function ($item) {
+            return $item->first();
+        });
+        return view('user_new.model_chat_all', ['chats' => $g_chats]);
+    }
+
+    public function model_chat_detail($id)
+    {
+        $chats = Chat::where('userid', '=', $id)->get();
+        $data = [
+            'chats' => $chats,
+            'userid' => $id,
+            'name' => User::where('id', '=', $id)->first()->name
+
+        ];
+        Chat::where('userid', '=', $id)->update(['model_status' => 'read']);
+
+        return view('user_new.model_chat_detail', $data);
+    }
+
+
+    public function model_model_images()
+    {
+        $models = User::where('user_type', '=', 2)->get();
+        $items = ModelImage::where('userid', Auth::user()->id)->latest()->get();
+        return view('user_new.model_images', compact('items', 'models'));
+    }
+
+
 }
