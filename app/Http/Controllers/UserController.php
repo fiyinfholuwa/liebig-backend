@@ -32,7 +32,7 @@ class UserController extends Controller
         }else{
             $my_chats = User::WhereIn('id', $followed_model)->get();
         }
-        return view('user.my_chats', compact('my_chats'));
+        return view('user_new.my_chat', compact('my_chats'));
     }
     public function user_dashboard() {
         if (is_null(Auth::user()->followed_models)){
@@ -48,22 +48,23 @@ class UserController extends Controller
                 ->get();
         }
         $user_models = User::where('user_type', 2)->latest()->paginate(2);
-        return view('user.dashboard', compact('user_models', 'get_user_statuses'));
+        return view('user_new.dashboard', compact('user_models', 'get_user_statuses'));
     }
 
     public function user_coin(){
         $plans = Plan::all();
         $payments = PaymentGateway::where('status', 1)->get();
-        return view('user.coin', compact('plans','payments'));
+        return view('user_new.coin', compact('plans','payments'));
     }
 
     public function user_order_history(){
         $payments = Payment::where('user_email', '=', Auth::user()->email)->latest()->get();
-        return view('user.payment', compact('payments'));
+        return view('user_new.payment', compact('payments'));
     }
 public function user_profile(){
         $payments = GiftInventory::where('userid', '=', Auth::user()->id)->latest()->get();
-        return view('user.profile', compact('payments'));
+        $gifts = WheelFortune::all();
+        return view('user_new.profile', compact('payments', 'gifts'));
     }
 
 
@@ -84,13 +85,13 @@ public function user_profile(){
 
     public function user_news(){
         $news = Blog::all();
-        return view('user.news', compact('news'));
+        return view('user_new.news', compact('news'));
     }
 
 
     public function user_news_detail($url){
         $new = Blog::where('post_url', '=', $url)->first();
-        return view('user.news_detail', compact('new',));
+        return view('user_new.news_detail', compact('new',));
     }
     public function pay_to_view_images(Request $request)
     {
@@ -176,12 +177,14 @@ public function user_profile(){
     public function user_chat_detail($id)
     {
         $chats = Chat::where('userid', '=', Auth::user()->id)->get();
+        $gifts = GiftInventory::where('userid', '=' , Auth::user()->id)->get();
         $data = [
             'chats' => $chats,
             'modelId' => $id,
+            'gifts' => $gifts
         ];
         Chat::where('userid', '=', Auth::user()->id)->update(['user_status' => 'read']);
-        return view('user.user_chats', $data);
+        return view('user_new.chat_detail', $data);
     }
 
     public function user_chat_add(Request $request){
@@ -231,7 +234,7 @@ public function user_profile(){
     {
         $rewards = WheelFortune::where('status', '=', 1)->paginate(8);
         $rewards = $rewards->items();
-        return view('user.wheel', compact('rewards'));
+        return view('user_new.wheel', compact('rewards'));
     }
 
     public function spin_validate(Request $request)
@@ -299,11 +302,61 @@ public function user_profile(){
         $move->userid = Auth::user()->id;
         $move->reward_id = $reward_id;
         $move->reward_amount = $reward['points'];
+        $move->reward_name = $reward['name'];
         $move->user_type = 'user';
         $move->save();
         $user = User::findOrFail(Auth::user()->id);
         $user->spin_today = now();
         $user->save();
         return response()->json(['success' => true, 'message' => 'Reward Move to Inventory successfully!']);
+    }
+
+    public function user_buy_gift(Request $request)
+    {
+        $reward_info = WheelFortune::findOrFail($request->gift_id);
+
+        if ($reward_info->points > Auth::user()->coin_balance){
+            $notification = array(
+                'message' => 'You have Insufficient coins, please reload your coins',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('user.coins')->with($notification);
+
+        }
+        User::where('id', Auth::user()->id)->decrement('coin_balance', $reward_info->points);
+        $move = new GiftInventory();
+        $move->userid = Auth::user()->id;
+
+        $move->reward_id = $reward_info->id;
+        $move->reward_amount = $reward_info->points;
+        $move->reward_name = $reward_info->name;
+        $move->user_type = 'user';
+        $move->save();
+        $notification = array(
+            'message' => 'You have successfully purchased this gift, please check your inventory',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    }
+    public function user_send_gift(Request $request)
+    {
+        $gift_info = GiftInventory::findOrFail($request->gift_id);
+
+
+        $move = new GiftInventory();
+        $move->userid = $request->modelId;
+        $move->reward_id = $gift_info->reward_id;
+        $move->reward_amount = ($gift_info->reward_amount)/2;
+        $move->reward_name = $gift_info->reward_name;
+        $move->user_type = 'model';
+        $move->save();
+        $gift_info->delete();
+        $notification = array(
+            'message' => 'You have successfully gifted this model',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
     }
 }

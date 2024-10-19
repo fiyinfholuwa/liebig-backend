@@ -1,35 +1,35 @@
 
 /* Base */
-*,
-*::after,
-*::before {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    font-family: "Lato", sans-serif;
-}
+/**,*/
+/**::after,*/
+/**::before {*/
+/*    box-sizing: border-box;*/
+/*    padding: 0;*/
+/*    margin: 0;*/
+/*    font-family: "Lato", sans-serif;*/
+/*}*/
 
-body {
-    background: #6D3648;
-    color: #a1a2af;
-    transition: 0.5s ease;
-    margin: 0; /* Remove margin to fill the screen */
-    padding: 0; /* Remove padding to fill the screen */
-}
+/*body {*/
+/*    background: #6D3648;*/
+/*    color: #a1a2af;*/
+/*    transition: 0.5s ease;*/
+/*    margin: 0; !* Remove margin to fill the screen *!*/
+/*    padding: 0; !* Remove padding to fill the screen *!*/
+/*}*/
 
-.dashboard {
-    max-width: auto;
-    min-height: 800px;
-    background: #f2f2f2;
-    margin: 50px auto;
-    display: flex;
-    overflow: hidden;
-    border-radius: 12px;
-    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.12);
-    margin: 0; /* Remove margin to fill the screen */
-    padding: 0; /* Remove padding to fill the screen */
-    overflow-x: hidden;
-}
+/*.dashboard {*/
+/*    max-width: auto;*/
+/*    min-height: 800px;*/
+/*    background: #f2f2f2;*/
+/*    margin: 50px auto;*/
+/*    display: flex;*/
+/*    overflow: hidden;*/
+/*    border-radius: 12px;*/
+/*    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.12);*/
+/*    margin: 0; !* Remove margin to fill the screen *!*/
+/*    padding: 0; !* Remove padding to fill the screen *!*/
+/*    overflow-x: hidden;*/
+/*}*/
 
 .flex {
     display: flex;
@@ -57,23 +57,23 @@ body {
 }
 
 
-.sidebar-toggle {
-    display: none; /* Hidden by default for desktop */
-    position: fixed;
-    position: sticky;
-    top: 1rem;
-    left: 1rem;
-    background: #333;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    width: 3rem;
-    height: 3rem;
-    font-size: 1.5rem;
-    z-index: 1001; /* Ensure it is above other content */
-    align-items: center;
-    justify-content: center;
-}
+/*.sidebar-toggle {*/
+/*    display: none; !* Hidden by default for desktop *!*/
+/*    position: fixed;*/
+/*    position: sticky;*/
+/*    top: 1rem;*/
+/*    left: 1rem;*/
+/*    background: #333;*/
+/*    color: #fff;*/
+/*    border: none;*/
+/*    border-radius: 50%;*/
+/*    width: 3rem;*/
+/*    height: 3rem;*/
+/*    font-size: 1.5rem;*/
+/*    z-index: 1001; !* Ensure it is above other content *!*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*}*/
 
 /* Icon styles */
 .icon-open,

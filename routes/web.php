@@ -122,6 +122,8 @@ Route::controller(\App\Http\Controllers\UserController::class)->group(function (
     Route::post('/user/move/to/wallet', 'reward_to_wallet')->name('reward_to_wallet');
 
     Route::post('/chat/add', 'user_chat_add')->name('user.chat.add');
+    Route::post('/user/buy/gift', 'user_buy_gift')->name('user.buy.gift');
+    Route::post('/user/send/gift', 'user_send_gift')->name('user.send.gift');
     Route::get('/chat/detail/{id}', 'user_chat_detail')->name('user.chat.detail');
 });
 });
