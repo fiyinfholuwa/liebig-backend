@@ -261,6 +261,13 @@
 
                 @endif
 
+                <li class="pc-item pc-hasmenu">
+                    <a href="{{route('home')}}" class="pc-link">
+                        <i style="font-size: 20px;" class="ph-duotone ph-house-simple"></i>
+                        <span class="pc-mtext">Visit Website </span>
+                    </a>
+                </li>
+
 
                 <li class="pc-item pc-hasmenu">
                     <a href="{{route('logout')}}" class="pc-link">

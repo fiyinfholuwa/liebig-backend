@@ -16,6 +16,7 @@ use App\Models\WheelFortune;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -64,7 +65,8 @@ class UserController extends Controller
 public function user_profile(){
         $payments = GiftInventory::where('userid', '=', Auth::user()->id)->latest()->get();
         $gifts = WheelFortune::all();
-        return view('user_new.profile', compact('payments', 'gifts'));
+        $user = User::findOrFail(Auth::user()->id);
+        return view('user_new.profile', compact('payments', 'gifts', 'user'));
     }
 
 
@@ -351,6 +353,16 @@ public function user_profile(){
         $move->reward_name = $gift_info->reward_name;
         $move->user_type = 'model';
         $move->save();
+
+        $chat = new Chat();
+        $model_info = User::where('id', $request->modelId)->first();
+        $chat->message = $gift_info->reward_name." sent to ".$model_info->name;
+        $chat->user_type ="user";
+        $chat->userid = Auth::user()->id;
+        $chat->modelId = $request->modelId;
+        $chat->user_status= "read";
+        $chat->save();
+
         $gift_info->delete();
         $notification = array(
             'message' => 'You have successfully gifted this model',
@@ -390,6 +402,133 @@ public function user_profile(){
         $models = User::where('user_type', '=', 2)->get();
         $items = ModelImage::where('userid', Auth::user()->id)->latest()->get();
         return view('user_new.model_images', compact('items', 'models'));
+    }
+
+
+    public function user_user_update(Request $request, $id){
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'username' => $request->username,
+            'user_status' => 1,
+            'interested_in' => $request->interested
+        ];
+        $result = User::findOrFail($id)->update($data);
+        return GeneralController::redirectWithMessage($result, 'User Successfully Updated', "User Could not be Updated", 'back');
+    }
+
+
+    public function user_password_change(Request $request)
+    {
+        $user = Auth::user();
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
+        ]);
+
+        if (Hash::check($request->old_password, $user->password)) {
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+            $notification = array(
+                'message' => 'Password Changed Successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        } else {
+            $notification = array(
+                'message' => 'Incorrect Password, Please try again.',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
+    }
+
+    public function update_model_user(Request $request)
+    {
+        $request->validate([
+            'age' => 'required|integer',
+            'about_me' => 'required|string',
+            'my_interest' => 'nullable|string',
+            'address' => 'required|string',
+            'sexuality' => 'nullable|string',
+            'eye_color' => 'nullable|string',
+            'hair' => 'nullable|string',
+            'body_type' => 'nullable|string',
+            'height' => 'nullable|string',
+            'ethnicity' => 'nullable|string',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user = User::find($request->userid);
+        if ($request->hasFile('profile_image')) {
+            $attachment = $request->file('profile_image');
+            $extension = $attachment->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $directory = 'uploads/profile/';
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+            $attachment->move($directory, $filename);
+
+            // Optionally, delete the old profile image if it exists
+            if ($user->profile_image && file_exists($user->profile_image)) {
+                unlink($user->profile_image);
+            }
+
+            $user->profile_image = $directory . $filename;
+        }
+
+        $user->age = $request->age;
+        $user->about_me = $request->about_me;
+        $user->my_interest = $request->my_interest;
+        $user->address = $request->address;
+        $user->sexuality = $request->sexuality;
+        $user->eye_color = $request->eye_color;
+        $user->hair = $request->hair;
+        $user->body_type = $request->body_type;
+        $user->height = $request->height;
+        $user->ethnicity = $request->ethnicity;
+        $user->save();
+        return GeneralController::redirectWithMessage(true, 'User Successfully Updated', "User Could not be Updated", 'back');
+    }
+
+
+    public function model_image_delete($id)
+    {
+        $status = ModelImage::findOrFail($id);
+        $status->delete();
+        $notification = array(
+            'message' => 'Model Image Successfully Deleted',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+
+    public function model_update_image(Request $request)
+    {
+
+        $image = $request->file('image');
+        $extension = $image->getClientOriginalExtension();
+        $filename = time() . '.' . $extension;
+        $directory = 'uploads/status/';
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        $image->move($directory, $filename);
+        $path = $directory . $filename;
+        $status = new ModelImage();
+        $status->userid = $request->model_id;
+        $status->image = $path;
+        $status->image_type = $request->image_type;
+        $status->amount = $request->image_type ==='free' ? 0 : $request->amount;
+        $status->save();
+        $notification = array(
+            'message' => 'Image Successfully Updated.',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
 
 

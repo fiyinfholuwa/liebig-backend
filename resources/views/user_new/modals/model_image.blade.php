@@ -3,7 +3,7 @@
 
 
 <div class="modal fade" id="delete_{{$Item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <form method="post" action="{{route('admin.image.delete', $Item->id)}}">
+    <form method="post" action="{{route('model.image.delete', $Item->id)}}">
         @csrf
         <div class="modal-dialog" role="document">
             <div class="modal-content">

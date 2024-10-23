@@ -14,7 +14,7 @@
                         <div style="margin-bottom: 30px; margin-top: 20px;" class="">
                             <a  data-bs-toggle="modal" data-bs-target="#add_category" class="btn btn-primary text-white"> <i class="fa fa-plus"></i> Add Model Image</a>
                             <div class="modal fade" id="add_category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <form method="post" action="{{route('admin.image.update')}}" enctype="multipart/form-data">
+                                <form method="post" action="{{route('model.image.update')}}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'user_access'])->name('dashboard');
 Route::get('redirect', [AuthController::class, 'check_login'])->name('check_login');
 
 Route::middleware('auth')->group(function () {
@@ -30,7 +30,7 @@ Route::controller(\App\Http\Controllers\FrontendController::class)->group(functi
 });
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'user_access' ])->group(function () {
 
     Route::controller(\App\Http\Controllers\AdminController::class)->group(function () {
 //        Route::get('admin/dashboard', 'admin_dashboard')->name('dashboard');
@@ -130,6 +130,16 @@ Route::controller(\App\Http\Controllers\UserController::class)->group(function (
     Route::post('/user/buy/gift', 'user_buy_gift')->name('user.buy.gift');
     Route::post('/user/send/gift', 'user_send_gift')->name('user.send.gift');
     Route::get('/chat/detail/{id}', 'user_chat_detail')->name('user.chat.detail');
+
+    Route::post('user/user/update/{id}', 'user_user_update')->name('user.user.update');
+    Route::post('/user/password/change/', 'user_password_change')->name('user.password.change');
+
+    Route::post('model/model/update/', 'update_model_user')->name('update.model.user');
+    Route::post('/model/image/update', 'model_update_image')->name('model.image.update');
+    Route::post('/model/image/delete/{id}', 'model_image_delete')->name('model.image.delete');
+
+
+
 });
 });
 
