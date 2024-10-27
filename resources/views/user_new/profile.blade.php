@@ -158,7 +158,6 @@
 
                                 </div>
 
-                                @if($user->user_type == 2)
                                     <div class="row">
                                         <h3 style="margin-top: 20px;">Update  Information</h3>
                                         <div class="col-lg-12">
@@ -277,7 +276,7 @@
                                             </form>
                                         </div>
                                     </div>
-                                @endif
+
 
                                 <h2 class="mt-3">Change Password</h2>
                                 <section id="multiple-column-form">

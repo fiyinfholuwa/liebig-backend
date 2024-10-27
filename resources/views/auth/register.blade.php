@@ -9,30 +9,47 @@
     <link href="{{asset('frontend/css/Signup.css')}}" rel="stylesheet">
 
 </head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+<style>
+    *{
+        font-family: "Lato", sans-serif;
+    }
+</style>
+
 <body>
 <div class="container signup-container my-5">
     <div class="row g-0 shadow rounded-4 overflow-hidden bg-white">
+        <div class="col-lg-6 d-lg-block" style="background: url('{{asset('frontend/images/register.jpg')}}') center/contain;">
+            <div class="h-100 d-flex align-items-center justify-content-center" style="background-color: rgba(255, 99, 132, 0.6);">
+                <div class="text-white text-center p-5">
+                    <h2 class="fw-bold mb-4">Welcome to Lieblings Chat</h2>
+                    <p class="lead">Connect with amazing people and start meaningful conversations today!</p>
+                </div>
+            </div>
+        </div>
         <div class="col-lg-6 p-5">
             <img src="{{asset('fronteend/images/Lieblings-300x126.png')}}" alt="">
             <h2 class="text-center mb-4">Create an Account</h2>
-            <p class="text-center mb-4">Already a member? <a href="{{route('login')}}" class="text-decoration-none">Sign In</a></p>
+            <p class="text-center mb-4">Du bist bereits Mitglied?  <a href="{{route('login')}}" class="text-decoration-none">Jetzt anmelden</a></p>
             <form method="POST" action="{{ route('register') }}">
                 @csrf
                 <div class="mb-3">
-                    <input type="text" value="{{old('name')}}" class="form-control form-control-lg" name="name" placeholder="Full Name" required>
+                    <input type="text" value="{{old('name')}}" class="form-control form-control-lg" name="name" placeholder="Vollständiger Name" required>
                     @error('name')
                     <p style="color: #b01e1e; font-weight: bold">{{$message}}</p>
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <input type="email" value="{{old('email')}}" name="email" class="form-control form-control-lg" placeholder="Email Address" required>
+                    <input type="email" value="{{old('email')}}" name="email" class="form-control form-control-lg" placeholder="E-Mail Adresse" required>
                     @error('email')
                     <p style="color: #b01e1e; font-weight: bold">{{$message}}</p>
                     @enderror
                 </div>
 
                 <div class="mb-3">
-                    <input type="text" value="{{old('username')}}" name="username" class="form-control form-control-lg" placeholder="Username" required>
+                    <input type="text" value="{{old('username')}}" name="Benutzername" class="form-control form-control-lg" placeholder="Username" required>
                     @error('username')
                     <p style="color: #b01e1e; font-weight: bold">{{$message}}</p>
                     @enderror
@@ -40,7 +57,7 @@
 
                 <div class="mb-3">
                     <div class="input-group">
-                        <input type="password" name="password" class="form-control form-control-lg" id="password" placeholder="Password" required>
+                        <input type="password" name="password" class="form-control form-control-lg" id="password" placeholder="Passwort" required>
                         <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                             <i class="far fa-eye"></i>
                         </button>
@@ -63,31 +80,24 @@
                 </div>
 
 
-                <div class="mb-3">
-                    <select name="interested_in" class="form-select form-select-lg" required>
-                        <option selected disabled value="">I'm interested in</option>
-                        <option>Women</option>
-                        <option>Men</option>
-                    </select>
-                    @error('interested_in')
-                    <p style="color: #b01e1e; font-weight: bold">{{$message}}</p>
-                    @enderror
-                </div>
+{{--                <div class="mb-3">--}}
+{{--                    <select name="interested_in" class="form-select form-select-lg" required>--}}
+{{--                        <option selected disabled value="">I'm interested in</option>--}}
+{{--                        <option>Women</option>--}}
+{{--                        <option>Men</option>--}}
+{{--                    </select>--}}
+{{--                    @error('interested_in')--}}
+{{--                    <p style="color: #b01e1e; font-weight: bold">{{$message}}</p>--}}
+{{--                    @enderror--}}
+{{--                </div>--}}
                 <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="termsCheck" required>
-                    <label class="form-check-label" for="termsCheck">I agree to the <a href="#" class="text-decoration-none">Terms and Conditions</a></label>
+                    <label class="form-check-label" for="termsCheck">Ich habe die Allgemeinen Geschäftsbedingungen gelesen,  <a href="#" class="text-decoration-none">verstanden und stimme ihnen zu.</a></label>
                 </div>
-                <button type="submit" class="btn btn-signup btn-lg text-white w-100 mb-3">Create Account</button>
+                <button type="submit" class="btn btn-signup btn-lg text-white w-100 mb-3">Account erstellen</button>
             </form>
         </div>
-        <div class="col-lg-6 d-none d-lg-block" style="background: url('{{asset('frontend/images/hotmodel.avif')}}') center/cover;">
-            <div class="h-100 d-flex align-items-center justify-content-center" style="background-color: rgba(255, 99, 132, 0.6);">
-                <div class="text-white text-center p-5">
-                    <h2 class="fw-bold mb-4">Welcome to Lieblings Chat</h2>
-                    <p class="lead">Connect with amazing people and start meaningful conversations today!</p>
-                </div>
-            </div>
-        </div>
+
     </div>
 </div>
 <script src="Signup.js"></script>

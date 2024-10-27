@@ -8,26 +8,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="{{asset('frontend/css/Account.css')}}" rel="stylesheet">
 </head>
+
 <body>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+<style>
+    *{
+        font-family: "Lato", sans-serif;
+    }
+</style>
 <div class="container login-container mt-5">
     <div class="row g-0 shadow rounded-3 overflow-hidden">
         <div class="col-md-6 d-flex align-items-center justify-content-center"
-             style="background-image: url({{asset('frontend/images/model1.jpg')}}); background-size: cover; background-position: center; min-height: 300px;">
+             style="background-image: url({{asset('frontend/images/login.jpg')}}); background-size: cover; background-position: center; min-height: 300px;">
         </div>
 
         <div class="col-md-6 bg-white p-5">
-            <h2 class="text-center mb-4">Sign In</h2>
+            <h2 class="text-center mb-4">Anmelden</h2>
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email address</label>
+                    <label for="email" class="form-label">E-Mail Adresse</label>
                     <input type="email" name="email" class="form-control" id="email" required>
                     @error('email')
                     <p style="color: #b01e1e; font-weight: bold">{{$message}}</p>
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label">Passwort</label>
                     <div class="input-group">
                         <input name="password" type="password" class="form-control" id="password" required>
                         <button class="btn btn-outline-secondary" type="button" id="togglePassword">
@@ -40,15 +50,15 @@
                 </div>
                 <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="rememberMe">
-                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                    <label class="form-check-label" for="rememberMe">Login speichern</label>
                 </div>
                 <button type="submit"  class="btn btn-signin text-white w-100 mb-3" role="button">Sign In</button>
                 <div class="text-center mb-3">
-                    <a href="Forgot.html" class="text-decoration-none">Forgot password?</a>
+                    <a href="Forgot.html" class="text-decoration-none">Passwort vergessen?</a>
                 </div>
             </form>
             <div class="text-center">
-                <p>Don't have an account? <a href="{{route('register')}}" class="text-decoration-none">Sign Up</a></p>
+                <p>Noch keinen Account? Jetzt ? <a href="{{route('register')}}" class="text-decoration-none">registrieren</a></p>
             </div>
         </div>
     </div>
