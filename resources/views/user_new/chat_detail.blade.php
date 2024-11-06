@@ -61,7 +61,15 @@
                                     <input type="hidden" name="userid" value="{{ Auth::user()->id }}">
                                     <input type="hidden" name="modelId" value="{{ $modelId }}">
 
-                                    <textarea name="message" class="form-control border-0 shadow-none px-0" placeholder="Type a Message" rows="2"></textarea>
+                                    <textarea
+                                        name="message"
+                                        class="form-control border-0 shadow-none px-0"
+                                        placeholder="Type a Message"
+                                        rows="2"
+                                        maxlength="200"
+                                        oninput="document.getElementById('charCount').textContent = this.value.length + '/200 characters';">
+</textarea>
+                                    <small style="color: red; font-weight: bolder;" id="charCount">0/200 characters</small>
 
                                     <div class="row">
                                         <div class="col-lg-3">

@@ -84,8 +84,16 @@
                     <input type="hidden" name="userid" id="replyUserid">
                     <input type="hidden" name="modelid" id="replyModelid">
 
-                    <textarea name="message" class="form-control border-0 shadow-none px-0" placeholder="Type a Message" rows="2"></textarea>
-                    <hr class="my-2">
+                    <textarea
+                        name="message"
+                        class="form-control border-0 shadow-none px-0"
+                        placeholder="Type a Message"
+                        rows="2"
+                        maxlength="200"
+                        oninput="document.getElementById('charCount').textContent = this.value.length + '/200 characters';">
+</textarea>
+
+                                       <hr class="my-2">
 
                     <!-- Optional Image Upload -->
                     <input type="file" name="image" class="form-control-file mb-2">
@@ -113,6 +121,17 @@
                     document.getElementById('replyForm').scrollIntoView();
                 });
             });
+        </script>
+
+        <script>
+            function checkWordLimit(textarea, maxWords) {
+                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
+                if (words.length > maxWords) {
+                    textarea.value = words.slice(0, maxWords).join(" ");
+                    words = words.slice(0, maxWords);
+                }
+                document.getElementById('wordCount').textContent = `${words.length}/${maxWords} words`;
+            }
         </script>
 
     </div>

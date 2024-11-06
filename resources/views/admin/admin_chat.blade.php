@@ -57,6 +57,12 @@
                                         <div class="d-flex align-items-center mb-1 chat-msg">
                                             <div class="flex-grow-1 {{ $isUser ? 'ms-3' : 'me-3' }}">
                                                 <div class="msg-content {{ $isUser ? 'bg-primary' : 'card' }} mb-0">
+                                                    @if($isUser)
+                                                        @php
+                                                            echo '<span style="color: black; font-size:12px;">Bal:' . get_user_wallet($message['userid']) . '</span>';
+                                                        @endphp
+                                                    @endif
+
                                                     <p class="mb-0">{{ $message['message'] }}</p>
                                                 </div>
                                                 @if($isUser)
@@ -84,8 +90,14 @@
                     <input type="hidden" name="userid" id="replyUserid">
                     <input type="hidden" name="modelid" id="replyModelid">
 
-                    <textarea name="message" class="form-control border-0 shadow-none px-0" placeholder="Type a Message" rows="2"></textarea>
-                    <hr class="my-2">
+                    <textarea
+                        name="message"
+                        class="form-control border-0 shadow-none px-0"
+                        placeholder="Type a Message"
+                        rows="2"
+                        maxlength="200"
+                        oninput="document.getElementById('charCount').textContent = this.value.length + '/200 characters';">
+</textarea>                    <hr class="my-2">
 
                     <!-- Optional Image Upload -->
                     <input type="file" name="image" class="form-control-file mb-2">

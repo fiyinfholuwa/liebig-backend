@@ -28,6 +28,13 @@
                                             <h5 class="card-title">{{$model->name}}<span class="text-success">●</span></h5>
                                             <p class="card-text">{{$model->address}}</p>
                                             <span class="badge bg-warning text-dark">GOLD</span>
+                                            @auth
+                                                <a  href="{{route('show.model.chat.all')}}" style="padding-left: 30px; font-size: 30px; text-decoration: none; color: white;">Chat <i class="fa fa-comment"></i></a>
+
+                                            @else
+                                                <a href="{{route('login')}}" style="padding-left: 30px; font-size: 30px; text-decoration: none; color: white;">Chat <i class="fa fa-comment"></i></a>
+
+                                            @endauth
                                         </div>
                                     </div>
                                 </div>
@@ -39,14 +46,14 @@
                 </div>
                 @endif
 
-        <!-- Pagination -->
-        <nav aria-label="Page navigation" class="my-4">
-            <ul class="pagination justify-content-center">
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </nav>
+{{--        <!-- Pagination -->--}}
+{{--        <nav aria-label="Page navigation" class="my-4">--}}
+{{--            <ul class="pagination justify-content-center">--}}
+{{--                <li class="page-item active"><a class="page-link" href="#">1</a></li>--}}
+{{--                <li class="page-item"><a class="page-link" href="#">2</a></li>--}}
+{{--                <li class="page-item"><a class="page-link" href="#">Next</a></li>--}}
+{{--            </ul>--}}
+{{--        </nav>--}}
         </div>
     </section>
 

@@ -44,6 +44,21 @@ if (!function_exists('get_last_message_user')) {
 
     }
 }
+
+if (!function_exists('get_user_wallet')) {
+    function get_user_wallet($userid): string
+    {
+        $user_info =  \App\Models\User::where('id', $userid)->first();
+        if (is_null($user_info)){
+            return "";
+        }else{
+            return  $user_info->coin_balance;
+        }
+
+    }
+}
+
+
 if (!function_exists('get_last_message_model')) {
     function get_last_message_model($modelId)
     {

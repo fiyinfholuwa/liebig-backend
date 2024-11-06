@@ -10,6 +10,7 @@ use App\Models\Payment;
 use App\Models\PaymentGateway;
 use App\Models\PayModelImage;
 use App\Models\Plan;
+use App\Models\TrackFreeChatModel;
 use App\Models\User;
 use App\Models\UserStatus;
 use App\Models\WheelFortune;
@@ -189,17 +190,45 @@ public function user_profile(){
         return view('user_new.chat_detail', $data);
     }
 
+    private static function track_first_five_model_messages($userid, $modelId): bool
+    {
+        $check_free_tracking = TrackFreeChatModel::where('userid', '=', $userid)
+            ->where('modelId', '=', $modelId)
+            ->first();
+
+        if (!$check_free_tracking) {
+            $track = new TrackFreeChatModel();
+            $track->userid = $userid;
+            $track->modelId = $modelId;
+            $track->free_count = 1;
+            $track->save();
+            return true;
+        } else {
+            if ($check_free_tracking->free_count < 5) {
+                $check_free_tracking->free_count += 1;
+                $check_free_tracking->save();
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
     public function user_chat_add(Request $request){
         $chat = new Chat();
 
         $coin_to_chat = 12;
-        if ($coin_to_chat > Auth::user()->coin_balance ){
-            $notification = array(
-                'message' => 'You have Insufficient coins, please reload your coins',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('user.coins')->with($notification);
+        if (!self::track_first_five_model_messages(Auth::user()->id, $request->modelId)){
+            if ($coin_to_chat > Auth::user()->coin_balance ){
+                $notification = array(
+                    'message' => 'You have Insufficient coins, please reload your coins',
+                    'alert-type' => 'error'
+                );
+                return redirect()->route('user.coins')->with($notification);
+            }
+
         }
+
         User::where('id', Auth::user()->id)->decrement('coin_balance', $coin_to_chat);
         User::where('id', $request->modelId)->increment('coin_balance', $coin_to_chat/2);
         $baseUrl = request()->getSchemeAndHttpHost();

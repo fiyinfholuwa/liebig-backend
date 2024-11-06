@@ -34,7 +34,7 @@
                                     <img src="{{ asset($image->image) }}" alt="Photo 1" class="image-click" data-img-src="{{ asset($image->image) }}">
                                 @else
                                     <!-- Placeholder image with click event to show modal -->
-                                    <img src="https://www.tbmatuka.com/upload/placeholders/16px_upscaled.png" alt="Photo 1" class="pay-to-view-click" data-bs-toggle="modal" data-bs-target="#pay_to_view_img_{{ $image->id }}">
+                                    <img src="https://via.placeholder.com/150" alt="Photo 1" class="pay-to-view-click" data-bs-toggle="modal" data-bs-target="#pay_to_view_img_{{ $image->id }}">
                                 @endif
                                 <div class="overlay">
                                     @if($image->image_type === 'free')
