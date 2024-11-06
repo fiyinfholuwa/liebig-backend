@@ -174,7 +174,7 @@ body { background-color: #f8f9fa; }
 .badge { font-size: 0.8rem; padding: 5px 10px; }
 .badge-gold { background-color: #ffd700; color: #000; }
 .badge-featured { background-color: #ff69b4; color: #fff; }
-.profile-img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+.profile-img { width: 40px; height: 40px; border-radius: 50%; object-fit: contain; }
 .toggle-switch { width: 50px; }
 .more-filters { display: none; }
 .page { display: none; }

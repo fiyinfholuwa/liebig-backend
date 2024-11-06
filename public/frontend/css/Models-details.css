@@ -1,4 +1,4 @@
-.profile-photo { width: 100%; height: 150px; object-fit: cover; }
+.profile-photo { width: 100%; height: 150px; object-fit: contain; }
         .badge-gold { background-color: #ffd700; color: #000; }
         .badge-verified { background-color: #28a745; color: #fff; }
         .badge-awesome { background-color: #17a2b8; color: #fff; }
@@ -8,8 +8,8 @@
         .recommended-card { position: relative; }
         .recommended-card .badge-featured { position: absolute; top: 10px; right: 10px; background-color: #dc3545; color: #fff; }
         .recommended-card .card-img-overlay { background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%); }
-        .recommended-card .card-title { position: absolute; bottom: 10px; left: 10px; color: #fff; 
-        
+        .recommended-card .card-title { position: absolute; bottom: 10px; left: 10px; color: #fff;
+
 }
 
 :root {
@@ -143,14 +143,14 @@ body{
 body { background-color: #f8f9fa; }
 .filter-section { background-color: white; padding: 20px 0; margin-bottom: 30px; }
 .card { border: none; border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
-.card-img-top { height: 300px; object-fit: cover; }
+.card-img-top { height: 300px; object-fit: contain; }
 .card-body { padding: 15px; }
 .card-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 5px; }
 .card-text { font-size: 0.9rem; color: #6c757d; }
 .badge { font-size: 0.8rem; padding: 5px 10px; }
 .badge-gold { background-color: #ffd700; color: #000; }
 .badge-featured { background-color: #ff69b4; color: #fff; }
-.profile-img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+.profile-img { width: 40px; height: 40px; border-radius: 50%; object-fit: contain; }
 .toggle-switch { width: 50px; }
 .more-filters { display: none; }
 .page { display: none; }
@@ -182,13 +182,13 @@ body { background-color: #f8f9fa; }
 
     .navbar-toggler {
         position: fixed;
-        top: 1.7rem; 
-        right: 1rem; 
-        z-index: 1040; 
+        top: 1.7rem;
+        right: 1rem;
+        z-index: 1040;
     }
 
     .navbar-brand {
-        width: 150px; 
+        width: 150px;
         height: auto;
     }
 }
@@ -335,7 +335,7 @@ footer .social-icons a:hover {
 .photo-item img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 .photo-item .overlay {
     position: absolute;
@@ -442,7 +442,7 @@ footer .social-icons a:hover {
 
 .hover-card .card-img-top {
     height: 250px;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .hover-overlay {
