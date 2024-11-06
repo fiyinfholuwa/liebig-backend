@@ -280,10 +280,10 @@
                 </li>
 
                 <li class="pc-item pc-hasmenu">
-                    <a href="" class="pc-link">
+                    <a href="{{route('admin.contact')}}" class="pc-link">
                         <i style="font-size: 20px;" class="ph-duotone ph-user-gear"></i>
 
-                        <span class="pc-mtext">Profile</span>
+                        <span class="pc-mtext">Contact Us</span>
                         {{--                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>--}}
                         {{--                        <span class="pc-badge">2</span>--}}
                     </a>

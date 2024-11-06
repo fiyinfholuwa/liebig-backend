@@ -81,23 +81,24 @@
                                     können.</p>
                             </div>
                             <div class="col-md-6">
-                                <form id="contactForm" class="needs-validation" novalidate>
+                                <form action="{{route('contact.save')}}"  method="post" id="contactForm" class="needs-validation" novalidate>
+                                    @csrf
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
-                                            <input type="text" class="form-control" id="fullName" placeholder="Vollständiger Name" required>
+                                            <input type="text" class="form-control" name="name" id="fullName" placeholder="Vollständiger Name" required>
                                             <div class="invalid-feedback">
                                                 Bitte geben Sie Ihren vollständigen Namen an.
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <input type="email" class="form-control" id="email" placeholder="E-Mail" required>
+                                            <input type="email" class="form-control" name="email" id="email" placeholder="E-Mail" required>
                                             <div class="invalid-feedback">
                                                 Bitte geben Sie eine gültige E-Mail-Adresse an.
                                             </div>
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <textarea class="form-control" id="message" rows="4" placeholder="Ihre Nachricht..." required></textarea>
+                                        <textarea class="form-control" id="message" name="message" rows="4" placeholder="Ihre Nachricht..." required></textarea>
                                         <div class="invalid-feedback">
                                             Bitte geben Sie Ihre Nachricht ein.
                                         </div>

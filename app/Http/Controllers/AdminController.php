@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Chat;
+use App\Models\ContactUs;
 use App\Models\ModelImage;
 use App\Models\Payment;
 use App\Models\Plan;
@@ -683,6 +684,25 @@ public function admin_model_images()
         $status->save();
         $notification = array(
             'message' => 'Image Successfully Updated.',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+
+    public function admin_contact_us()
+    {
+        $all_messages = ContactUs::all();
+        return view('admin.contact_us', compact('all_messages'));
+    }
+
+
+    public function admin_contact_delete($id)
+    {
+        $contact = ContactUs::findOrFail($id);
+        $contact->delete();
+        $notification = array(
+            'message' => 'Contact Successfully Deleted.',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);

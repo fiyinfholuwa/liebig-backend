@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContactUs;
 use App\Models\ModelImage;
 use App\Models\PayModelImage;
 use App\Models\User;
@@ -41,4 +42,19 @@ class FrontendController extends Controller
 //    public function model_detail(){
 //        return view('frontend.model_detail');
 //    }
+
+
+public function contact_save(Request $request)
+{
+    $contact = new ContactUs();
+    $contact->name = $request->name;
+    $contact->email = $request->email;
+    $contact->message = $request->message;
+    $contact->save();
+    $notification = array(
+        'message' => 'Message Successfully Sent, We will get back to you shortly.',
+        'alert-type' => 'success'
+    );
+    return redirect()->back()->with($notification);
+}
 }

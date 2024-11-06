@@ -25,6 +25,7 @@ Route::controller(\App\Http\Controllers\FrontendController::class)->group(functi
         ->name('login');    Route::get('/about', 'about')->name('about');
     Route::get('/faq', 'faq')->name('faq');
     Route::get('/contact', 'contact')->name('contact');
+    Route::post('/contact/save', 'contact_save')->name('contact.save');
     Route::get('/models', 'models')->name('models');
     Route::get('/model/detail/{id}', 'model_detail')->name('model.detail');
 });
@@ -83,6 +84,8 @@ Route::middleware(['auth', 'user_access' ])->group(function () {
         Route::post('admin/blog/delete/{id}', 'admin_blog_delete')->name('admin.blog.delete');
 
         Route::get('admin/ribbon/view', 'ribbon_view')->name('ribbon.view');
+        Route::get('admin/contact/us', 'admin_contact_us')->name('admin.contact');
+        Route::post('admin/contact/delete/{id}', 'admin_contact_delete')->name('admin.contact.delete');
         Route::post('admin/ribbon/save', 'ribbon_save')->name('ribbon.save');
 
         Route::get('/admin/chat/all', 'admin_chat_all')->name('admin.chat.all');
