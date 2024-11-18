@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account</title>
+    <title>Konto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="{{asset('frontend/css/Account.css')}}" rel="stylesheet">
@@ -30,7 +30,7 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-3">
-                    <label for="email" class="form-label">E-Mail Adresse</label>
+                    <label for="email" class="form-label">E-Mail-Adresse</label>
                     <input type="email" name="email" class="form-control" id="email" required>
                     @error('email')
                     <p style="color: #b01e1e; font-weight: bold">{{$message}}</p>
@@ -50,15 +50,15 @@
                 </div>
                 <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="rememberMe">
-                    <label class="form-check-label" for="rememberMe">Login speichern</label>
+                    <label class="form-check-label" for="rememberMe">Angemeldet bleiben</label>
                 </div>
-                <button type="submit"  class="btn btn-signin text-white w-100 mb-3" role="button">Sign In</button>
+                <button type="submit" class="btn btn-signin text-white w-100 mb-3" role="button">Einloggen</button>
                 <div class="text-center mb-3">
                     <a href="Forgot.html" class="text-decoration-none">Passwort vergessen?</a>
                 </div>
             </form>
             <div class="text-center">
-                <p>Noch keinen Account? Jetzt ? <a href="{{route('register')}}" class="text-decoration-none">registrieren</a></p>
+                <p>Noch keinen Account? Jetzt <a href="{{route('register')}}" class="text-decoration-none">registrieren</a></p>
             </div>
         </div>
     </div>

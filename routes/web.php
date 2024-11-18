@@ -104,7 +104,7 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::controller(\App\Http\Controllers\UserController::class)->group(function () {
     Route::get('/user/dashboard', 'user_dashboard')->name('user.dashboard');
