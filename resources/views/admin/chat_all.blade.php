@@ -13,7 +13,7 @@
                             <ul class="list-group">
                                 @foreach($chats as $chat)
                                     <!-- Make the entire list item clickable -->
-                                    <a href="{{ route('admin.chat.detail', optional($chat->user)->id) }}" style="text-decoration: none; color: inherit;">
+                                    <a href="{{ route('admin.chat.detail', optional($chat->user)->id) }}" style="text-decoration: none; margin-top: 10px; color: inherit;">
                                         <li class="list-group-item d-flex align-items-center">
                                             <!-- Profile Image as Circle -->
                                             <img src="{{ asset(optional($chat->user)->profile_image ?? 'https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg') }}" alt="Profile Image" class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">

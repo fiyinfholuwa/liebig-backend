@@ -23,8 +23,8 @@
         <div class="col-lg-6 d-lg-block" style="background: url('{{asset('frontend/images/register.jpg')}}') center/contain;">
             <div class="h-100 d-flex align-items-center justify-content-center" style="background-color:">
                 <div class="text-white text-center p-5">
-                    <h2 class="fw-bold mb-4">Willkommen bei Lieblings Chat</h2>
-                    <p class="lead">Verbinde dich mit großartigen Menschen und beginne heute sinnvolle Gespräche!</p>
+{{--                    <h2 class="fw-bold mb-4">Willkommen bei Lieblings Chat</h2>--}}
+{{--                    <p class="lead">Verbinde dich mit großartigen Menschen und beginne heute sinnvolle Gespräche!</p>--}}
                 </div>
             </div>
         </div>

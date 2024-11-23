@@ -273,6 +273,9 @@ public function user_profile(){
         $user = Auth::user();
         $spin_today = $user->spin_today;
         if (is_null($spin_today)) {
+            $user = User::findOrFail(Auth::user()->id);
+            $user->spin_today = now();
+            $user->save();
             return response()->json(['success' => true]);
         }
 
@@ -476,10 +479,10 @@ public function user_profile(){
     public function update_model_user(Request $request)
     {
         $request->validate([
-            'age' => 'required|integer',
-            'about_me' => 'required|string',
+            'age' => 'nullable|integer',
+            'about_me' => 'nullable|string',
             'my_interest' => 'nullable|string',
-            'address' => 'required|string',
+            'address' => 'nullable|string',
             'sexuality' => 'nullable|string',
             'eye_color' => 'nullable|string',
             'hair' => 'nullable|string',

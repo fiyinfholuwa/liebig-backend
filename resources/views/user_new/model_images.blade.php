@@ -35,17 +35,29 @@
 
                                                 <div class="form-group">
                                                     <label>Image Type</label>
-                                                    <select required name="image_type" class="form-control">
+                                                    <select required name="image_type" class="form-control" id="imageType">
                                                         <option value="">Select Image Type</option>
                                                         <option value="free">Free</option>
                                                         <option value="censored">Censored</option>
-
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Image Cost (Only for Censored Image)</label>
-                                                    <input name="amount" step="0.01" required class="form-control" type="number" placeholder="Image Cost">
+                                                    <input name="amount" id="imageCost" step="0.01" required class="form-control" type="number" placeholder="Image Cost">
                                                 </div>
+
+                                                <script>
+                                                    document.getElementById('imageType').addEventListener('change', function () {
+                                                        const costInput = document.getElementById('imageCost');
+                                                        if (this.value === 'free') {
+                                                            costInput.value = 0;
+                                                            costInput.readOnly = true; // Prevent manual editing
+                                                        } else if (this.value === 'censored') {
+                                                            costInput.value = ''; // Clear the input
+                                                            costInput.readOnly = false; // Allow manual editing
+                                                        }
+                                                    });
+                                                </script>
 
 
                                             </div>

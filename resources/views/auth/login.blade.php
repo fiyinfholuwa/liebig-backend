@@ -58,7 +58,7 @@
                 </div>
             </form>
             <div class="text-center">
-                <p>Noch keinen Account? Jetzt <a href="{{route('register')}}" class="text-decoration-none">registrieren</a></p>
+                <p>Noch keinen Account?  <a href="{{route('register')}}" class="text-decoration-none">Jetzt registrieren</a></p>
             </div>
         </div>
     </div>

@@ -34,7 +34,27 @@
                                     <img src="{{ asset($image->image) }}" alt="Photo 1" class="image-click" data-img-src="{{ asset($image->image) }}">
                                 @else
                                     <!-- Placeholder image with click event to show modal -->
-                                    <img src="https://www.tbmatuka.com/upload/placeholders/16px_upscaled.png" alt="Photo 1" class="pay-to-view-click" data-bs-toggle="modal" data-bs-target="#pay_to_view_img_{{ $image->id }}">
+                                    <div style="position: relative; display: inline-block; width: auto; height: auto;">
+                                        <img
+                                            src="{{ asset($image->image) }}"
+                                            alt="Photo 1"
+                                            class="pay-to-view-click"
+                                            style="display: block; width: 100%; height: auto;"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#pay_to_view_img_{{ $image->id }}">
+                                        <div
+                                            style="
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; /* Adjust height for blur area */
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.3); /* Optional light overlay */
+            pointer-events: none;
+        ">
+                                        </div>
+                                    </div>
                                 @endif
                                 <div class="overlay">
                                     @if($image->image_type === 'free')
@@ -136,7 +156,7 @@
                         @endphp
 
                         @if(in_array($model->id, $followedModels))
-                            <a  href="{{route('show.model.chat.all')}}" class="btn btn-dark" style="padding-left: 30px; font-size: 30px; text-decoration: none;">Chat <i class="fa fa-comment"></i></a>
+                            <a  href="{{route('show.model.chat')}}" class="btn btn-dark" style="padding-left: 30px; font-size: 30px; text-decoration: none;">Chat <i class="fa fa-comment"></i></a>
                         @else
                             <form action="{{ route('follow.model') }}" method="post">
                                 @csrf
