@@ -4,8 +4,8 @@
 
 @extends('user_new.app')
 
-@section('title', 'Payment')
-@section('page', 'Payment')
+@section('title', 'Transaktionen')
+@section('page', 'Transaktionen')
 @section('content')
     <main id="main" class="main">
 
@@ -16,13 +16,14 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Amount</th>
-                            <th>Payment Type</th>
+                            <th>Betrag</th>
+                            <th>Zahlungsart</th>
                             <th>Gateway</th>
                             <th>Status</th>
-                            <th>ReferenceId</th>
-                            <th>Paid Date</th>
+                            <th>Referenz-ID</th>
+                            <th>Zahlungsdatum</th>
                         </tr>
+
                         </thead>
                         <tbody>
                         <?php $i = 1; ?>
@@ -34,9 +35,9 @@
                                 <td>{{$payment->gateway}}</td>
                                 <td>
                                     @if($payment->status =='paid')
-                                        <span class="badge bg-light-success">Paid</span>
+                                        <span class="badge bg-light-success">Abgeschlossen</span>
                                     @else
-                                        <span class="badge bg-light-danger">Pending</span>
+                                        <span class="badge bg-light-danger">Ausstehen</span>
                                     @endif
                                 </td>
                                 <td>{{$payment->referenceId}}</td>

@@ -53,7 +53,7 @@ class PaymentController extends Controller
         $payment->amount = $request->amount;
         $payment->user_email = Auth::user()->email;
         $payment->status = "pending";
-        $payment->payment_type = "Coin purchase";
+        $payment->payment_type = "Münzkauf";
         $payment->gateway = $request->payment_type;
         $payment->credit_num = $plan_info->coins;
         $payment->plan_id = $request->plan_id;

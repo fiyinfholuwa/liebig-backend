@@ -41,7 +41,7 @@
                                                         <div class="message d-flex align-items-{{ $isUser ? 'end' : 'start' }} flex-column">
                                                             <div class="d-flex align-items-center mb-1 chat-msg">
                                                                 <div class="flex-grow-1 {{ $isUser ? 'ms-3' : 'me-3' }}">
-                                                                    <div class="msg-content {{ $isUser ? 'bg-primary' : 'bg-light' }} p-2">
+                                                                    <div class="msg-content {{ $isUser ? 'bg-dark' : 'bg-light' }} p-2">
                                                                         <p class="mb-0">{{ $message['message'] }}</p>
 
                                                                     </div>
@@ -67,15 +67,15 @@
                                         placeholder="Type a Message"
                                         rows="2"
                                         maxlength="200"
-                                        oninput="document.getElementById('charCount').textContent = this.value.length + '/200 characters';">
+                                        oninput="document.getElementById('charCount').textContent = this.value.length + '/200 Zeichen';">
 </textarea>
-                                    <small style="color: red; font-weight: bolder;" id="charCount">0/200 characters</small>
+                                    <small style="color: red; font-weight: bolder;" id="charCount">0/200 Zeichen</small>
 
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mt-2">
                                                 <label class="fancy-file-upload">
-                                                    <span class="fancy-upload-btn">attachment</span>
+                                                    <span class="fancy-upload-btn">Anhang</span>
                                                     <input type="file" name="image" accept="image/*" onchange="previewImage(event)">
                                                 </label>
                                                 <img id="image-preview" class="image-preview" />
@@ -86,7 +86,7 @@
                                             <div class="mt-3">
                                                 <label class="fancy-file-upload">
                                                     <button data-bs-toggle="modal" data-bs-target="#add_category" type="button" class="btn btn-dark">
-                                                        <span ><i class="ph-duotone ph-gift"></i>Send Gift</span>
+                                                        <span ><i class="ph-duotone ph-gift"></i>Geschenk senden</span>
 
                                                     </button>
 
@@ -105,8 +105,8 @@
 
                                     <hr class="my-2">
                                     <div class="d-sm-flex align-items-center">
-                                        <button type="submit" class="btn btn-danger">
-                                            <i class="ti ti-send f-18 "></i> Send Message
+                                        <button type="submit" class="btn btn-danger">Nachricht sendens
+                                            <i class="ti ti-send f-18 "></i>
                                         </button>
                                     </div>
                                 </div>
@@ -116,31 +116,31 @@
                 </div>
             </div>
         </section>
+
         <div class="modal fade" id="add_category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <form method="post" action="{{route('user.send.gift')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Send Gift</h5>
-
+                            <h5 class="modal-title" id="exampleModalLabel">Geschenk senden</h5>
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="modelId" value="{{ $modelId }}">
                             <div class="form-group">
-                                <label>Select Gifts</label>
+                                <label>Geschenke auswählen</label>
 
                                 <select required name="gift_id" class="form-control">
-                                    <option value="">Select Option</option>
+                                    <option value="">Option auswählen</option>
                                     @foreach($gifts as $gift)
-                                        <option value="{{$gift->id}}">{{$gift->reward_name}} | Equivalent Coins {{$gift->reward_amount}}</option>
+                                        <option value="{{$gift->id}}">{{$gift->reward_name}} | Entsprechende Münzen {{$gift->reward_amount}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa fa-cancel"></i> Discard</button>
-                            <button type="submit" class="btn btn-success">Send Gift</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa fa-cancel"></i> Verwerfen</button>
+                            <button type="submit" class="btn btn-primary">Geschenk senden</button>
                         </div>
                     </div>
                 </div>
@@ -190,7 +190,7 @@
             width: 100%;
         }
         .fancy-upload-btn {
-            background-color: #007bff;
+            background-color: deeppink;
             color: white;
             padding: 8px 15px;
             border-radius: 20px;

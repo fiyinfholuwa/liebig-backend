@@ -4,8 +4,8 @@
 
 @extends('user_new.app')
 
-@section('title', 'Wheel Of Fortune')
-@section('page', 'Wheel Of Fortune')
+@section('title', 'Glücksrad')
+@section('page', 'Glücksrads')
 @section('content')
     <main id="main" class="main">
 
@@ -29,7 +29,8 @@
                         <!-- Spin Button with Spinner -->
                         <button class="btn btn-dark" id="spinButton" onclick="spinWheel()">
                             <i class="fa fa-spin fa-spinner" id="spinSpinner" style="display: none;"></i>
-                            Spin Wheel
+
+                            Glücksrad drehen
                         </button>
 
                         <p id="result"></p>
@@ -37,12 +38,12 @@
                         <!-- Claim Button with Spinner -->
                         <button id="claimButton" class="btn btn-success" disabled onclick="claimReward()">
                             <i class="fa fa-spin fa-spinner" id="claimSpinner" style="display: none;"></i>
-                            Claim Reward
+                            Belohnung einlösen
                         </button>
 
                         <button class="btn btn-dark" id="moveButton" disabled onclick="moveReward()">
                             <i class="fa fa-spin fa-spinner" id="moveSpinner" style="display: none;"></i>
-                            Move to Inventory
+                            Zum Inventar verschieben
                         </button>
 
 

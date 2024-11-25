@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Facades\Auth; @endphp
 
 
 @extends('user_new.app')
@@ -50,7 +51,7 @@
                                         <!-- First Image (Profile Image for Auth User) -->
                                         <img src="{{ asset($auth_user_statuses->first()->image) }}" alt="User {{ $auth_user_id }}" class="ss_v-status-image rounded-circle shadow-sm" />
                                         <span class="ss_v-status-name text-center d-block mt-2">User {{ $auth_user_id }}</span>
-                                        <span class="ss_v-status-count d-block text-center mt-1">{{ $auth_user_statuses->count() }} images</span>
+                                        <span class="ss_v-status-count d-block text-center mt-1">{{ $auth_user_statuses->count() }} Bilder</span>
 
                                         <!-- Display Remaining Images for Auth User -->
                                         @foreach($auth_user_statuses as $status)
@@ -64,8 +65,8 @@
                                     <div class="ss_v-status ss_v-spaced-status me-3">
                                         <!-- First Image (Profile Image for Other Users) -->
                                         <img src="{{ asset($statuses->first()->image) }}" alt="User {{ $userid }}" class="ss_v-status-image rounded-circle shadow-sm" />
-                                        <span class="ss_v-status-name text-center d-block mt-2">User {{ $userid }}</span>
-                                        <span class="ss_v-status-count d-block text-center mt-1">{{ $statuses->count() }} images</span>
+                                        <span class="ss_v-status-name text-center d-block mt-2"> {{get_username_by_user_id($userid) }}</span>
+                                        <span class="ss_v-status-count d-block text-center mt-1">{{ $statuses->count() }} Bilder</span>
 
                                         <!-- Display Remaining Images for Other Users -->
                                         @foreach($statuses as $status)
@@ -79,7 +80,7 @@
                             </div>
 
                         @else
-                            <h3 class="text-white">No Status</h3>
+                            <h3 class="text-white">Kein Status</h3>
                         @endif
 
                         <!-- Modal for Image Slideshow -->
@@ -106,15 +107,15 @@
                     </div>
                 </div>
                 <div class="col-lg-4 order-lg-1">
-                    <div style="background-color: #ff4563" class="graph text-center  p-4 shadow-sm rounded">
-                        <p style="" class="balance-label fw-bold ">Coins Balance</p>
+                    <div style="background: linear-gradient(90deg, #600f2d, #600f2d)" class="graph text-center  p-4 shadow-sm rounded">
+                        <p  class="balance-label fw-bold " style="color: white;">Münzguthaben</p>
                         <h2 class="balance-amount display-4 text-white">{{Auth::user()->coin_balance}}</h2>
 
                         <!-- Professional Coin Image -->
                         <img src="https://img.icons8.com/ios-filled/100/000000/coins.png" alt="Coin balance" class="coin-image mt-3" />
                         <!-- Button to Trigger Modal -->
                         @if(\Illuminate\Support\Facades\Auth::user()->user_type ==1)
-                            <a href="{{route('user.coins')}}" class="btn btn-outline-dark btn-lg" >Buy Coins</a>
+                            <a href="{{route('user.coins')}}" class="btn btn-outline-dark btn-lg" >Münzen kaufen</a>
 
                         @endif
 
@@ -182,8 +183,8 @@
                     <div class="col-lg-4">
                         <div class="unread-messages bg-light p-4 shadow-sm rounded">
                             <div class="heading d-flex justify-content-between align-items-center mb-3">
-                                <h2 class="text-dark fw-bold">Recent News</h2>
-                                <a href="{{route('user.news')}}" class="text-dark">See all</a>
+                                <h2 class="text-dark fw-bold">Aktuelle Neuigkeiten</h2>
+                                <a href="{{route('user.news')}}" class="text-dark">Mehr sehen</a>
                             </div>
                             @if(count($latest_news) > 0)
                                 @foreach($latest_news as $new)
@@ -196,7 +197,7 @@
                                                 </p>
                                             </div>
                                         </div>
-                                        <a href="{{route('user.new.detail', $new->post_url)}}" class="btn btn-outline-dark view-message">View</a>
+                                        <a href="{{route('user.new.detail', $new->post_url)}}" class="btn btn-outline-dark view-message" style="background-color: deeppink ">View</a>
                                     </div>
 
                                 @endforeach

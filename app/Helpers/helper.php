@@ -5,6 +5,7 @@
 <?php
 
 use App\Models\Chat;
+use App\Models\User;
 
 if (!function_exists('get_model_unread_chats')) {
     function get_model_unread_chats($modelId)
@@ -67,6 +68,18 @@ if (!function_exists('get_last_message_model')) {
             return $chat->message;
         }else{
             return  "............";
+        }
+
+    }
+}
+if (!function_exists('get_username_by_user_id')) {
+    function get_username_by_user_id($userid)
+    {
+        $user =  User::where('id', $userid)->first();
+        if (!is_null($user)){
+            return $user->username;
+        }else{
+            return  "";
         }
 
     }

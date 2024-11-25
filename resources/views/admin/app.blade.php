@@ -52,6 +52,19 @@
             src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
 
+    <style>
+        *{
+            .btn .btn-danger{
+                color:#600f2d !important;
+            }
+
+
+            .btn .btn-primary{
+                color:deeppink !important;
+            }
+        }
+    </style>
+
     <script>
         window.dataLayer = window.dataLayer || [];
 

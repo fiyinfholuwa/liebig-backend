@@ -12,7 +12,7 @@
     <div class="coin_modal" id="paymentModal">
         <div class="coin_modal_dialog">
             <div class="coin_modal_header">
-                <h5 class="coin_modal_title" id="coin_modalLabel">Confirm Your Payment</h5>
+                <h5 class="coin_modal_title" id="coin_modalLabel">Bestätigen Sie Ihre Zahlung</h5>
                 <button type="button" class="coin_modal_close" id="closeModal">&times;</button>
             </div>
             <div class="coin_modal_body">
@@ -20,13 +20,13 @@
                     @csrf
                     <input type="hidden" name="plan_id" id="plan_id">
                     <div class="form-group">
-                        <label for="amount">Amount to be Paid:</label>
+                        <label for="amount">Zu zahlender Betrag:</label>
                         <input type="text" class="form-control" name="amount" id="amount" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="payment_type">Select Payment Type:</label>
+                        <label for="payment_type">Wählen Sie die Zahlungsart:</label>
                         <select class="form-control" name="payment_type" id="payment_type" required>
-                            <option value="">Select Gateway</option>
+                            <option value="">Wählen Sie das Gateway</option>
 
                             @foreach($payments as $payment)
                                 <option value="{{ $payment->name }}">{{ ucfirst($payment->name) }}</option>
@@ -34,7 +34,7 @@
 
                         </select>
                     </div>
-                    <button type="submit" class="coin_modal_btn">Process Payment</button>
+                    <button type="submit" class="coin_modal_btn">Zahlung verarbeiten</button>
                 </form>
             </div>
         </div>
@@ -59,11 +59,11 @@
                                 </div>
                                 <div class="pricing-footer">
                                     <div class="gem-button-container gem-button-position-center">
-                                        <button class="btn btn-success"
+                                        <button class="btn btn-primary"
                                                 data-id="{{ $plan->id }}"
                                                 data-amount="{{ $plan->amount }}"
                                                 onclick="openModal({{ $plan->id }}, '{{ $plan->amount }}')">
-                                            Purchase Coin
+                                            Münze kaufen
                                         </button>
                                     </div>
                                 </div>
@@ -141,7 +141,7 @@
             padding: 15px 0;
         }
         .coin_modal_btn {
-            background-color: #28a745;
+            background-color: deeppink;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -149,7 +149,7 @@
             cursor: pointer;
         }
         .coin_modal_btn:hover {
-            background-color: #218838;
+            background-color: #600f2d;
         }
 
         /* Plan Card Styles */

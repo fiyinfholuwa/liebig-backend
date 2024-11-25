@@ -12,38 +12,37 @@
 
                     <div class="widget-content widget-content-area br-6">
                         <div style="margin-bottom: 30px; margin-top: 20px;" class="">
-                            <a  data-bs-toggle="modal" data-bs-target="#add_category" class="btn btn-primary text-white"> <i class="fa fa-plus"></i> Add Model Image</a>
+                            <a  data-bs-toggle="modal" data-bs-target="#add_category" class="btn btn-primary text-white"> <i class="fa fa-plus"></i> Modellbild hinzufügen</a>
                             <div class="modal fade" id="add_category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <form method="post" action="{{route('model.image.update')}}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Add Image</h5>
-
+                                                <h5 class="modal-title" id="exampleModalLabel">Bild hinzufügen</h5>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="form-group">
                                                     <input type="hidden" name="model_id" value="{{Auth::user()->id}}">
-                                                    <label>Select Model</label>
+                                                    <label>Modell auswählen</label>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label>Image</label>
-                                                    <input name="image" required class="form-control" type="file" placeholder="Item Image">
+                                                    <label>Bild</label>
+                                                    <input name="image" required class="form-control" type="file" placeholder="Artikelbild">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label>Image Type</label>
+                                                    <label>Bildtyp</label>
                                                     <select required name="image_type" class="form-control" id="imageType">
-                                                        <option value="">Select Image Type</option>
-                                                        <option value="free">Free</option>
-                                                        <option value="censored">Censored</option>
+                                                        <option value="">Bildtyp auswählen</option>
+                                                        <option value="free">Kostenlos</option>
+                                                        <option value="censored">Zensiert</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Image Cost (Only for Censored Image)</label>
-                                                    <input name="amount" id="imageCost" step="0.01" required class="form-control" type="number" placeholder="Image Cost">
+                                                    <label>Bildkosten (Nur für zensiertes Bild)</label>
+                                                    <input name="amount" id="imageCost" step="0.01" required class="form-control" type="number" placeholder="Bildkosten">
                                                 </div>
 
                                                 <script>
@@ -51,23 +50,20 @@
                                                         const costInput = document.getElementById('imageCost');
                                                         if (this.value === 'free') {
                                                             costInput.value = 0;
-                                                            costInput.readOnly = true; // Prevent manual editing
+                                                            costInput.readOnly = true; // Verhindert manuelles Bearbeiten
                                                         } else if (this.value === 'censored') {
-                                                            costInput.value = ''; // Clear the input
-                                                            costInput.readOnly = false; // Allow manual editing
+                                                            costInput.value = ''; // Eingabefeld löschen
+                                                            costInput.readOnly = false; // Manuelles Bearbeiten erlauben
                                                         }
                                                     });
                                                 </script>
-
-
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa fa-cancel"></i> Discard</button>
-                                                <button type="submit" class="btn btn-primary">Save Image</button>
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa fa-cancel"></i> Verwerfen</button>
+                                                <button type="submit" class="btn btn-primary">Bild speichern</button>
                                             </div>
                                         </div>
                                     </div>
-
                                 </form>
 
                             </div>
@@ -81,11 +77,12 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Image</th>
-                                    <th>Image Type</th>
-                                    <th>Amount</th>
-                                    <th class="no-content">Actions</th>
+                                    <th>Bild</th>
+                                    <th>Bildtyp</th>
+                                    <th>Betrag</th>
+                                    <th class="no-content">Aktionen</th>
                                 </tr>
+
                                 </thead>
                                 <tbody>
                                 <?php $i = 1; ?>
@@ -99,7 +96,7 @@
                                             <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete_{{$Item->id}}" ><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
-                                    @include('admin.modals.model_image')
+                                    @include('user_new.modals.model_image')
                                 @endforeach
 
                                 </tbody>

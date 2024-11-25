@@ -51,6 +51,28 @@
     <script type="text/javascript" charset="utf8"
             src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
+    <style>
+        *{
+             .btn-danger{
+                background-color:#600f2d !important;
+                 color: white;
+                 border: none;
+            }
+
+
+             .btn-primary{
+                background-color:deeppink !important;
+                 color: white;
+                 border: none;
+             }
+            .bg-primary{
+                background-color:deeppink !important;
+                 color: white;
+                 border: none;
+             }
+        }
+    </style>
+
 
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -144,12 +166,12 @@
                         <div class="pt-3">
                             <a href="{{route('user.profile')}}">
                                 <i class="ti ti-user"></i>
-                                <span>My Account</span>
+                                <span>Mein Account </span>
                             </a>
 
                             <a href="{{route('logout')}}">
                                 <i class="ti ti-power"></i>
-                                <span>Logout</span>
+                                <span>Ausloggen</span>
                             </a>
                         </div>
                     </div>
@@ -223,7 +245,7 @@
                 <li class="pc-item pc-hasmenu">
                     <a href="{{route('user.news')}}" class="pc-link">
                         <i style="font-size: 20px;" class="ph-duotone ph-newspaper"></i>
-                        <span class="pc-mtext">Nachrichten anzeigen</span>
+                        <span class="pc-mtext">Aktuelle Neuigkeiten</span>
                         {{--                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>--}}
                         {{--                        <span class="pc-badge">2</span>--}}
                     </a>
@@ -232,7 +254,7 @@
                     <li class="pc-item pc-hasmenu">
                         <a href="{{route('models')}}" class="pc-link">
                             <i style="font-size: 20px;" class="ph-duotone ph-users-three"></i>
-                            <span class="pc-mtext">Model suchen</span>
+                            <span class="pc-mtext">Model finden</span>
                             {{--                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>--}}
                             {{--                        <span class="pc-badge">2</span>--}}
                         </a>
@@ -241,7 +263,7 @@
                     <li class="pc-item pc-hasmenu">
                         <a href="{{route('user.wheel')}}" class="pc-link">
                             <i style="font-size: 20px;" class="ph-duotone ph-pinwheel"></i>
-                            <span class="pc-mtext">Glucksrad </span>
+                            <span class="pc-mtext">Glücksrad </span>
                         </a>
                     </li>
 
@@ -264,7 +286,7 @@
                 <li class="pc-item pc-hasmenu">
                     <a href="{{route('home')}}" class="pc-link">
                         <i style="font-size: 20px;" class="ph-duotone ph-house-simple"></i>
-                        <span class="pc-mtext">Visit Website </span>
+                        <span class="pc-mtext">Website besuchen </span>
                     </a>
                 </li>
 
@@ -273,7 +295,7 @@
                     <a href="{{route('logout')}}" class="pc-link">
                         <i style="font-size: 20px;" class="ph-duotone ph-sign-out"></i>
 
-                        <span class="pc-mtext" style="color: red">Logout</span>
+                        <span class="pc-mtext" style="color: red">Ausloggen</span>
                         {{--                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>--}}
                         {{--                        <span class="pc-badge">2</span>--}}
                     </a>
@@ -338,7 +360,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-12">
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Startseite</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0)">Dashboard</a></li>
                             <li class="breadcrumb-item" aria-current="page">@yield('page')</li>
                         </ul>
@@ -651,11 +673,11 @@
 <div id="ff-status-modal" class="ff-modal ff-hidden">
     <div class="ff-modal-content">
         <span id="ff-close-modal" class="ff-close">&times;</span>
-        <h4 style="text-align: center; margin-bottom: 20px;">Status Update</h4>
+        <h4 style="text-align: center; margin-bottom: 20px;">Neuen Status teilen</h4>
         <form id="ff-status-form" method="post" action="{{route('user.status.update')}}" enctype="multipart/form-data">
             @csrf
             <input type="file"  name="file-upload" required>
-            <button style="margin-top: 40px;" type="submit">Update Status</button>
+            <button style="margin-top: 40px;" type="submit">Neuen Status teilen.</button>
         </form>
     </div>
 </div>

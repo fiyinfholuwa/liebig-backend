@@ -3,8 +3,8 @@
 
 @extends('user_new.app')
 
-@section('title', 'My Chats')
-@section('page', 'My Chats')
+@section('title', 'Meine Chats')
+@section('page', 'Meine Chats')
 @section('content')
 
     <main id="main" class="main">

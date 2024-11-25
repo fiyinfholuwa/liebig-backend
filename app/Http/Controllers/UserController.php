@@ -317,8 +317,8 @@ public function user_profile(){
         $payment->amount = $points;
         $payment->user_email = Auth::user()->email;
         $payment->status = "paid";
-        $payment->payment_type = "Wheel of Fortune";
-        $payment->gateway = "Fortune Crediting";
+        $payment->payment_type = "Glücksrad";
+        $payment->gateway = "Glücksgutschrift";
         $payment->credit_num = $points;
         $payment->subscription_status = '';
         $payment->save();

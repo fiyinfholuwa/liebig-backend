@@ -9,13 +9,13 @@
             <div class="col-md-4">
                 <img src="{{asset($model->profile_image)}}" class="img-fluid profile-picture mb-3" alt="Profile Picture">
                 <div class="mb-3">
-                    <span class="badge badge-custom badge-gold">Gold</span>
-                    <span class="badge badge-custom badge-verified">Verified</span>
-                    <span class="badge badge-custom badge-awesome">Awesome</span>
+{{--                    <span class="badge badge-custom badge-gold">Gold</span>--}}
+                    <span class="badge badge-custom badge-verified">Verifiziert</span>
+{{--                    <span class="badge badge-custom badge-awesome">Awesome</span>--}}
                 </div>
-                <h4>About Me</h4>
+                <h4>Über mich</h4>
                 <p>{{$model->about_me}}</p>
-                <h4>My Interests</h4>
+                <h4>Meine Interessen</h4>
                 <ul class="interests-list list-unstyled">
                     <li><i class="fas fa-check text-primary"></i>{{$model->my_interest}}</li>
                 </ul>
@@ -156,36 +156,36 @@
                         @endphp
 
                         @if(in_array($model->id, $followedModels))
-                            <a  href="{{route('show.model.chat')}}" class="btn btn-dark" style="padding-left: 30px; font-size: 30px; text-decoration: none;">Chat <i class="fa fa-comment"></i></a>
+                            <a  href="{{route('show.model.chat')}}" class="btn btn-dark" style="padding-left: 30px; font-size: 30px; text-decoration: none;">Jetzt chatten </a>
                         @else
                             <form action="{{ route('follow.model') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="modelId" value="{{ $model->id }}">
-                                <button type="submit" class="btn btn-custom btn-message text-dark">Chat <i class="fa fa-comment"></i></button>
+                                <button type="submit" class="btn btn-custom btn-message text-dark">Jetzt chatten </button>
                             </form>
                         @endif
                     @else
 
-                            <a href="{{route('login')}}" class="btn btn-dark" style="padding-left: 30px; font-size: 30px; text-decoration: none;">Chat <i class="fa fa-comment"></i></a>
+                            <a href="{{route('login')}}" class="btn btn-dark" style="padding-left: 30px; font-size: 30px; text-decoration: none;">Jetzt chatten </a>
                     @endif
 
                     {{--                    <button class="btn btn-custom btn-wink">Send Wink</button>--}}
                 </div>
                 <div class="mb-4">
-                    <p><strong>Age:</strong> {{$model->age}}</p>
-                    <p><strong>Ethnicity:</strong> {{$model->ethnicity}}</p>
-                    <p><strong>Sexuality:</strong> {{$model->sexuality}}</p>
-                    <p><strong>Eye Color:</strong> {{$model->eye_color}}</p>
-                    <p><strong>Hair:</strong> {{$model->hair}}</p>
-                    <p><strong>Body:</strong> {{$model->body_type}}</p>
-                    <p><strong>Height:</strong> {{$model->height}}</p>
+                    <p><strong>Alter:</strong> {{$model->age}}</p>
+                    <p><strong>Sexualität:</strong> {{$model->sexuality}}</p>
+                    <p><strong>Augenfarbe:</strong> {{$model->eye_color}}</p>
+                    <p><strong>Haare:</strong> {{$model->hair}}</p>
+                    <p><strong>Körperbau:</strong> {{$model->body_type}}</p>
+                    <p><strong>Größe:</strong> {{$model->height}}</p>
                 </div>
-{{--                <div class="mb-4">--}}
+
+                {{--                <div class="mb-4">--}}
 {{--                    <h5>Send a virtual gift</h5>--}}
 {{--                    <i class="fas fa-gift fa-3x text-danger"></i>--}}
 {{--                </div>--}}
                 <div class="mb-4">
-                    <button class="btn btn-outline-primary me-2">Add Friend</button>
+{{--                    <button class="btn btn-outline-primary me-2">Add Friend</button>--}}
                 </div>
                 <div>
                     <h5>Share this profile</h5>
@@ -229,7 +229,7 @@
     </div>
     @if(count($recommended_model) > 0)
         <div class="container recommended-section">
-            <h4 class="mb-4">Recommended For You</h4>
+            <h4 class="mb-4">Für dich empfohlen</h4>
             <div class="row">
                 <!-- Card 1 -->
                 @foreach($recommended_model as $model)
