@@ -36,12 +36,12 @@
                         <p id="result"></p>
 
                         <!-- Claim Button with Spinner -->
-                        <button  style="display: none" id="claimButton" class="btn btn-success" disabled onclick="claimReward()">
+                        <button id="claimButton" class="btn btn-success" disabled onclick="claimReward()">
                             <i class="fa fa-spin fa-spinner" id="claimSpinner" style="display: none;"></i>
                             Belohnung einlösen
                         </button>
 
-                        <button style="display: none" class="btn btn-dark" id="moveButton" disabled onclick="moveReward()">
+                        <button class="btn btn-dark" id="moveButton" disabled onclick="moveReward()">
                             <i class="fa fa-spin fa-spinner" id="moveSpinner" style="display: none;"></i>
                             Zum Inventar verschieben
                         </button>
@@ -255,7 +255,7 @@
                                         const result = await response.json();
 
                                         if (result.success === true) {
-                                            alert(`Herzlichen Glückwunsch! Sie haben ${selectedReward.name} gewonnen und es wurde in Ihr Inventar verschoben.`);
+                                            alert(`Congratulations! You've move your reward: ${selectedReward.name} to Inventory`);
                                             selectedReward = null;
                                             claimButton.disabled = true;
                                             location.reload();

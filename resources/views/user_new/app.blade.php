@@ -1006,7 +1006,10 @@
         $('#my-table').DataTable({
             "paging": true,
             "searching": true,
-            "ordering": true
+            "ordering": true,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.13.5/i18n/de-DE.json"
+            }
         });
     });
 </script>
