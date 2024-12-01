@@ -13,27 +13,109 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div style="padding: 20px;" class="main_c mt-4">
+
+
+
                         <div class="wheel-container">
                             <div class="wheel" id="wheel">
                                 @foreach($rewards as $index => $reward)
-                                    <div class="sector" style="transform: rotate({{ $index * 45 }}deg) translateY(-50%);">
-                                        <div class="reward-image">
-                                            <img src="{{ asset($reward['image']) }}" alt="{{ $reward['name'] }}">
+                                    <div
+                                        class="sector"
+                                        style="transform: rotate({{ $index * (360 / count($rewards)) }}deg);">
+                                        <div class="reward-image" style="transform: rotate(-{{ $index * (360 / count($rewards)) }}deg);">
+                                            <img style="height: 50px; width: 50px; border-radius: 5px;" src="{{ asset($reward['image']) }}" alt="{{ $reward['name'] }}">
                                         </div>
-                                        <div class="reward-name">{{ $reward['name'] }}</div>
                                     </div>
                                 @endforeach
+                                <div class="wheel-center"></div>
                             </div>
                         </div>
 
+                        <style>
+                            .wheel-container {
+                                width: 300px;
+                                height: 300px;
+                                position: relative;
+                                margin: auto;
+                                border: 20px red solid;
+                                border-radius: 100%;
+
+                            }
+                            .wheel {
+                                transition: transform 5s ease-out;
+                                transform: rotate(0deg);
+                            }
+
+
+                            .wheel {
+                                width: 100%;
+                                height: 100%;
+                                border-radius: 50%;
+                                position: relative;
+                                transform-origin: center center;
+                                background: conic-gradient(
+                                    #722F37 0% 12.5%,
+                                    #ffffff 12.5% 25%,
+                                    #722F37 25% 37.5%,
+                                    #ffffff 37.5% 50%,
+                                    #722F37 50% 62.5%,
+                                    #ffffff 62.5% 75%,
+                                    #722F37 75% 87.5%,
+                                    #ffffff 87.5% 100%
+                                );
+                            }
+
+                            .sector {
+                                position: absolute;
+                                width: 100%;
+                                height: 100%;
+                                clip-path: polygon(50% 50%, 100% 0, 100% 100%, 0 100%, 0 0);
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                transform-origin: center center;
+                            }
+
+                            .reward-image {
+                                position: absolute;
+                                width: 60px; /* Size of the image */
+                                height: 60px;
+                                background-size: cover;
+                                background-position: center;
+                                border-radius: 50%;
+                                top: 25%; /* Move away from center vertically */
+                                left: 7%; /* Move away from center horizontally */
+                            }
+
+                            .reward-name {
+                                position: absolute;
+                                color: white;
+                                font-size: 12px;
+                                font-weight: bold;
+                                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+                                top: 70%; /* Adjust name position */
+                            }
+
+                            .wheel-center {
+                                position: absolute;
+                                width: 50px;
+                                height: 50px;
+                                background-color: black;
+                                border-radius: 50%;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                            }
+
+                        </style>
                         <!-- Spin Button with Spinner -->
-                        <button class="btn btn-dark" id="spinButton" onclick="spinWheel()">
+                        <button class="btn btn-dark text-center" id="spinButton" onclick="spinWheel()">
                             <i class="fa fa-spin fa-spinner" id="spinSpinner" style="display: none;"></i>
 
                             Glücksrad drehen
                         </button>
 
-                        <p id="result"></p>
+                        <p style="display: none" id="result"></p>
 
                         <!-- Claim Button with Spinner -->
                         <button  style="display: none" id="claimButton" class="btn btn-success" disabled onclick="claimReward()">
@@ -275,80 +357,109 @@
 
 
                     </div>
-                    <style>
+{{--                    <style>--}}
+{{--                        .wheel-container {--}}
+{{--                            width: 400px;--}}
+{{--                            height: 400px;--}}
+{{--                            position: relative;--}}
+{{--                            margin: 50px auto;--}}
+{{--                        }--}}
 
-                        .wheel-container {
-                            position: relative;
-                            width: 300px;
-                            height: 300px;
-                            border-radius: 50%;
-                            border: 5px solid #333;
-                            overflow: hidden;
-                            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-                        }
+{{--                        .wheel {--}}
+{{--                            width: 100%;--}}
+{{--                            height: 100%;--}}
+{{--                            position: relative;--}}
+{{--                            border-radius: 50%;--}}
+{{--                            border: 10px solid #ff0000;--}}
+{{--                            background: #fff;--}}
+{{--                            overflow: hidden;--}}
+{{--                            transition: transform 3s ease-out;--}}
+{{--                            box-shadow: 0 0 0 15px #ff0000;--}}
+{{--                        }--}}
 
-                        .wheel {
-                            position: absolute;
-                            width: 100%;
-                            height: 100%;
-                            transition: transform 5s ease-out;
-                            transform: rotate(0deg);
-                        }
+{{--                        .sector {--}}
+{{--                            position: absolute;--}}
+{{--                            width: 50%;--}}
+{{--                            height: 50%;--}}
+{{--                            transform-origin: 100% 100%;--}}
+{{--                            left: 50%;--}}
+{{--                            top: 0;--}}
+{{--                            background: linear-gradient(45deg, #dc2626, #991b1b);--}}
+{{--                            clip-path: polygon(0 0, 100% 0, 100% 100%);--}}
+{{--                        }--}}
 
-                        .sector {
-                            position: absolute;
-                            width: 50%;
-                            height: 50%;
-                            background: linear-gradient(45deg, #4C2835, #8B4D5C, #D99FA6);
-                            border: 1px solid #fff;
-                            transform-origin: 100% 100%;
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: center;
-                            align-items: center;
-                            text-align: center;
-                            /*clip-path: polygon(100% 0, 50% 100%, 0 0);*/
-                        }
+{{--                        .sector:nth-child(odd) {--}}
+{{--                            background: #fff;--}}
+{{--                        }--}}
 
-                        .reward-image img {
-                            width: 80px;
-                            height: 80px;
-                            border-radius: 50%;
-                            margin-bottom: 10px;
-                        }
+{{--                        .reward-image {--}}
 
-                        .reward-name {
-                            font-size: 10px;
-                            font-weight: bold;
-                            color: #ffffff;
-                            padding: 15px;
-                        }
+{{--                            /*position: absolute;*/--}}
+{{--                            width: 30px; /* Set size to 30px by 30px */--}}
+{{--                            height: 30px;--}}
 
+{{--                            background-color: red;--}}
+{{--                            /*border-radius: 50%; !* Ensure the image is circular *!*/--}}
+{{--                            /*top: 50%; !* Center vertically *!*/--}}
+{{--                            /*left: 50%; !* Center horizontally *!*/--}}
+{{--                            /*transform-origin: 50% 50%; !* Set the origin for rotation *!*/--}}
+{{--                            /*transform: translate(-50%, -50%) rotate(-45deg); !* Align image with sector *!*/--}}
+{{--                        }--}}
 
-                        #spinButton, #claimButton, #moveButton {
-                            margin: 20px;
-                            padding: 10px 20px;
-                            font-size: 16px;
-                            cursor: pointer;
-                        }
+{{--                        /*.reward-image img {*/--}}
+{{--                        /*    width: 100%;*/--}}
+{{--                        /*    height: 100%;*/--}}
+{{--                        /*    object-fit: contain;*/--}}
+{{--                        /*}*/--}}
 
-                        #claimButton[disabled], #moveButton[disabled] {
-                            background-color: #ccc;
-                            cursor: not-allowed;
-                        }
+{{--                        .wheel-center {--}}
+{{--                            position: absolute;--}}
+{{--                            width: 50px;--}}
+{{--                            height: 50px;--}}
+{{--                            background: #333;--}}
+{{--                            border-radius: 50%;--}}
+{{--                            top: 50%;--}}
+{{--                            left: 50%;--}}
+{{--                            transform: translate(-50%, -50%);--}}
+{{--                            z-index: 10;--}}
+{{--                        }--}}
 
-                        #result {
-                            font-size: 18px;
-                            font-weight: bold;
-                            color: #28a745;
-                            margin-top: 10px;
-                        }
+{{--                        /* Decorative lights */--}}
+{{--                        /*.wheel::before {*/--}}
+{{--                        /*    content: '';*/--}}
+{{--                        /*    position: absolute;*/--}}
+{{--                        /*    width: 100%;*/--}}
+{{--                        /*    height: 100%;*/--}}
+{{--                        /*    border-radius: 50%;*/--}}
+{{--                        /*    background: repeating-conic-gradient(*/--}}
+{{--                        /*        from 0deg,*/--}}
+{{--                        /*        transparent 0deg 30deg,*/--}}
+{{--                        /*        rgba(255, 255, 0, 0.5) 30deg 40deg*/--}}
+{{--                        /*    );*/--}}
+{{--                        /*    z-index: 1;*/--}}
+{{--                        /*}*/--}}
 
-                        #result img {
-                            margin-top: 10px;
-                        }
+{{--                        /* Light glow effect */--}}
+{{--                        .light {--}}
+{{--                            position: absolute;--}}
+{{--                            width: 20px;--}}
+{{--                            height: 20px;--}}
+{{--                            background: #ffeb3b;--}}
+{{--                            border-radius: 50%;--}}
+{{--                            filter: blur(5px);--}}
+{{--                            animation: glow 1s infinite alternate;--}}
+{{--                        }--}}
 
-                    </style>
+{{--                        @keyframes glow {--}}
+{{--                            from {--}}
+{{--                                opacity: 1;--}}
+{{--                            }--}}
+{{--                            to {--}}
+{{--                                opacity: 0.5;--}}
+{{--                            }--}}
+{{--                        }--}}
+
+{{--                    </style>--}}
                     <script>
                         toastr.options = {
                             "closeButton": true,
