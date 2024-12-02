@@ -54,16 +54,26 @@
 
     <style>
         *{
-            .btn .btn-danger{
-                color:#600f2d !important;
+            .btn-danger{
+                background-color:#8d475f !important;
+                color: white;
+                border: none;
             }
 
 
-            .btn .btn-primary{
-                color:deeppink !important;
+            .btn-primary{
+                background-color:#edb1cf !important;
+                color: white;
+                border: none;
+            }
+            .bg-primary{
+                background-color:deeppink !important;
+                color: white;
+                border: none;
             }
         }
     </style>
+
 
     <script>
         window.dataLayer = window.dataLayer || [];

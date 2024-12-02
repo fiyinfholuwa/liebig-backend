@@ -2,6 +2,8 @@
 @extends('frontend.app')
 
 @section('content')
+    <link href="{{asset('frontend/css/Models-details.css')}}" rel="stylesheet">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <div style="margin-top: 120px;" class="container profile-container">
@@ -74,10 +76,10 @@
                                         @csrf
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Pay to View Image</h5>
+                                                <h5 class="modal-title">“Bild mit Coins freischalten</h5>
                                             </div>
                                             <div class="modal-body">
-                                                <p>Are you sure you want to pay to view this image? This action will remove <strong>{{ $image->amount }} coins</strong> from your balance.</p>
+                                                <p>Sind Sie sicher, dass Sie bezahlen möchten, um dieses Bild anzusehen? Diese Aktion wird <strong>{{ $image->amount }} Münzen</strong> von Ihrem Guthaben abziehen.</p>
                                             </div>
                                             <input type="hidden" name="imageId" value="{{$image->id}}">
                                             <input type="hidden" name="modelId" value="{{$image->userid}}">
@@ -246,15 +248,15 @@
                                         </div>
                                     </div>
                                     <div class="card-body bg-dark text-white">
-                                        <h5 class="card-title">{{$model->name}}<span class="text-success">●</span></h5>
+                                        <h5 class="card-title" style="color: #edb1cf;">{{$model->name}}<span class="text-success">●</span></h5>
                                         <p class="card-text">{{$model->address}}</p>
-                                        <span class="badge bg-warning text-dark">GOLD</span>
+{{--                                        <span class="badge bg-warning text-dark">GOLD</span>--}}
 
                                         @auth
-                                            <a  href="{{route('show.model.chat.all')}}" style="padding-left: 30px; font-size: 30px; text-decoration: none; color: white;">Chat <i class="fa fa-comment"></i></a>
+                                            <a  href="{{route('show.model.chat.all')}}" style="padding-left: 30px; font-size: 30px; text-decoration: none; color: white;">Chat </a>
 
                                         @else
-                                            <a href="{{route('login')}}" style="padding-left: 30px; font-size: 30px; text-decoration: none; color: white;">Chat <i class="fa fa-comment"></i></a>
+                                            <a href="{{route('login')}}" style="padding-left: 30px; font-size: 30px; text-decoration: none; color: white;">Chat</a>
 
                                         @endauth
                                     </div>
@@ -314,7 +316,7 @@
 
             // Handle the 'Upgrade Now' click to show an alert
             $('.upgrade-now').on('click', function() {
-                alert('Please pay from your coins to view the image.');
+                alert('Bitte zahlen Sie mit Ihren Münzen, um das Bild anzusehen.');
             });
 
         });

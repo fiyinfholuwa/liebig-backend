@@ -1,6 +1,7 @@
 @extends('frontend.app')
 
 @section('content')
+    <link href="{{asset('frontend/css/Models.css')}}" rel="stylesheet">
     <section class="mt-6">
         <div class="container text-center my-5">
             <h2 class="text-primary font-weight-bold text-white">Lernen Sie unsere vielfältigen Models kennen!</h2>
@@ -25,7 +26,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body bg-dark text-white">
-                                            <h5 class="card-title">{{$model->name}}<span class="text-success">●</span></h5>
+                                            <h5 class="card-title" style="color: #edb1cf;">{{$model->name}}<span class="text-success">●</span></h5>
                                             <p class="card-text">{{$model->address}}</p>
 {{--                                            <span class="badge bg-warning text-dark">GOLD</span>--}}
 {{--                                            @auth--}}

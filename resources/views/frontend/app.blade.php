@@ -10,10 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link href="{{asset('frontend/css/styles.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/About.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/contact.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/Models.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/Models-details.css')}}" rel="stylesheet">
+
 
 </head>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,6 +21,25 @@
         font-family: "Lato", sans-serif;
     }
 </style>
+<style>
+    *{
+        .btn-danger{
+            background-color:#8d475f !important;
+            color: white;
+            border: none;
+        }
+
+
+        .btn-primary{
+            background-color:#edb1cf !important;
+            color: white;
+            border: none;
+        }
+
+    }
+</style>
+
+
 
 <!----NAVIGATION SECTION---->
 <body>

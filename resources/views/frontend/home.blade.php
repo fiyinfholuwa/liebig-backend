@@ -7,6 +7,13 @@
             color: red;
         }
 
+        .hero_home{
+            padding: 0 200px;
+        }
+
+        .model_c{
+            margin-top: -150px !important;
+        }
         .link-line {
             background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
             -webkit-background-clip: text;
@@ -20,16 +27,26 @@
             padding: 0;
             display: inline;
         }
+
+        @media (max-width: 425px) {
+            .hero_home{
+                padding: 0 20px;
+            }
+
+            .model_c{
+                margin-top: 30px !important;
+            }
+        }
     </style>
 
 <section class="hero mt-5">
-    <div class="">
+    <div  class="hero_home">
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="">
                     <!-- Desktop Image -->
-                    <div class="d-none d-md-block hero-image">
-                        <img src="{{asset('frontend/images/Banner1.jpg')}}" alt="Hero Image Desktop" class="img-fluid custom-image1">
+                    <div class="d-none d-md-block ">
+                        <img style="width: 100% !important;" src="{{asset('frontend/images/Banner1.jpg')}}" alt="Hero Image Desktop" class=" custom-image1">
                     </div>
                     <!-- Mobile Image -->
                     <div class="d-block d-md-none mobile">
@@ -105,7 +122,7 @@
     </div>
     <!----Featured Models-->
     <section>
-        <div class="mt-5 col text-center text-white">
+        <div  class="mt-2 col text-center text-white model_c">
             <h1>Exklusive Models</h1>
             <div class="container">
                 <div class="row justify-content-center">
@@ -135,7 +152,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body bg-dark text-white">
-                                            <h5 class="card-title">{{$model->name}}<span class="text-success">●</span></h5>
+                                            <h5 class="card-title" style="color: #edb1cf;">{{$model->name}}<span class="text-success">●</span></h5>
                                             <p class="card-text">{{$model->address}}</p>
                                             <span class="badge bg-warning text-dark">GOLD</span>
                                         </div>
@@ -149,7 +166,7 @@
 
                     <div class="row mt-4">
                         <div class="col text-center">
-                            <a href="{{route('models')}}"><button class="btn btn-outline-light btn-lg">Kostenlos Registrieren</button></a>
+                            <a href="{{route('models')}}"><button class="btn btn-primary btn-lg">Kostenlos Registrieren</button></a>
                         </div>
                     </div>
                 </div>
@@ -163,8 +180,9 @@
         <p class="faq-paragraph animate__animated animate__fadeIn">
             Du hast weitere Fragen? Kein Problem, besuche dazu einfach unsere
         </p>
-        <span class="link-wrapper"><a href="./FAQ.html" class="link-line link-faq">FAQ-Seite</a></span> <span class ="faq-paragraph animate__animated animate__fadeIn">oder</span>
-        <span class="link-wrapper"><a href="./contact.html" class="link-line link-contact">Kontaktiere uns</a></span>
+        <span class="link-wrapper"><a href="{{route('faq')}}" class=" link-faq" style="color: #edb1cf !important;">FAQ-Seite</a></span> <span class ="faq-paragraph animate__animated animate__fadeIn">oder</span>
+        <span class="link-wrapper"><a href="{{route('contact')}}" class=" link-contact" style="color: #edb1cf !important;
+        ">Kontaktiere uns</a></span>
         <div class="accordion" id="faqAccordion">
             <div class="accordion-item animate__animated animate__fadeInUp animate__delay-1s">
                 <h2 class="accordion-header">

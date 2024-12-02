@@ -2,6 +2,26 @@
 
 
 @section('content')
+
+    <style>
+        .hero-content p{
+            color: whitesmoke;
+        }
+        .hero_home{
+            padding: 0 200px;
+        }
+
+        @media (max-width: 425px) {
+            .hero_home{
+                padding: 0 20px;
+            }
+
+            .model_c{
+                margin-top: 30px !important;
+            }
+        }
+
+    </style>
     <div class="container-fluid p-0 mt-5">
         <!-- Desktop View -->
         <div class="d-none d-md-flex justify-content-center align-items-center vh-100">
@@ -16,7 +36,7 @@
             </div>
         </div>
     </div>
-    <div class="accordion" id="faqAccordion">
+    <div class="accordion hero_home mt-5" id="faqAccordion">
         <div class="accordion-item animate__animated animate__fadeInUp animate__delay-1s">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">

@@ -115,7 +115,7 @@
                         <img src="https://img.icons8.com/ios-filled/100/000000/coins.png" alt="Coin balance" class="coin-image mt-3" />
                         <!-- Button to Trigger Modal -->
                         @if(\Illuminate\Support\Facades\Auth::user()->user_type ==1)
-                            <a href="{{route('user.coins')}}" class="btn btn-outline-dark btn-lg" >Münzen kaufen</a>
+                            <a href="{{route('user.coins')}}" class="btn btn-outline-dark btn-lg" style="background-color: #edb1cf; color: #ffffff;" >Münzen kaufen</a>
 
                         @endif
 
@@ -197,7 +197,7 @@
                                                 </p>
                                             </div>
                                         </div>
-                                        <a href="{{route('user.new.detail', $new->post_url)}}" class="btn btn-outline-dark view-message" style="background-color: deeppink ">View</a>
+                                        <a href="{{route('user.new.detail', $new->post_url)}}" class="btn btn-outline-dark view-message" style="background-color: #edb1cf ">View</a>
                                     </div>
 
                                 @endforeach

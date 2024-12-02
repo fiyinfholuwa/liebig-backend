@@ -63,7 +63,7 @@
                                                 data-id="{{ $plan->id }}"
                                                 data-amount="{{ $plan->amount }}"
                                                 onclick="openModal({{ $plan->id }}, '{{ $plan->amount }}')">
-                                            Münze kaufen
+                                            Coins kaufen
                                         </button>
                                     </div>
                                 </div>

@@ -1,13 +1,32 @@
 @extends('frontend.app')
 
 @section('content')
+
+    <link href="{{asset('frontend/css/contact.css')}}" rel="stylesheet">
+
+
+
     <style>
         .hero-content p{
             color: whitesmoke;
         }
+        .hero_home{
+            padding: 0 200px;
+        }
+
+        @media (max-width: 425px) {
+            .hero_home{
+                padding: 0 20px;
+            }
+
+            .model_c{
+                margin-top: 30px !important;
+            }
+        }
+
     </style>
     <section class="hero">
-        <div class="">
+        <div class="hero_home">
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="">
@@ -23,40 +42,39 @@
                 </div>
                 <div class="col-lg-6 text-start text-right hero-content">
                     <div class="text-black  mb-12">
-                        <h2 class="fw-bold mt-4 text">Wir sind immer für Sie da!</h2>
+                        <h2 class="fw-bold mt-4 text" style="color: #edb1cf">Wir sind immer für Sie da!</h2>
                         <p class="fs-6 text">Bei Lieblings-Chat steht Ihre Zufriedenheit an erster Stelle. Egal, ob Sie Fragen, Anregungen oder
                             Probleme haben, unser engagiertes Support-Team ist stets bereit, Ihnen zu helfen. Zögern Sie nicht,
                             uns zu kontaktieren – wir freuen uns darauf, von Ihnen zu hören.
                         </p>
                     </div>
+
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-start">
+                            <li class="mb-3 d-flex align-items-start">
+                                <i class="fas fa-phone text-danger me-2"></i>
+                                <div style="color: whitesmoke">
+                                    <strong>Telefon:</strong><br>
+                                    Unser Support-Team ist von Montag bis Freitag zwischen 9:00 und 18:00 Uhr erreichbar:<br>
+                                    <span>[+49 15773580503]</span>
+                                </div>
+                            </li>
+                            <li class="mb-3 d-flex align-items-start">
+                                <i class="fas fa-envelope text-danger me-2"></i>
+                                <div style="color: whitesmoke">
+                                    <strong>Email</strong><br>
+                                    Für allgemeine Anfragen und Support:<br>
+                                    <span>[info@lieblings-chat.de]</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row justify-content-end">
-                <div class="col-md-6">
-                    <ul class="list-unstyled">
-                        <li class="mb-3 d-flex align-items-start">
-                        <li class="mb-3 d-flex align-items-start">
-                            <i class="fas fa-phone text-danger me-2"></i>
-                            <div style="color: whitesmoke">
-                                <strong>Telefon:</strong><br>
-                                Unser Support-Team ist von Montag bis Freitag zwischen 9:00 und 18:00 Uhr erreichbar:<br>
-                                <span>[+49 15773580503]</span>
-                            </div>
-                        </li>
-                        <li class="mb-3 d-flex align-items-start">
-                            <i class="fas fa-envelope text-danger me-2"></i>
-                            <div style="color: whitesmoke">
-                                <strong>Email</strong><br>
-                                Für allgemeine Anfragen und Support:<br>
-                                <span>[info@lieblings-chat.de]</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+
     </section>
     <!---FORM SECTION---->
     <style>
@@ -81,7 +99,7 @@
                                     können.</p>
                             </div>
                             <div class="col-md-6">
-                                <form action="{{route('contact.save')}}"  method="post" id="contactForm" class="needs-validation" novalidate>
+                                <form action="{{route('contact.save')}}"  method="post" id="contactForm" class="needs-validation" >
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
@@ -106,7 +124,7 @@
                                     <div class="mb-3 form-check">
                                         <input type="checkbox" class="form-check-input" id="privacyPolicy" required>
                                         <label class="form-check-label" for="privacyPolicy">
-                                            Ich akzeptiere die <a href="#" class="text-primary">Datenschutzrichtlinie</a>
+                                            Ich akzeptiere die <a href="#" class="text-primary" style="color: #edb1cf !important;">Datenschutzrichtlinie</a>
                                         </label>
                                         <div class="invalid-feedback">
                                             Sie müssen der Datenschutzrichtlinie zustimmen.

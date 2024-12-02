@@ -54,14 +54,14 @@
     <style>
         *{
              .btn-danger{
-                background-color:#600f2d !important;
+                background-color:#8d475f !important;
                  color: white;
                  border: none;
             }
 
 
              .btn-primary{
-                background-color:deeppink !important;
+                background-color:#edb1cf !important;
                  color: white;
                  border: none;
              }

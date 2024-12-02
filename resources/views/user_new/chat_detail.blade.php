@@ -21,10 +21,15 @@
                                         @php
                                             use Carbon\Carbon;
 
+                                            // Set locale to German
+                                            Carbon::setLocale('de');
+
                                             function formatDate($date) {
                                                 $carbonDate = Carbon::parse($date);
-                                                return $carbonDate->isToday() ? 'Today' : ($carbonDate->isYesterday() ? 'Yesterday' : $carbonDate->format('F j, Y'));
+                                                return $carbonDate->isToday() ? 'Heute' :
+                                                       ($carbonDate->isYesterday() ? 'Gestern' : $carbonDate->translatedFormat('j. F Y'));
                                             }
+
                                             $groupedMessages = [];
                                             foreach ($chats as $message) {
                                                 $dateKey = Carbon::parse($message['created_at'])->toDateString();
@@ -41,7 +46,7 @@
                                                         <div class="message d-flex align-items-{{ $isUser ? 'end' : 'start' }} flex-column">
                                                             <div class="d-flex align-items-center mb-1 chat-msg">
                                                                 <div class="flex-grow-1 {{ $isUser ? 'ms-3' : 'me-3' }}">
-                                                                    <div class="msg-content {{ $isUser ? 'bg-dark' : 'bg-light' }} p-2">
+                                                                    <div style="background-color: #8d475f; color: #ffffff;" class="msg-content  p-2">
                                                                         <p class="mb-0">{{ $message['message'] }}</p>
 
                                                                     </div>
@@ -64,7 +69,7 @@
                                     <textarea
                                         name="message"
                                         class="form-control border-0 shadow-none px-0"
-                                        placeholder="Type a Message"
+                                        placeholder="Schreibe eine Nachricht"
                                         rows="2"
                                         maxlength="200"
                                         oninput="document.getElementById('charCount').textContent = this.value.length + '/200 Zeichen';">
@@ -85,7 +90,7 @@
                                         <div class="col-lg-3">
                                             <div class="mt-3">
                                                 <label class="fancy-file-upload">
-                                                    <button data-bs-toggle="modal" data-bs-target="#add_category" type="button" class="btn btn-dark">
+                                                    <button data-bs-toggle="modal" data-bs-target="#add_category" type="button" class="btn btn-primary">
                                                         <span ><i class="ph-duotone ph-gift"></i>Geschenk senden</span>
 
                                                     </button>
@@ -105,7 +110,7 @@
 
                                     <hr class="my-2">
                                     <div class="d-sm-flex align-items-center">
-                                        <button type="submit" class="btn btn-danger">Nachricht sendens
+                                        <button type="submit" class="btn btn-danger">Nachricht senden
                                             <i class="ti ti-send f-18 "></i>
                                         </button>
                                     </div>
@@ -190,7 +195,7 @@
             width: 100%;
         }
         .fancy-upload-btn {
-            background-color: deeppink;
+            background-color: #edb1cf;
             color: white;
             padding: 8px 15px;
             border-radius: 20px;

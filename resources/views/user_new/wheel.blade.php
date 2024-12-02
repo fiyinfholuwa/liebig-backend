@@ -109,7 +109,7 @@
 
                         </style>
                         <!-- Spin Button with Spinner -->
-                        <button class="btn btn-dark text-center" id="spinButton" onclick="spinWheel()">
+                        <button class="btn btn-danger text-center" id="spinButton" onclick="spinWheel()">
                             <i class="fa fa-spin fa-spinner" id="spinSpinner" style="display: none;"></i>
 
                             Glücksrad drehen

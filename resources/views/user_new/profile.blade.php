@@ -15,7 +15,7 @@
             <div class="row">
 
                 <div style="margin-bottom: 30px; margin-top: 20px;" class="">
-                    <a  data-bs-toggle="modal" data-bs-target="#add_category" class="btn btn-primary text-whit border-0" style="background-color: deeppink"> <i class="fa fa-plus"></i>Geschenk kaufen
+                    <a  data-bs-toggle="modal" data-bs-target="#add_category" class="btn btn-primary text-white border-0" style="background-color: deeppink"> <i class="fa fa-plus"></i>Geschenk kaufen
 
                     </a>
                     <div class="modal fade" id="add_category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -252,7 +252,7 @@
                                 </div>
 
 
-                                <h2 class="mt-3">Passwort ändern</h2>
+                                <h3 class="mt-3">Passwort ändern</h3>
                                 <section id="multiple-column-form">
                                     <div class="card-body">
                                         <form action="{{route('user.password.change')}}" method="post" enctype="multipart/form-data">
