@@ -8,7 +8,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/dashboard', function () {
-    return view('admin.dashboard');
+    $total_balances = \App\Models\User::sum('coin_balance');
+    $total_model = \App\Models\User::where('user_type', '=', 2)->count();
+    $total_user = \App\Models\User::where('user_type', '=', 1)->count();
+    $total_plan = \App\Models\Plan::count();
+    return view('admin.dashboard', compact('total_balances', 'total_model', 'total_user', 'total_plan'));
 })->middleware(['auth', 'verified', 'user_access'])->name('dashboard');
 Route::get('redirect', [AuthController::class, 'check_login'])->name('check_login');
 
