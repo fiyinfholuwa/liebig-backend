@@ -89,8 +89,11 @@ Route::middleware(['auth', 'user_access' ])->group(function () {
 
         Route::get('admin/ribbon/view', 'ribbon_view')->name('ribbon.view');
         Route::get('admin/contact/us', 'admin_contact_us')->name('admin.contact');
-        Route::post('admin/contact/delete/{id}', 'admin_contact_delete')->name('admin.contact.delete');
+        Route::get('admin/job/all', 'admin_job')->name('admin.job');
+        Route::get('admin/policy', 'admin_policy')->name('admin.policy');
+        Route::post('admin/job/delete/{id}', 'admin_job_delete')->name('admin.job.delete');
         Route::post('admin/ribbon/save', 'ribbon_save')->name('ribbon.save');
+        Route::post('admin/policy/save', 'policy_save')->name('admin.policy.save');
 
         Route::get('/admin/chat/all', 'admin_chat_all')->name('admin.chat.all');
         Route::get('/admin/chat/detail/{id}', 'admin_chat_detail')->name('admin.chat.detail');

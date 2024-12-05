@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ApplyJob;
 use App\Models\Blog;
 use App\Models\Chat;
 use App\Models\ContactUs;
 use App\Models\ModelImage;
 use App\Models\Payment;
 use App\Models\Plan;
+use App\Models\PolicyPage;
 use App\Models\Ribbon;
 use App\Models\User;
 use App\Models\UserStatus;
@@ -695,16 +697,46 @@ public function admin_model_images()
         $all_messages = ContactUs::all();
         return view('admin.contact_us', compact('all_messages'));
     }
-
-
-    public function admin_contact_delete($id)
+    public function admin_job()
     {
-        $contact = ContactUs::findOrFail($id);
+        $all_messages = ApplyJob::all();
+        return view('admin.job', compact('all_messages'));
+    }
+
+    public function admin_policy()
+    {
+        $policy = PolicyPage::first();
+        return view('admin.policy', compact('policy'));
+    }
+
+
+    public function admin_job_delete($id)
+    {
+        $contact = ApplyJob::findOrFail($id);
         $contact->delete();
         $notification = array(
-            'message' => 'Contact Successfully Deleted.',
+            'message' => 'Job Successfully Deleted.',
             'alert-type' => 'success'
         );
+        return redirect()->back()->with($notification);
+    }
+
+
+    public function policy_save(Request $request)
+    {
+        $policyPage = PolicyPage::findOrNew(1);
+
+        $policyPage->title = $request->title;  // Assuming you have a title field
+        $policyPage->body = $request->body;
+        $policyPage->save();
+
+        // Prepare the success notification
+        $notification = array(
+            'message' => $policyPage->exists ? 'Announcement Successfully Updated' : 'Announcement Successfully Saved',
+            'alert-type' => 'success'
+        );
+
+        // Redirect with notification
         return redirect()->back()->with($notification);
     }
 

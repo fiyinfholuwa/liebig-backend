@@ -6,6 +6,7 @@ use App\Models\ApplyJob;
 use App\Models\ContactUs;
 use App\Models\ModelImage;
 use App\Models\PayModelImage;
+use App\Models\PolicyPage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,10 @@ class FrontendController extends Controller
     }
     public function contact(){
         return view('frontend.contact');
+    }
+    public function privacy(){
+        $policy = PolicyPage::first();
+        return view('frontend.policy', compact('policy'));
     }
     public function models(){
         $models = User::where('user_type', 2)->get();

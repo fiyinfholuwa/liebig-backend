@@ -12,7 +12,7 @@
             color: whitesmoke;
         }
         .hero_home{
-            padding: 0 200px;
+            padding: 0 60px;
         }
 
         @media (max-width: 425px) {
@@ -28,6 +28,20 @@
     </style>
     <section class="hero">
         <div class="hero_home">
+            <div class="container-fluid p-0 mt-5">
+                <!-- Desktop View -->
+                <div class="d-none d-md-flex justify-content-center align-items-center vh-100">
+                    <div class="col-12 text-center">
+                        <img src="{{asset('frontend/images/faq desktop.png')}}" alt="Full Screen Banner" class="img-fluid" style="width: 70%; height: auto; margin-top: 20px;">
+                    </div>
+                </div>
+                <!-- Mobile View -->
+                <div class="d-flex d-md-none justify-content-center align-items-center">
+                    <div class="col-12 p-0">
+                        <img src="{{asset('frontend/images/faq mobile.png')}}" alt="Mobile Banner" class="img-fluid w-100" style="margin-top: 20px;">
+                    </div>
+                </div>
+            </div>
             <section class="bg-gray py-5 py-md-10">
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 g-md-5">
                     <!-- Card 1 -->

@@ -293,6 +293,10 @@
                         <li class="pc-item"><a class="pc-link" href="{{route('admin.gateway.view')}}">Gateways</a>
                         </li>
 
+
+                        <li class="pc-item"><a class="pc-link" href="{{route('admin.policy')}}">Policy Page</a>
+                        </li>
+
                         <li class="pc-item"><a class="pc-link" href="{{route('admin.plan.view')}}">Plan Settings</a>
                         </li>
 
@@ -307,6 +311,17 @@
                         <i style="font-size: 20px;" class="ph-duotone ph-user-gear"></i>
 
                         <span class="pc-mtext">Contact Us</span>
+                        {{--                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>--}}
+                        {{--                        <span class="pc-badge">2</span>--}}
+                    </a>
+
+                </li>
+
+                <li class="pc-item pc-hasmenu">
+                    <a href="{{route('admin.job')}}" class="pc-link">
+                        <i style="font-size: 20px;" class="ph-duotone ph-user-gear"></i>
+
+                        <span class="pc-mtext">Applied Job</span>
                         {{--                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>--}}
                         {{--                        <span class="pc-badge">2</span>--}}
                     </a>
@@ -1094,7 +1109,7 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 <script>
     ClassicEditor
-        .create(document.querySelector('#editor'), {
+        .create(document.querySelector('#myTextarea'), {
             toolbar: [
                 'heading', '|',
                 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
