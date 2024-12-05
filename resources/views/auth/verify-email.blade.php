@@ -18,14 +18,14 @@
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
         <form method="POST" action="{{ route('verification.send') }}" style="margin: 0;">
             @csrf
-            <button type="submit" style="padding: 0.75rem 1.5rem; font-size: 0.9rem; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; background-color: deeppink; color: white; transition: background-color 0.3s ease;">
+            <button type="submit" style="padding: 0.75rem 1.5rem; font-size: 0.9rem; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; background-color: #edb1cf; color: white; transition: background-color 0.3s ease;">
                 Bestätigungs-E-Mail erneut senden
             </button>
         </form>
 
         <form method="POST" action="{{route('logout')}}" style="margin: 0;">
             @csrf
-            <button type="submit" style="padding: 0.75rem 1.5rem; font-size: 0.9rem; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; background-color: #6D3648; color: white; transition: background-color 0.3s ease;">
+            <button type="submit" style="padding: 0.75rem 1.5rem; font-size: 0.9rem; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; background-color: #8d475f; color: white; transition: background-color 0.3s ease;">
                 Abmelden
             </button>
         </form>

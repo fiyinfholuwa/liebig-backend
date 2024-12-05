@@ -3,7 +3,7 @@
 @extends('user_new.app')
 
 @section('title')
-    Chats With <span style="color: #0a58ca">{{ $name }}</span>
+    Chats mit <span style="color: #edb1cf">{{ $name }}</span>
 @endsection
 @section('page', 'Chats')
 @section('content')
@@ -20,14 +20,17 @@
             @php
                 use Carbon\Carbon;
 
+                // Set the locale to German
+                Carbon::setLocale('de');
+
                 function formatDate($date) {
                     $carbonDate = Carbon::parse($date);
                     if ($carbonDate->isToday()) {
-                        return 'today';
+                        return 'heute';
                     } elseif ($carbonDate->isYesterday()) {
-                        return 'yesterday';
+                        return 'gestern';
                     } else {
-                        return $carbonDate->format('F j, Y');
+                        return $carbonDate->format('d. F Y');
                     }
                 }
 
@@ -56,8 +59,9 @@
                                     <div class="message d-flex align-items-{{ $isUser ? 'end' : 'start' }} flex-column">
                                         <div class="d-flex align-items-center mb-1 chat-msg">
                                             <div class="flex-grow-1 {{ $isUser ? 'ms-3' : 'me-3' }}">
-                                                <div class="msg-content {{ $isUser ? 'bg-primary' : 'card' }} mb-0">
+                                                <div style="background-color: #8d475f; color: #ffffff;" class="msg-content  p-2">
                                                     <p class="mb-0">{{ $message['message'] }}</p>
+
                                                 </div>
                                                 @if($isUser)
                                                     <button class="btn btn-sm btn-link reply-btn"

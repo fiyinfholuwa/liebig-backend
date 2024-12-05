@@ -1,7 +1,7 @@
 @extends('admin.app')
 
-@section('title', 'All Chats')
-@section('page', 'All Chats')
+@section('title', 'Alle Chats')
+@section('page', 'Alle Chats')
 @section('content')
     <div id="content" class="main-content">
         <div class="layout-px-spacing">
