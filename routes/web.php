@@ -26,7 +26,11 @@ Route::controller(\App\Http\Controllers\FrontendController::class)->group(functi
     Route::get('/faq', 'faq')->name('faq');
     Route::get('/contact', 'contact')->name('contact');
     Route::post('/contact/save', 'contact_save')->name('contact.save');
+    Route::post('/job/save', 'job_save')->name('save.job');
     Route::get('/models', 'models')->name('models');
+    Route::get('/job', 'job')->name('job');
+    Route::get('/testimonial', 'testimonial')->name('testimonial');
+    Route::get('/privacy', 'privacy')->name('privacy');
     Route::get('/model/detail/{id}', 'model_detail')->name('model.detail');
 });
 

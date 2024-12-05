@@ -90,12 +90,13 @@
             <div class="col-md-12 text-center">
                 <img class="navbar-brand" src="{{asset('frontend/images/Lieblings-300x126.png')}}" alt="Logo">
                 <ul class="list-inline">
-                    <li class="list-inline-item"><a href="./jobDetails.html">Jobs</a></li>
-                    <li class="list-inline-item"><a href="#">How it works</a></li>
-                    <li class="list-inline-item"><a href="#">Pricing</a></li>
-                    <li class="list-inline-item"><a href="#">Privacy</a></li>
-                    <li class="list-inline-item"><a href="#">Testimonials</a></li>
-                    <li class="list-inline-item"><a href="#">Memberships</a></li>
+                    <li class="list-inline-item"><a href="{{route('job')}}">Jobs</a></li>
+                    <li class="list-inline-item"><a href="{{route('about')}}">Wie es funktioniert</a></li>
+                    {{--                    <li class="list-inline-item"><a href="#">Preise</a></li>--}}
+                    <li class="list-inline-item"><a href="{{route('privacy')}}">Datenschutzrichtlinie</a></li>
+                    <li class="list-inline-item"><a href="{{route('testimonial')}}">Erfahrungsberichte</a></li>
+                    <li class="list-inline-item"><a href="{{route('login')}}">Mitgliedschaften</a></li>
+
                 </ul>
                 <div class="social-icons">
                     <a href="#" target="_blank" class="me-2"><i class="fab fa-facebook fa-2x"></i></a>

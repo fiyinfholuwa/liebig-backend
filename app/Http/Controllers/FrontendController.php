@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ApplyJob;
 use App\Models\ContactUs;
 use App\Models\ModelImage;
 use App\Models\PayModelImage;
@@ -20,6 +21,15 @@ class FrontendController extends Controller
     public function about()
     {
         return view('frontend.about');
+    }
+    public function job()
+    {
+        return view('frontend.job');
+    }
+
+    public function testimonial()
+    {
+        return view('frontend.testimonial');
     }
     public function faq(){
         return view('frontend.faq');
@@ -52,7 +62,32 @@ public function contact_save(Request $request)
     $contact->message = $request->message;
     $contact->save();
     $notification = array(
-        'message' => 'Message Successfully Sent, We will get back to you shortly.',
+        'message' => 'Nachricht erfolgreich gesendet. Wir werden uns in Kürze bei Ihnen melden.',
+        'alert-type' => 'success'
+    );
+    return redirect()->back()->with($notification);
+}
+public function job_save(Request $request)
+{
+    $contact = new ApplyJob();
+
+    $image = $request->file('resume');
+    $extension = $image->getClientOriginalExtension();
+    $filename = time() . '.' . $extension;
+    $directory = 'uploads/resume/';
+    if (!file_exists($directory)) {
+        mkdir($directory, 0755, true);
+    }
+    $image->move($directory, $filename);
+    $path = $directory . $filename;
+    $contact->first_name = $request->first_name;
+    $contact->last_name = $request->last_name;
+    $contact->email = $request->email;
+    $contact->resume = $path;
+    $contact->gender = $request->gender;
+    $contact->save();
+    $notification = array(
+        'message' => 'Sie haben sich erfolgreich für die Stelle beworben. Wir werden uns in Kürze bei Ihnen melden.',
         'alert-type' => 'success'
     );
     return redirect()->back()->with($notification);

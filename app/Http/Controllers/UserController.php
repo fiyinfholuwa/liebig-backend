@@ -78,7 +78,7 @@ public function user_profile(){
         User::where('id', Auth::user()->id)->increment('coin_balance', $reward_info->reward_amount);
         $reward_info->delete();
         $notification = array(
-            'message' => 'You have successfully moved the inventory amount to coin balance.',
+            'message' => 'Sie haben den Lagerbestand erfolgreich auf das Münzguthaben übertragen.',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
@@ -100,7 +100,7 @@ public function user_profile(){
     {
         if ($request->amount >  Auth::user()->coin_balance){
             $notification = array(
-                'message' => 'Insufficient Coin Balance, Please Fund your coins and Try again',
+                'message' => 'Unzureichendes Münzguthaben. Bitte laden Sie Ihre Münzen auf und versuchen Sie es erneut.',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
@@ -130,7 +130,7 @@ public function user_profile(){
         $followedModels = json_decode($user->followed_models, true) ?? [];
         if (in_array($request->modelId, $followedModels)) {
             $notification = array(
-                'message' => 'You have already followed this model.',
+                'message' => 'Sie folgen diesem Model bereits.',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
@@ -141,7 +141,7 @@ public function user_profile(){
         $user->save();
         $chat = new Chat();
 
-        $chat->message = "Hi, My name is . " .Auth::user()->name." I will like to connect with you" ;
+        $chat->message = "Hallo, mein Name ist " . Auth::user()->name . ". Ich möchte mich mit Ihnen verbinden.";
         $chat->user_type ="user";
         $chat->userid = Auth::user()->id;
         $chat->modelId = $request->modelId;
@@ -171,7 +171,7 @@ public function user_profile(){
         $status->image = $path;
         $status->save();
         $notification = array(
-            'message' => 'Status Successfully Updated.',
+            'message' => 'Status erfolgreich aktualisiert.',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
@@ -221,7 +221,7 @@ public function user_profile(){
         if (!self::track_first_five_model_messages(Auth::user()->id, $request->modelId)){
             if ($coin_to_chat > Auth::user()->coin_balance ){
                 $notification = array(
-                    'message' => 'You have Insufficient coins, please reload your coins',
+                    'message' => 'Sie haben unzureichende Münzen. Bitte laden Sie Ihre Münzen auf.',
                     'alert-type' => 'error'
                 );
                 return redirect()->route('user.coins')->with($notification);
@@ -284,7 +284,7 @@ public function user_profile(){
         try {
             $spin_today = Carbon::parse($spin_today);  // Ensure it's a valid Carbon instance
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Invalid spin time.']);
+            return response()->json(['success' => false, 'message' => 'Ungültige Drehzeit.']);
         }
         $hoursDifference = $now->diffInHours($spin_today);
         $hoursDifference = abs($hoursDifference);
@@ -301,7 +301,7 @@ public function user_profile(){
         $hoursLeft = round(12 - $hoursDifference);
         return response()->json([
             'success' => false,
-            'message' => "You are not eligible to spin again yet. Please wait {$hoursLeft} more hour(s)."
+            'message' => "Sie sind noch nicht berechtigt, erneut zu drehen. Bitte warten Sie noch {$hoursLeft} Stunde(n)."
         ]);
     }
 
@@ -326,7 +326,7 @@ public function user_profile(){
         $user->coin_balance = $user->coin_balance + $points;
         $user->spin_today = now();
         $user->save();
-        return response()->json(['success' => true, 'message' => 'Reward claimed successfully!']);
+        return response()->json(['success' => true, 'message' => 'Belohnung erfolgreich beansprucht!']);
     }
     public function move_reward(Request $request)
     {
@@ -342,7 +342,7 @@ public function user_profile(){
         $user = User::findOrFail(Auth::user()->id);
         $user->spin_today = now();
         $user->save();
-        return response()->json(['success' => true, 'message' => 'Reward Move to Inventory successfully!']);
+        return response()->json(['success' => true, 'message' => 'Belohnung erfolgreich ins Inventar verschoben!']);
     }
 
     public function user_buy_gift(Request $request)
@@ -351,7 +351,7 @@ public function user_profile(){
 
         if ($reward_info->points > Auth::user()->coin_balance){
             $notification = array(
-                'message' => 'You have Insufficient coins, please reload your coins',
+                'message' => 'Sie haben unzureichende Münzen. Bitte laden Sie Ihre Münzen auf.',
                 'alert-type' => 'error'
             );
             return redirect()->route('user.coins')->with($notification);
@@ -367,7 +367,7 @@ public function user_profile(){
         $move->user_type = 'user';
         $move->save();
         $notification = array(
-            'message' => 'You have successfully purchased this gift, please check your inventory',
+            'message' => 'Sie haben dieses Geschenk erfolgreich gekauft. Bitte überprüfen Sie Ihr Inventar.',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
@@ -397,7 +397,7 @@ public function user_profile(){
 
         $gift_info->delete();
         $notification = array(
-            'message' => 'You have successfully gifted this model',
+            'message' => 'Sie haben dieses Model erfolgreich verschenkt.',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
@@ -446,7 +446,7 @@ public function user_profile(){
             'interested_in' => $request->interested
         ];
         $result = User::findOrFail($id)->update($data);
-        return GeneralController::redirectWithMessage($result, 'User Successfully Updated', "User Could not be Updated", 'back');
+        return GeneralController::redirectWithMessage($result, 'Benutzer erfolgreich aktualisiert', 'Benutzer konnte nicht aktualisiert werden', 'back');
     }
 
 
@@ -462,13 +462,13 @@ public function user_profile(){
             $user->password = Hash::make($request->new_password);
             $user->save();
             $notification = array(
-                'message' => 'Password Changed Successfully',
+                'message' => 'Passwort erfolgreich geändert',
                 'alert-type' => 'success'
             );
             return redirect()->back()->with($notification);
         } else {
             $notification = array(
-                'message' => 'Incorrect Password, Please try again.',
+                'message' => 'Falsches Passwort, bitte versuchen Sie es erneut.',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
@@ -522,7 +522,7 @@ public function user_profile(){
         $user->height = $request->height;
         $user->ethnicity = $request->ethnicity;
         $user->save();
-        return GeneralController::redirectWithMessage(true, 'User Successfully Updated', "User Could not be Updated", 'back');
+        return GeneralController::redirectWithMessage(true, 'Benutzer erfolgreich aktualisiert', 'Benutzer konnte nicht aktualisiert werden', 'back');
     }
 
 
@@ -531,7 +531,7 @@ public function user_profile(){
         $status = ModelImage::findOrFail($id);
         $status->delete();
         $notification = array(
-            'message' => 'Model Image Successfully Deleted',
+            'message' => 'Modelbild erfolgreich gelöscht',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
@@ -557,7 +557,7 @@ public function user_profile(){
         $status->amount = $request->image_type ==='free' ? 0 : $request->amount;
         $status->save();
         $notification = array(
-            'message' => 'Image Successfully Updated.',
+            'message' => 'Bild erfolgreich aktualisiert.',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
