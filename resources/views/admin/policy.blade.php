@@ -19,9 +19,7 @@
                                       class="row g-3">
                                     @csrf
                                     @if(is_null($policy))
-                                        <form method="post" action="{{route('admin.policy.save')}}" enctype="multipart/form-data"
-                                              class="row g-3">
-                                            @csrf
+
                                             <div class="col-md-6 col-lg-12">
                                                 <label for="inputName5" class="form-label">Title</label>
                                                 <input type="text" name="title" value="{{old('title')}}" class="form-control"
@@ -44,11 +42,6 @@
                                                 </p>
                                             </div>
 
-
-                                            <div class="">
-                                                <button type="submit" class="btn btn-primary">Save Settings</button>
-                                            </div>
-                                        </form><!-- End Multi Columns Form -->
 
                                     @else
 
