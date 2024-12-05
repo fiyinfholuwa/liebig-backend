@@ -78,7 +78,7 @@
 
         <!-- Quick Section -->
         <div class="container mt-6 text-center">
-            <button class="btn btn-outline-light btn-lg">Jetzt starten</button>
+            <a href="{{route('contact')}}" class="btn btn-outline-light btn-lg">Jetzt starten</a>
         </div>
 
     </section>
